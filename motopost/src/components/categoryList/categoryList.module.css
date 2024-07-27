@@ -1,0 +1,87 @@
+.container {
+}
+
+.title {
+  margin: 20px 0px;
+  font-size: 20px;
+}
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.category {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-transform: capitalize;
+  width: 15%;
+  height: 50px;
+  justify-content: center;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.category:hover {
+  transform: scale(1.01);
+}
+
+.category:active {
+  font-weight: 600;
+}
+
+.category.notícias {
+  background-color: #57c4ff31;
+}
+
+.category.viagens {
+  background-color: #da85c731;
+}
+
+.category.oficína {
+  background-color: #7fb88133;
+}
+
+.category.dicas {
+  background-color: #ff795736;
+}
+
+.category.estilo {
+  background-color: #ffb04f45;
+}
+
+.category.outro {
+  background-color: #5e4fff31;
+}
+
+.category.focused {
+  border: 2px solid crimson;
+}
+
+.image {
+  border-radius: 50%;
+}
+
+@media screen and (max-width: 1280px) {
+  .category {
+    width: 20%;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .category {
+    width: 25%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .category {
+    width: 45%;
+  }
+}
+@media screen and (max-width: 640px) {
+  .category {
+    width: 100%;
+  }
+}
