@@ -6,7 +6,7 @@ const Card = ({key, item}) => {
   return (
     <div className={styles.container} key={key}>
       {item.img && <div className={styles.imageContainer}>
-         <Image src={item.img} alt="" fill className={styles.image}/>
+         <Image src={item.img} alt={item.title} fill className={styles.image}/>
       </div>}
       <div className={styles.textContainer}>
         <div className={styles.detail}>
@@ -14,10 +14,16 @@ const Card = ({key, item}) => {
           <span className={styles.category}>{item.catSlug}</span>
         </div>
         <Link href={`/posts/${item.slug}`}>
-          <h1>{item.title}</h1>
+          <h2>{item.title}</h2>
         </Link>
-        <p className={styles.desc}>{item.desc.substring(0, 60)}</p>
-        <Link href={`/posts/${item.slug}`} className={styles.link}>Read More</Link>
+        <p className={styles.desc}>{item.desc.substring(0, 260)}</p>
+        <Link 
+          href={`/posts/${item.slug}`} 
+          className={styles.link}
+          title="Leia a postagem completa"
+        >
+          Leia mais
+        </Link>
       </div>
     </div>
   )

@@ -2,6 +2,10 @@
   cursor: pointer;
 }
 
+.link:active {
+  font-weight: 600;
+}
+
 .burger {
   width: 20px;
   height: 16px;

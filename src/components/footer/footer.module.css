@@ -50,6 +50,10 @@
   gap: 100px;
 }
 
+.link:active {
+  font-weight: 600;
+}
+
 .list {
   display: flex;
   flex-direction: column;

@@ -1,41 +1,37 @@
 import styles from './categoryList.module.css'
-import Image from 'next/image'
 import Link from 'next/link'
 
-const getData = async () => {
-  const res = await fetch(`${process.env.BASE_URL}/api/categories`, {
-    cache: "no-store",
-  })
+const CategoryList = () => {
 
-  if (!res.ok) {
-    throw new Error("Failed!")
-  }
 
-  return res.json()
-}
+  const categoriesOrder = ['notícias', 'viagens', 'oficína', 'dicas', 'estilo', 'outro']
 
-const CategoryList = async () => {
-
-  const data = await getData()
+  // const categories = [
+  //   {cat: 'Todas', img: ''},
+  //   {cat: 'Notícias', img: ''},
+  //   {cat: 'Viagens', img: ''},
+  //   {cat: 'Oficína', img: ''},
+  //   {cat: 'Dicas', img: ''},
+  //   {cat: 'Estilo', img: ''},  
+  // ]
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Categorías</h1>
+      <h2 className={styles.title}>Categorías</h2>
       <div className={styles.categories}>
-        {data?.map(item => (
-          <Link 
-            href={`/blog?cat=${item.title}`} 
-            className={`${styles.category} ${styles[item.slug]}`}
+        {categoriesOrder.map((item) => (
+          <Link
+            href={`/${item}`}
+            className={`${styles.category} ${item === 'notícias' 
+              ? styles.notícias : item === 'viagens' 
+              ? styles.viagens : item === 'oficína' 
+              ? styles.oficína : item === 'dicas' 
+              ? styles.dicas : item === 'estilo' 
+              ? styles.estilo : item === 'outro' 
+              ? styles.outro : ''} `}
             key={item._id}
           >
-            {item.img && <Image 
-              src={item.img} 
-              alt="" 
-              width={32} 
-              height={32} 
-              className={styles.image} 
-            />}
-            {item.title}
+            {item}
           </Link>
         ))}
       </div>

@@ -8,11 +8,13 @@ const Navbar = () => {
   return (
     <div className={styles.container}>
       <div className={styles.logo}>
-        <Image src="/motorbike.png" width={50} height={50} alt='moto-logo'></Image>
+        <Link href="/">
+          <Image src="/motorbike.png" width={50} height={50} alt='moto-logo'></Image>
+        </Link>     
       </div>
-      <div className={styles.title}>
+      <h1 className={styles.title}>
         MotoPost
-      </div>
+      </h1>   
       <div className={styles.links}>
         <ThemeToggle/>
         <Link href="/" className={styles.link}>Home</Link>
