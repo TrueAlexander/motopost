@@ -11,14 +11,14 @@ const Card = ({key, item}) => {
       <div className={styles.textContainer}>
         <div className={styles.detail}>
           <span className={styles.date}>{item.createdAt.substring(0, 10)} - </span>
-          <span className={styles.category}>{item.catSlug}</span>
+          <Link href={`/${item.catSlug}`} className={styles.category}>{item.catSlug}</Link>
         </div>
-        <Link href={`/posts/${item.slug}`}>
+        <Link href={`/${item.catSlug}/${item.slug}`}>
           <h2>{item.title}</h2>
         </Link>
         <p className={styles.desc}>{item.desc.substring(0, 260)}</p>
         <Link 
-          href={`/posts/${item.slug}`} 
+          href={`/${item.catSlug}/${item.slug}`} 
           className={styles.link}
           title="Leia a postagem completa"
         >
