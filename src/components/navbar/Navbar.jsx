@@ -6,7 +6,7 @@ import ThemeToggle from '../themeToggle/ThemeToggle'
 
 const Navbar = () => {
   return (
-    <div className={styles.container}>
+    <nav className={styles.container} id='navbar'>
       <div className={styles.logo}>
         <Link href="/">
           <Image src="/motorbike.png" width={50} height={50} alt='moto-logo'></Image>
@@ -21,7 +21,7 @@ const Navbar = () => {
         <Link href="/" className={styles.link}>Contato</Link>
         <AuthLinks/>
       </div>
-    </div>
+    </nav>
   )}
 
 export default Navbar

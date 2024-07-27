@@ -5,6 +5,7 @@ import Footer from '@/components/footer/Footer'
 import { ThemeContextProvider } from '@/context/ThemeContext'
 import ThemeProvider from '@/providers/ThemeProvider'
 import AuthProvider from '@/providers/AuthProvider'
+import UpArrow from '@/components/upArrow/UpArrow'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -35,6 +36,7 @@ export default function RootLayout({ children }) {
                   <Navbar/>
                   {children}
                   <Footer/>
+                  <UpArrow/>
                 </div>
               </div>
             </ThemeProvider>

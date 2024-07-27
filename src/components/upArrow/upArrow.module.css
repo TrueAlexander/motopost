@@ -1,0 +1,17 @@
+.upArrow {
+  position: fixed;
+  left: 2rem;
+  top: 88%;
+  opacity: 1;
+  cursor: pointer;
+  font-size: 40px;
+}
+
+.scrollLink {
+  color: crimson;
+  background-color: white;
+  display: block;
+  height: 80px;
+  border-radius: 50%;
+}
+
