@@ -2,7 +2,7 @@
 import styles from './pagination.module.css'
 import { useRouter } from 'next/navigation'
 
-const Pagination = ({page, hasPrev, hasNext}) => {
+const Pagination = ({page, hasPrev, hasNext, cat}) => {
 
   const router = useRouter()
 
@@ -11,14 +11,14 @@ const Pagination = ({page, hasPrev, hasNext}) => {
       <button 
         className={styles.button}
         disabled={!hasPrev}
-        onClick={() => router.push(`?page=${page - 1}`)}
+        onClick={() => router.push(`?${cat ? `cat=${cat}&` : ''}page=${page - 1}`)}
       >
         Voltar
       </button>
       <button 
         className={styles.button}
         disabled={!hasNext}
-        onClick={() => router.push(`?page=${page + 1}`)}
+        onClick={() => router.push(`?${cat ? `cat=${cat}&` : ''}page=${page + 1}`)}
       >
         Avançar
       </button>

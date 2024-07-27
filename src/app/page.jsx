@@ -10,7 +10,7 @@ export default function Home({searchParams}) {
   <div className={styles.container}>
     <CategoryList/>
     <div className={styles.content}>
-      <CardList page={page}/>
+      <CardList page={page} cat={null}/>
     </div>
   </div>
   )

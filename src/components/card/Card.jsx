@@ -12,7 +12,7 @@ const Card = ({key, item}) => {
       <div className={styles.textContainer}>
         <div className={styles.detail}>
           <span className={styles.date}>{formatDate(item.createdAt)} - </span>
-          <Link href={`/${item.catSlug}`} className={styles.category}>{item.catSlug}</Link>
+          <Link href={`/${item.catSlug}/?cat=${item.catSlug}`} className={styles.category}>{item.catSlug}</Link>
         </div>
         <Link href={`/${item.catSlug}/${item.slug}`}>
           <h2>{item.title}</h2>

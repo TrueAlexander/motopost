@@ -12,7 +12,7 @@ const UpArrow = () => {
 
   useEffect(() => {
     const handleScroll = (event) => {
-      window.pageYOffset === 0 ? setY(0) : setY(1)
+      window.scrollY === 0 ? setY(0) : setY(1)
     }
     window.addEventListener('scroll', handleScroll)
     return () => {
