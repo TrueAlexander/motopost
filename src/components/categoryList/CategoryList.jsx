@@ -12,7 +12,7 @@ const CategoryList = () => {
       <div className={styles.categories}>
         {categoriesOrder.map((item) => (
           <Link
-            href={`/${item}?cat=${item}`}
+            href={`/blog?cat=${item}`}
             className={`${styles.category} ${item === 'notícias' 
               ? styles.notícias : item === 'viagens' 
               ? styles.viagens : item === 'oficína' 

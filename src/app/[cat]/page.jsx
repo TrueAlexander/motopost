@@ -16,7 +16,8 @@ const categoryPage = ({searchParams}) => {
 
   const page = parseInt(searchParams.page) || 1
   const { cat } = searchParams
- 
+  
+  console.log(cat)
 
   return (
   <div className={styles.container}>
