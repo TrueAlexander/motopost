@@ -32,7 +32,7 @@ const Footer = () => {
             <Link
               key={index}
               className={styles.link} 
-              href={`/${item}?cat=${item}`}
+              href={`/blog?cat=${item}`}
               >{item.charAt(0).toUpperCase() + item.slice(1)}
             </Link>
           ))}

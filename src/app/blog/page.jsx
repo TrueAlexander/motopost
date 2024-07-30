@@ -1,6 +1,5 @@
 import CardList from "@/components/cardList/CardList"
 import styles from "./blogPage.module.css"
-// import Menu from "@/components/menu/Menu"
 
 const BlogPage = ({ searchParams }) => {
   const page = parseInt(searchParams.page) || 1
@@ -17,10 +16,9 @@ const BlogPage = ({ searchParams }) => {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title} style={{backgroundColor: `${catBg[cat]}`}}>{`cat: ${cat}`}</h2>
+      <h2 className={styles.title} style={{backgroundColor: `${catBg[cat]}`}}>{cat}</h2>
       <div className={styles.content}>
         <CardList page={page} cat={cat}/>
-        {/* <Menu /> */}
       </div>
     </div>
   )
