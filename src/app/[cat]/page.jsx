@@ -1,3 +1,4 @@
+'use client'
 import CardList from "@/components/cardList/CardList"
 import styles from "./categoryPage.module.css"
 
@@ -15,6 +16,7 @@ const categoryPage = ({searchParams}) => {
 
   const page = parseInt(searchParams.page) || 1
   const { cat } = searchParams
+ 
 
   return (
   <div className={styles.container}>
