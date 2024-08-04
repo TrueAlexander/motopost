@@ -1,24 +1,28 @@
 import CardList from "@/components/cardList/CardList"
 import styles from "./blogPage.module.css"
+import CatTitle from "@/components/catTitle/CatTitle"
 
 const BlogPage = ({ searchParams }) => {
   const page = parseInt(searchParams.page) || 1
-  const { cat } = searchParams
+  const { catSlug } = searchParams
 
-  const catBg = {
-    notícias: "#57c4ff31",
-    viagens: "#da85c731",
-    oficína: "#7fb88133",
-    dicas: "#ff795736",
-    estilo: "#ffb04f45",
-    outro: "#5e4fff31"
+  ///
+  const cats = {
+    noticias: 'notícias', 
+    viagens:'viagens',
+    oficina: 'oficína', 
+    dicas: 'dicas', 
+    estilo: 'estilo', 
+    outro: 'outro'
   }
 
+  const cat = cats[catSlug]
+  
   return (
     <div className={styles.container}>
-      <h2 className={styles.title} style={{backgroundColor: `${catBg[cat]}`}}>{cat}</h2>
+      <CatTitle cat={cat} catSlug={catSlug}/>
       <div className={styles.content}>
-        <CardList page={page} cat={cat}/>
+        <CardList page={page} cat={catSlug}/>
       </div>
     </div>
   )

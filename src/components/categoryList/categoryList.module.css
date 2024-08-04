@@ -19,7 +19,7 @@
   gap: 10px;
   text-transform: capitalize;
   width: 15%;
-  height: 50px;
+  height: 30px;
   justify-content: center;
   border-radius: 10px;
   cursor: pointer;
@@ -33,7 +33,7 @@
   font-weight: 600;
 }
 
-.category.notícias {
+.category.noticias {
   background-color: #57c4ff31;
 }
 
@@ -41,7 +41,7 @@
   background-color: #da85c731;
 }
 
-.category.oficína {
+.category.oficina {
   background-color: #7fb88133;
 }
 
@@ -76,6 +76,9 @@
   }
 }
 @media screen and (max-width: 768px) {
+  .categories {
+    gap: 15px;
+  }
   .category {
     width: 45%;
   }

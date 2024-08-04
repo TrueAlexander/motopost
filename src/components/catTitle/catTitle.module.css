@@ -1,0 +1,17 @@
+.title{
+  border-top: 5px solid var(--bg);
+  color: var(--text-color);
+  padding: 5px 10px;
+  text-align: center;
+  text-transform: capitalize;
+  border-radius: 15px;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+@media screen and (max-width: 1024px) {
+  .title{
+    font-size: 16px;
+    border-radius: 10px;
+  }
+}

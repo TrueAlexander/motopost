@@ -4,7 +4,8 @@ import Link from 'next/link'
 
 const Footer = () => {
 
-  const categories = ['notícias', 'viagens', 'oficína', 'dicas', 'estilo', 'outro']
+  const catSlugsOrder = ['noticias', 'viagens', 'oficina', 'dicas', 'estilo', 'outro']
+  const categories = ['Notícias', 'Viagens', 'Oficína', 'Dicas', 'Estilo', 'Outro']
 
   return (
     <div className={styles.container}>
@@ -28,12 +29,14 @@ const Footer = () => {
         </div>
         <div className={styles.list}>
           <span className={styles.listTitle}>Categorías</span>
-          {categories.map((item, index) => (
+          {catSlugsOrder.map((item, index) => (
             <Link
               key={index}
               className={styles.link} 
-              href={`/blog?cat=${item}`}
-              >{item.charAt(0).toUpperCase() + item.slice(1)}
+              href={`/blog?catSlug=${item}`}
+            >
+              {/* {categories[index].charAt(0).toUpperCase() + item.slice(1)} */}
+              {categories[index]}
             </Link>
           ))}
         </div>

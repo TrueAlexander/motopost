@@ -4,25 +4,26 @@ import Link from 'next/link'
 const CategoryList = () => {
 
 
-  const categoriesOrder = ['notícias', 'viagens', 'oficína', 'dicas', 'estilo', 'outro']
+  const catSlugsOrder = ['noticias', 'viagens', 'oficina', 'dicas', 'estilo', 'outro']
+  const categories = ['notícias', 'viagens', 'oficína', 'dicas', 'estilo', 'outro']
 
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Categorías</h2>
       <div className={styles.categories}>
-        {categoriesOrder.map((item) => (
+        {catSlugsOrder.map((item, index) => (
           <Link
-            href={`/blog?cat=${item}`}
-            className={`${styles.category} ${item === 'notícias' 
-              ? styles.notícias : item === 'viagens' 
-              ? styles.viagens : item === 'oficína' 
-              ? styles.oficína : item === 'dicas' 
+            href={`/blog?catSlug=${item}`}
+            className={`${styles.category} ${item === 'noticias' 
+              ? styles.noticias : item === 'viagens' 
+              ? styles.viagens : item === 'oficina' 
+              ? styles.oficina : item === 'dicas' 
               ? styles.dicas : item === 'estilo' 
               ? styles.estilo : item === 'outro' 
               ? styles.outro : ''} `}
             key={item._id}
           >
-            {item}
+            {categories[index]}
           </Link>
         ))}
       </div>

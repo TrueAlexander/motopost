@@ -1,9 +1,11 @@
-import styles from './cardList.module.css'
-import Pagination from '../pagination/Pagination'
-import Card from '../card/Card'
+import styles from "./singlePage.module.css"
+import Image from "next/image"
+import { formatDate } from "@/utils/dateFormat"
+import CatTitle from "@/components/catTitle/CatTitle"
+// import Comments from "@/components/comments/Comments"
 
-// const getData = async (page, cat) => {
-//   const res = await fetch(`${process.env.BASE_URL}/api/posts?page=${page}&cat=${cat || ""}`, {
+// const getData = async (slug) => {
+//   const res = await fetch(`${process.env.BASE_URL}/api/posts/${slug}`, {
 //     cache: "no-store",
 //   })
 
@@ -14,7 +16,6 @@ import Card from '../card/Card'
 //   return res.json()
 // }
 
-
 const posts = [
   {
     _id: 0,
@@ -22,8 +23,9 @@ const posts = [
     title: "Relógios de motociclistas",
     slug: "relogios-de-motociclistas",
     catSlug: "dicas",
+    category: "dicas",
     desc: "Os relógios para motociclistas são mais do que simples acessórios; eles são ferramentas essenciais que combinam estilo, funcionalidade e robustez. Projetados para resistir às condições adversas enfrentadas na estrada, esses relógios geralmente possuem características como resistência à água, construção robusta e fácil legibilidade em diferentes condições de luz.",
-    createdAt: "2023-10-29T00:16:29.938+00:00",
+    createdAt: "2023-10-29T12:16:29.938+00:00",
     author: "Admin",
     likes: 0,
     views: 5,
@@ -34,6 +36,7 @@ const posts = [
     title: "Motociclistas jovens",
     slug: "motociclistas-jovens",
     catSlug: "viagens",
+    category: "viagens",
     desc: "A infância de muitos motociclistas é marcada por uma fascinação precoce por motos e a sensação de liberdade que elas proporcionam. Desde cedo, muitos se encantam com o som dos motores, as corridas, e a ideia de aventura. Alguns começam a andar de bicicleta, sonhando com o dia em que trocarão as pedaladas pelo ronco de um motor. Para muitos, as histórias de viagens e as aventuras de motociclistas mais velhos alimentam o desejo de um dia seguir o mesmo caminho, explorando o mundo sobre duas rodas. Essa paixão, muitas vezes herdada ou inspirada por pais e familiares, molda a identidade e os sonhos de futuros motociclistas.",
     createdAt: "2023-10-31T00:16:29.938+00:00",
     author: "Admin",
@@ -43,9 +46,10 @@ const posts = [
   {
     _id: 3,
     img:"/watch.png",
-    title: "Relógios de motociclistas",
+    title: "Relógios de motociclistas2",
     slug: "relogios-de-motociclistas2",
     catSlug: "dicas",
+    category: "dicas",
     desc: "Os relógios para motociclistas são mais do que simples acessórios; eles são ferramentas essenciais que combinam estilo, funcionalidade e robustez. Projetados para resistir às condições adversas enfrentadas na estrada, esses relógios geralmente possuem características como resistência à água, construção robusta e fácil legibilidade em diferentes condições de luz.",
     createdAt: "2023-10-29T00:16:29.938+00:00",
     author: "Admin",
@@ -55,9 +59,10 @@ const posts = [
   {
     _id: 4,
     img:"/baby.jpg",
-    title: "Motociclistas jovens",
+    title: "Motociclistas jovens2",
     slug: "motociclistas-jovens2",
     catSlug: "viagens",
+    category: "viagens",
     desc: "A infância de muitos motociclistas é marcada por uma fascinação precoce por motos e a sensação de liberdade que elas proporcionam. Desde cedo, muitos se encantam com o som dos motores, as corridas, e a ideia de aventura. Alguns começam a andar de bicicleta, sonhando com o dia em que trocarão as pedaladas pelo ronco de um motor. Para muitos, as histórias de viagens e as aventuras de motociclistas mais velhos alimentam o desejo de um dia seguir o mesmo caminho, explorando o mundo sobre duas rodas. Essa paixão, muitas vezes herdada ou inspirada por pais e familiares, molda a identidade e os sonhos de futuros motociclistas.",
     createdAt: "2023-10-31T00:16:29.938+00:00",
     author: "Admin",
@@ -67,29 +72,54 @@ const posts = [
 
 ] 
 
-const CardList = async ({page, cat}) => {
+const SinglePage = ({params}) => {
 
-  // const {posts, count} = await getData(page, cat)
-  ///
-  const count = 8
-  ///
+  const {slug} = params
 
-  const POST_PER_PAGE = 1
-
-  const hasPrev = POST_PER_PAGE * (page - 1) > 0
-  const hasNext = POST_PER_PAGE * (page - 1) + POST_PER_PAGE < count
+  /////
+  const data = posts.filter(item => item.slug === slug)[0]
+  const cat = data.category
+  const catSlug = data.catSlug
+  /////
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>Postagens recentes</h2>
-      <div className={styles.posts}>
-        {posts?.map(item => (
-          <Card item={item} key={item._id}/>
-        ))}
+      <CatTitle cat={cat} catSlug={catSlug}/>
+      <div className={styles.infoContainer}>
+        <div className={styles.textContainer}>
+          <h1 className={styles.title}>{data?.title}</h1>
+          <div className={styles.user}>
+            {/* {data?.user?.image && <div className={styles.userImageContainer} >
+              <Image src={data.user.image} alt="image avatar" fill className={styles.avatar} />
+            </div>} */}
+            <div className={styles.userTextContainer}>
+              <span className={styles.username}>{data?.author}</span>
+              <span className={styles.date}>{formatDate(data.createdAt)}</span>
+            </div>
+          </div>
+        </div>
+        {data?.img && <div className={styles.imageContainer}>
+          <Image src={data.img} alt="" fill className={styles.image} />
+        </div>}
       </div>
-      <Pagination page={page} hasNext={hasNext} hasPrev={hasPrev} cat={cat}/>
+      <div className={styles.content}>
+        <div className={styles.post}>
+          {/* <div
+           className={styles.description} 
+           dangerouslySetInnerHTML={{ __html: data?.desc }}
+           /> */}
+          <div 
+            className={styles.description}
+            dangerouslySetInnerHTML={{ __html: data?.desc }}
+          />
+          {/* <div className={styles.comment}>
+            <Comments postSlug={slug}/>
+          </div>       */}
+        </div>
+      </div>
     </div>
   )
 }
 
-export default CardList
+export default SinglePage
+

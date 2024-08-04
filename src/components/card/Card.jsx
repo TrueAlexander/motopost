@@ -12,15 +12,15 @@ const Card = ({key, item}) => {
       <div className={styles.textContainer}>
         <div className={styles.detail}>
           <span className={styles.date}>{formatDate(item.createdAt)} - </span>
-          <Link href={`/blog/?cat=${item.catSlug}`} className={styles.category}>{item.catSlug}</Link>
+          <Link href={`/blog/?catSlug=${item.catSlug}`} className={styles.category}>{item.catSlug}</Link>
         </div>
-        <Link href={`/${item.catSlug}/${item.slug}`}>
+        <Link href={`/posts/${item.slug}`}>
           <h2>{item.title}</h2>
         </Link>
         <p className={styles.author}>autor: <span className={styles.author_name}>{item.author}</span></p>
         <p className={styles.desc}>{item.desc}</p>
         <Link 
-          href={`/${item.catSlug}/${item.slug}`} 
+          href={`/posts/${item.slug}`} 
           className={styles.link}
           title="Leia a postagem completa"
         >
