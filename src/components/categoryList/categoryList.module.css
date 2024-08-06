@@ -74,6 +74,14 @@
   .category {
     width: 25%;
   }
+
+  .categories {
+    margin-top: 20px;
+  }
+
+  .title {
+    display: none;
+  }
 }
 @media screen and (max-width: 768px) {
   .categories {

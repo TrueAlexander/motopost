@@ -1,7 +1,7 @@
 "use client"
 import Link from "next/link"
 import styles from "./authLinks.module.css"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useSession } from "next-auth/react"
 
 const AuthLinks = () => {
@@ -10,16 +10,17 @@ const AuthLinks = () => {
 
   const {status} = useSession()
 
+
   const openBurger = () => {
     setOpen(!open)
-    document.body.style.overflowY = 'hidden'
+    open ? document.body.style.overflowY = 'auto' : document.body.style.overflowY = 'hidden'
   }
 
   const closeBurger = () => {
     setOpen(!open)
     document.body.style.overflowY = 'auto'
   }
-    
+
   return (
     <>
       {status === "unauthenticated" ? (
@@ -31,9 +32,18 @@ const AuthLinks = () => {
         </>
       )}
       <div className={styles.burger} onClick={openBurger}>
-        <div className={styles.line}></div>
-        <div className={styles.line}></div>
-        <div className={styles.line}></div>
+        <div 
+          className={styles.line}
+          style={open ? { display: "none" } : {}}
+        ></div>
+        <div 
+          className={styles.line} 
+          style={open ? { transform: "rotate(-45deg) translate(-5px, 4px)" } : {}}
+        ></div>
+        <div 
+          className={styles.line}
+          style={open ? { transform: "rotate(45deg) translate(-5px, -5px)" } : {}}
+        ></div>
       </div>
       {open && (
         <div className={styles.responsiveMenu} onClick={closeBurger}>

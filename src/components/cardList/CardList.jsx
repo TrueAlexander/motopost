@@ -67,7 +67,7 @@ const posts = [
 
 ] 
 
-const CardList = async ({page, cat}) => {
+const CardList = async ({page, catSlug}) => {
 
   // const {posts, count} = await getData(page, cat)
   ///
@@ -87,7 +87,7 @@ const CardList = async ({page, cat}) => {
           <Card item={item} key={item._id}/>
         ))}
       </div>
-      <Pagination page={page} hasNext={hasNext} hasPrev={hasPrev} cat={cat}/>
+      <Pagination page={page} hasNext={hasNext} hasPrev={hasPrev} catSlug={catSlug}/>
     </div>
   )
 }

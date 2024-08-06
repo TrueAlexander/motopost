@@ -22,7 +22,7 @@ const BlogPage = ({ searchParams }) => {
     <div className={styles.container}>
       <CatTitle cat={cat} catSlug={catSlug}/>
       <div className={styles.content}>
-        <CardList page={page} cat={catSlug}/>
+        <CardList page={page} catSlug={catSlug}/>
       </div>
     </div>
   )
