@@ -9,6 +9,17 @@ const AuthLinks = () => {
   const [open, setOpen] = useState(false)
 
   const {status} = useSession()
+
+  const openBurger = () => {
+    setOpen(!open)
+    document.body.style.overflowY = 'hidden'
+  }
+
+  const closeBurger = () => {
+    setOpen(!open)
+    document.body.style.overflowY = 'auto'
+  }
+    
   return (
     <>
       {status === "unauthenticated" ? (
@@ -19,22 +30,22 @@ const AuthLinks = () => {
           <span className={styles.link}>Logout</span>
         </>
       )}
-      <div className={styles.burger} onClick={() => setOpen(!open)}>
+      <div className={styles.burger} onClick={openBurger}>
         <div className={styles.line}></div>
         <div className={styles.line}></div>
         <div className={styles.line}></div>
       </div>
       {open && (
-        <div className={styles.responsiveMenu}>
-          <Link href="/">Homepage</Link>
-          <Link href="/">About</Link>
-          <Link href="/">Contact</Link>
+        <div className={styles.responsiveMenu} onClick={closeBurger}>
+          <Link href="/" >Home</Link>
+          <Link href="/contato">Contato</Link>
           {status === "notauthenticated" ? (
               <Link href="/login">Login</Link>
             ) : (
               <>
-                <Link href="/write">Write</Link>
-                <span className={styles.link}>Logout</span>
+                <Link href="/usuario">Seu perfil</Link>
+                <Link href="/criar-post">Novo Post</Link>
+                <Link href="/" onClick={closeBurger}>Sair</Link>
               </>
             )}
         </div>

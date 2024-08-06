@@ -6,9 +6,6 @@ import { formatDate } from "@/utils/dateFormat"
 const Card = ({key, item}) => {
   return (
     <div className={styles.container} key={key}>
-      {item.img && <div className={styles.imageContainer}>
-         <Image src={item.img} alt={item.title} fill className={styles.image}/>
-      </div>}
       <div className={styles.textContainer}>
         <div className={styles.detail}>
           <span className={styles.date}>{formatDate(item.createdAt)} - </span>
@@ -27,6 +24,10 @@ const Card = ({key, item}) => {
           Leia mais
         </Link>
       </div>
+      {item.img && <div className={styles.imageContainer} title={item.title}>
+         <Image src={item.img} alt={item.title} fill className={styles.image}/>
+      </div>}
+
     </div>
   )
 }

@@ -87,7 +87,7 @@ const SinglePage = ({params}) => {
       <CatTitle cat={cat} catSlug={catSlug}/>
       <div className={styles.infoContainer}>
         <div className={styles.textContainer}>
-          <h1 className={styles.title}>{data?.title}</h1>
+          <h2 className={styles.title}>{data?.title}</h2>
           <div className={styles.user}>
             {/* {data?.user?.image && <div className={styles.userImageContainer} >
               <Image src={data.user.image} alt="image avatar" fill className={styles.avatar} />
@@ -99,7 +99,7 @@ const SinglePage = ({params}) => {
           </div>
         </div>
         {data?.img && <div className={styles.imageContainer}>
-          <Image src={data.img} alt="" fill className={styles.image} />
+          <Image src={data.img} alt={data.title} title={data.title} fill className={styles.image} />
         </div>}
       </div>
       <div className={styles.content}>

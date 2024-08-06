@@ -18,7 +18,7 @@ const Footer = () => {
           </div>
           <h1 className={styles.logoText}>MotoPost</h1>
         </div>
-        <p className={styles.desc}>MOTOPOST é o espaço perfeito para motociclistas apaixonados por motos, viagens emocionantes, notícias atualizadas, dicas de oficina, estilo de vida e tudo o que envolve o mundo das duas rodas. Descubra rotas incríveis, mantenha-se informado com as últimas novidades do setor, obtenha dicas valiosas de manutenção e estilo, e compartilhe sua paixão pelo motociclismo. Acesse MOTOPOST e faça parte da nossa comunidade dedicada aos motociclistas.</p>
+        <p className={styles.desc}>MOTOPOST é o espaço perfeito para motociclistas apaixonados por motos, viagens emocionantes, notícias atualizadas, dicas de oficina, estilo de vida e tudo o que envolve o mundo das duas rodas. Faça parte da nossa comunidade dedicada aos motociclistas.</p>
       </div>
       <div className={styles.links}>
         <div className={styles.list}>
