@@ -33,6 +33,10 @@
   font-weight: 500;
 }
 
+.infoBox {
+  position: relative;
+}
+
 .author {
   color: gray;
   font-size: 14px;

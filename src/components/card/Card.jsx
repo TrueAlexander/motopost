@@ -2,6 +2,7 @@ import styles from "./card.module.css"
 import Image from "next/image"
 import Link from "next/link"
 import { formatDate } from "@/utils/dateFormat"
+import Reactions from "../reactions/Reactions"
 
 const Card = ({key, item}) => {
   return (
@@ -14,7 +15,10 @@ const Card = ({key, item}) => {
         <Link href={`/posts/${item.slug}`}>
           <h2>{item.title}</h2>
         </Link>
-        <p className={styles.author}>autor: <span className={styles.author_name}>{item.author}</span></p>
+        <div className={styles.infoBox}>
+          <p className={styles.author}>autor: <span className={styles.author_name}>{item.author}</span></p>
+          <Reactions/>
+        </div>
         <p className={styles.desc}>{item.desc}</p>
         <Link 
           href={`/posts/${item.slug}`} 

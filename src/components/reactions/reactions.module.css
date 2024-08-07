@@ -1,0 +1,18 @@
+.container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  gap: 20px;
+  font-size: 18px;
+  color: crimson;
+}
+
+.count {
+  color: var(--textColor);
+  font-size: 16px;
+  line-height: 18px;
+  font-weight: 300;
+  vertical-align:text-top;
+  margin-left: 3px;
+}
