@@ -26,8 +26,8 @@
   position: fixed;
   top: 80px;
   bottom: 0;
-  right: 15px;
-  left: 15px;
+  right: 0;
+  left: 0;
   background-color: var(--bg);
   /* height: calc(100vh - 100px); */
   /* height: 100%; */

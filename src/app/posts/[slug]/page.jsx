@@ -2,6 +2,7 @@ import styles from "./singlePage.module.css"
 import Image from "next/image"
 import { formatDate } from "@/utils/dateFormat"
 import CatTitle from "@/components/catTitle/CatTitle"
+import Reactions from "@/components/reactions/Reactions"
 // import Comments from "@/components/comments/Comments"
 
 // const getData = async (slug) => {
@@ -25,10 +26,12 @@ const posts = [
     catSlug: "dicas",
     category: "dicas",
     desc: "Os relógios para motociclistas são mais do que simples acessórios; eles são ferramentas essenciais que combinam estilo, funcionalidade e robustez. Projetados para resistir às condições adversas enfrentadas na estrada, esses relógios geralmente possuem características como resistência à água, construção robusta e fácil legibilidade em diferentes condições de luz.",
-    createdAt: "2023-10-29T12:16:29.938+00:00",
+    createdAt: "2023-10-29T00:16:29.938+00:00",
     author: "Admin",
     likes: 0,
     views: 5,
+    likedBy: [],
+    moderated: true,
   },
   {
     _id: 1,
@@ -42,11 +45,13 @@ const posts = [
     author: "Admin",
     likes: 3,
     views: 3,
+    likedBy: [],
+    moderated: true,
   },
   {
     _id: 3,
     img:"/watch.png",
-    title: "Relógios de motociclistas2",
+    title: "Relógios de motociclistas",
     slug: "relogios-de-motociclistas2",
     catSlug: "dicas",
     category: "dicas",
@@ -55,11 +60,13 @@ const posts = [
     author: "Admin",
     likes: 0,
     views: 5,
+    likedBy: [],
+    moderated: true,
   },
   {
     _id: 4,
     img:"/baby.jpg",
-    title: "Motociclistas jovens2",
+    title: "Motociclistas jovens",
     slug: "motociclistas-jovens2",
     catSlug: "viagens",
     category: "viagens",
@@ -68,6 +75,8 @@ const posts = [
     author: "Admin",
     likes: 3,
     views: 3,
+    likedBy: [],
+    moderated: true,
   },
 
 ] 
@@ -87,16 +96,17 @@ const SinglePage = ({params}) => {
       <CatTitle cat={cat} catSlug={catSlug}/>
       <div className={styles.infoContainer}>
         <div className={styles.textContainer}>
-          <h2 className={styles.title}>{data?.title}</h2>
           <div className={styles.user}>
             {/* {data?.user?.image && <div className={styles.userImageContainer} >
               <Image src={data.user.image} alt="image avatar" fill className={styles.avatar} />
             </div>} */}
             <div className={styles.userTextContainer}>
+              <Reactions likes={0} views={0}/>
               <span className={styles.username}>{data?.author}</span>
               <span className={styles.date}>{formatDate(data.createdAt)}</span>
             </div>
           </div>
+          <h2 className={styles.title}>{data?.title}</h2>
         </div>
         {data?.img && <div className={styles.imageContainer}>
           <Image src={data.img} alt={data.title} title={data.title} fill className={styles.image} />

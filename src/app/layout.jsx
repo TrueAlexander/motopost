@@ -32,12 +32,12 @@ export default function RootLayout({ children }) {
           <ThemeContextProvider>
             <ThemeProvider>
               <div className="container">
+                <Navbar/>
                 <div className="wrapper">
-                  <Navbar/>
-                  {children}
-                  <Footer/>
+                  {children}     
                   <UpArrow/>
                 </div>
+                <Footer/>
               </div>
             </ThemeProvider>
           </ThemeContextProvider>

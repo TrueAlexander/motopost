@@ -38,7 +38,7 @@ const AuthLinks = () => {
         ></div>
         <div 
           className={styles.line} 
-          style={open ? { transform: "rotate(-45deg) translate(-5px, 4px)" } : {}}
+          style={open ? { transform: "rotate(-45deg) translate(-6px, 4px)" } : {}}
         ></div>
         <div 
           className={styles.line}

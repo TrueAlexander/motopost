@@ -12,13 +12,13 @@ const Card = ({key, item}) => {
           <span className={styles.date}>{formatDate(item.createdAt)} - </span>
           <Link href={`/blog/?catSlug=${item.catSlug}`} className={styles.category}>{item.catSlug}</Link>
         </div>
+        <div className={styles.infoBox}>
+          <p className={styles.author}>autor: <span className={styles.author_name}>{item.author}</span></p>
+          <Reactions views={item.views} likes={item.likes} />
+        </div>
         <Link href={`/posts/${item.slug}`}>
           <h2>{item.title}</h2>
         </Link>
-        <div className={styles.infoBox}>
-          <p className={styles.author}>autor: <span className={styles.author_name}>{item.author}</span></p>
-          <Reactions/>
-        </div>
         <p className={styles.desc}>{item.desc}</p>
         <Link 
           href={`/posts/${item.slug}`} 

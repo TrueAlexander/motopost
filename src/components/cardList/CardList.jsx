@@ -22,11 +22,14 @@ const posts = [
     title: "Relógios de motociclistas",
     slug: "relogios-de-motociclistas",
     catSlug: "dicas",
+    category: "dicas",
     desc: "Os relógios para motociclistas são mais do que simples acessórios; eles são ferramentas essenciais que combinam estilo, funcionalidade e robustez. Projetados para resistir às condições adversas enfrentadas na estrada, esses relógios geralmente possuem características como resistência à água, construção robusta e fácil legibilidade em diferentes condições de luz.",
     createdAt: "2023-10-29T00:16:29.938+00:00",
     author: "Admin",
     likes: 0,
     views: 5,
+    likedBy: [],
+    moderated: true,
   },
   {
     _id: 1,
@@ -34,11 +37,14 @@ const posts = [
     title: "Motociclistas jovens",
     slug: "motociclistas-jovens",
     catSlug: "viagens",
+    category: "viagens",
     desc: "A infância de muitos motociclistas é marcada por uma fascinação precoce por motos e a sensação de liberdade que elas proporcionam. Desde cedo, muitos se encantam com o som dos motores, as corridas, e a ideia de aventura. Alguns começam a andar de bicicleta, sonhando com o dia em que trocarão as pedaladas pelo ronco de um motor. Para muitos, as histórias de viagens e as aventuras de motociclistas mais velhos alimentam o desejo de um dia seguir o mesmo caminho, explorando o mundo sobre duas rodas. Essa paixão, muitas vezes herdada ou inspirada por pais e familiares, molda a identidade e os sonhos de futuros motociclistas.",
     createdAt: "2023-10-31T00:16:29.938+00:00",
     author: "Admin",
     likes: 3,
     views: 3,
+    likedBy: [],
+    moderated: true,
   },
   {
     _id: 3,
@@ -46,11 +52,14 @@ const posts = [
     title: "Relógios de motociclistas",
     slug: "relogios-de-motociclistas2",
     catSlug: "dicas",
+    category: "dicas",
     desc: "Os relógios para motociclistas são mais do que simples acessórios; eles são ferramentas essenciais que combinam estilo, funcionalidade e robustez. Projetados para resistir às condições adversas enfrentadas na estrada, esses relógios geralmente possuem características como resistência à água, construção robusta e fácil legibilidade em diferentes condições de luz.",
     createdAt: "2023-10-29T00:16:29.938+00:00",
     author: "Admin",
     likes: 0,
     views: 5,
+    likedBy: [],
+    moderated: true,
   },
   {
     _id: 4,
@@ -58,11 +67,14 @@ const posts = [
     title: "Motociclistas jovens",
     slug: "motociclistas-jovens2",
     catSlug: "viagens",
+    category: "viagens",
     desc: "A infância de muitos motociclistas é marcada por uma fascinação precoce por motos e a sensação de liberdade que elas proporcionam. Desde cedo, muitos se encantam com o som dos motores, as corridas, e a ideia de aventura. Alguns começam a andar de bicicleta, sonhando com o dia em que trocarão as pedaladas pelo ronco de um motor. Para muitos, as histórias de viagens e as aventuras de motociclistas mais velhos alimentam o desejo de um dia seguir o mesmo caminho, explorando o mundo sobre duas rodas. Essa paixão, muitas vezes herdada ou inspirada por pais e familiares, molda a identidade e os sonhos de futuros motociclistas.",
     createdAt: "2023-10-31T00:16:29.938+00:00",
     author: "Admin",
     likes: 3,
     views: 3,
+    likedBy: [],
+    moderated: true,
   },
 
 ] 
@@ -81,7 +93,7 @@ const CardList = async ({page, catSlug}) => {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>Postagens recentes</h2>
+      <h3 className={styles.title}>Postagens recentes</h3>
       <div className={styles.posts}>
         {posts?.map(item => (
           <Card item={item} key={item._id}/>

@@ -39,6 +39,7 @@ a {
   min-height: 100vh;
   background-color: var(--bg);
   color: var(--textColor);
+  
 }
 
 .wrapper {
@@ -47,6 +48,7 @@ a {
   margin-right: auto;
   padding-left: 80px;
   padding-right: 80px;
+  
 }
 
 @media screen and (max-width: 1536px) {
