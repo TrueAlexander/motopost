@@ -51,6 +51,23 @@ a {
   
 }
 
+/*=============== SCROLL BAR ===============*/
+::-webkit-scrollbar {
+  width: .60rem;
+  background-color: var(--body-color);
+  background-color: var(--bg);
+  background-color: #626262;
+  /* border-radius: .2rem; */
+  border: 1px solid #626262;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--softBg);
+  border-radius: .2rem;
+  height: 60px;
+  border: 1px solid #0f172a;
+}
+
 @media screen and (max-width: 1536px) {
   .wrapper {
     /* max-width: 1366px; */

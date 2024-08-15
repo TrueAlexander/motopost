@@ -27,7 +27,7 @@
 .imageContainer {
   flex: 1;
   
-  height: 350px;
+  height: 400px;
   position: relative;
 }
 
@@ -71,7 +71,7 @@
   font-size: 18px;
   font-weight: 400;
   line-height: 28px;
-  height: 118px;
+  height: 150px;
   overflow: hidden;
   color: var(--softTextColor);
   position: relative;
@@ -106,8 +106,8 @@
   }
   
   .imageContainer {
-    max-width: 600px;
-    height: 300px;
+    /* max-width: 600px; */
+    max-height: 450px;
     margin: 0 auto;
   }
 
