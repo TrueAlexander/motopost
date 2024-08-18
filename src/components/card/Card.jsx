@@ -4,9 +4,9 @@ import Link from "next/link"
 import { formatDate } from "@/utils/dateFormat"
 import Reactions from "../reactions/Reactions"
 
-const Card = ({key, item}) => {
+const Card = ({item}) => {
   return (
-    <div className={styles.container} key={key}>
+    <div className={styles.container} key={item._id}>
       <div className={styles.textContainer}>
         <div className={styles.detail}>
           <span className={styles.date}>{formatDate(item.createdAt)} - </span>
@@ -14,7 +14,7 @@ const Card = ({key, item}) => {
         </div>
         <div className={styles.infoBox}>
           <p className={styles.author}>autor: <span className={styles.author_name}>{item.author}</span></p>
-          <Reactions views={item.views} likes={item.likes} />
+          <Reactions id={item._id} />
         </div>
         <Link href={`/posts/${item.slug}`}>
           <h2>{item.title}</h2>

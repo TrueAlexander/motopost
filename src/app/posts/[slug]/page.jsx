@@ -41,7 +41,7 @@ const SinglePage = async ({params}) => {
               <Image src={data.user.image} alt="image avatar" fill className={styles.avatar} />
             </div>} */}
             <div className={styles.userTextContainer}>
-              <Reactions likes={0} views={0}/>
+              <Reactions id={data._id} />
               <span className={styles.username}>{data?.author}</span>
               <span className={styles.date}>{formatDate(data.createdAt)}</span>
             </div>

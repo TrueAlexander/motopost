@@ -27,7 +27,7 @@ const CardList = async ({page, catSlug}) => {
 
   // const {posts, count} = await getData(page, cat)
   const dataDB = await getPosts(catSlug)
-  console.log("data from DB: ", dataDB)
+  // console.log("data from DB: ", dataDB)
   ///
   const count = 8
   ///
@@ -41,8 +41,8 @@ const CardList = async ({page, catSlug}) => {
     <div className={styles.container}>
       <h3 className={styles.title}>Postagens recentes</h3>
       <div className={styles.posts}>
-        {dataDB?.map(item => (
-          <Card item={item} key={item._id}/>
+        {dataDB?.map((item, number) => (
+          <Card item={item} key={number}/>
         ))}
       </div>
       <Pagination page={page} hasNext={hasNext} hasPrev={hasPrev} catSlug={catSlug}/>
