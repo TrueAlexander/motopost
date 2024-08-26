@@ -51,6 +51,15 @@ a {
   
 }
 
+button {
+  border: none;
+  outline: none;
+  background-color: var(--bg);
+  color: crimson;
+  font-size: 20px;
+  
+}
+
 /*=============== SCROLL BAR ===============*/
 ::-webkit-scrollbar {
   width: .60rem;

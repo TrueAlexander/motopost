@@ -3,13 +3,17 @@ import Link from "next/link"
 import styles from "./authLinks.module.css"
 import { useEffect, useState } from "react"
 import { useSession } from "next-auth/react"
+import AuthModal from "../authModal/AuthModal"
 
 const AuthLinks = () => {
 
-  const [open, setOpen] = useState(false)
-
   const {status} = useSession()
+  console.log(status)
 
+  //burger open for small screens
+  const [open, setOpen] = useState(false)
+  //auth modal window
+  const [showModal, setShowModal] = useState(false)
 
   const openBurger = () => {
     setOpen(!open)
@@ -21,10 +25,23 @@ const AuthLinks = () => {
     document.body.style.overflowY = 'auto'
   }
 
+  const openModal = () => {
+    setShowModal(true)
+    ///to block the scroll of the page
+    document.body.style.overflow = 'hidden'
+  }
+  ///to unblock the scroll of the page
+  useEffect(() => {
+    if (!showModal) document.body.style.overflow = 'auto'
+  }, [showModal])
+
   return (
     <>
       {status === "unauthenticated" ? (
-        <Link href="/" className={styles.link} >Login</Link>
+        <>
+          <button className={styles.link} onClick={openModal} >Entrar</button>
+          {showModal && <AuthModal showModal={showModal} setShowModal={setShowModal}/>}
+        </> 
       ) : (
         <>
           <Link href="/write" className={styles.link} >Write</Link>

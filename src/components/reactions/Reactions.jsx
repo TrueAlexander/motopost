@@ -9,8 +9,6 @@ const Reactions =  ({id}) => {
   const [likes, setLikes] = useState()
   const [views, setViews] = useState()
 
-  console.log(id, "likes: ", likes, "views: ", views)
-
   const getReactions = async (id) => {
     let reactions = {likes: 0, views: 0}
     try {
@@ -40,15 +38,12 @@ const Reactions =  ({id}) => {
       setLikes(data.likes)
       setViews(data.views)
     })
-
   }, [])
 
   return (
     <div className={styles.container}>
-      <div title="curtidas" ><FaRegHeart /><span className={styles.count}>{likes}</span></div>
-      
-      <div title="visualizações"><FaRegEye /><span className={styles.count}>{views}</span></div>
-      
+      <div title="curtidas" ><FaRegHeart /><span className={styles.count}>{likes}</span></div>      
+      <div title="visualizações"><FaRegEye /><span className={styles.count}>{views}</span></div> 
     </div>
   )
 }
