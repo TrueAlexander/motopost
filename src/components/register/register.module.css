@@ -4,5 +4,19 @@
 
 .register_title {
   font-size: 16px;
+  margin-top: 5px;
   color: var(--textColor);
+}
+
+.register_link {
+  color: var(--textColor);
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 13px;
+  background-color: var(--bg);
+  border: none;
+}
+
+.register_link:active {
+  font-weight: 600;
 }

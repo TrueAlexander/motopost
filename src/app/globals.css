@@ -51,13 +51,76 @@ a {
   
 }
 
-button {
+.auth_btn {
   border: none;
   outline: none;
   background-color: var(--bg);
   color: crimson;
   font-size: 20px;
-  
+  cursor: pointer;
+}
+
+.auth_btn:active {
+  font-weight: 600;
+}
+
+.button {
+  width: 100px;
+  border: none;
+  border-radius: 10px;
+  padding: auto 16px;
+  height: 30px;
+  background-color: crimson;
+  color: white;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.button:hover {
+  transform: scale(1.01);
+}
+
+.button:active {
+  font-weight: 600;
+}
+
+.button:disabled{
+  background-color: rgba(220, 20, 60, 0.473);
+  cursor: not-allowed;
+}
+
+.form {
+  margin: 10px 0;
+}
+
+input {
+  background-color: transparent;
+  margin: 5px 0;
+  color: var(--textColor);
+  border-radius: 5px;
+  max-width: 600px;
+  font-size: 16px;
+  padding: 3px 7px;
+  border: 1px solid crimson; /* border and border-white */
+  outline: none;
+}
+
+.input_last {
+  margin-bottom: 15px;
+}
+
+input::placeholder {
+  color: var(--textColor);
+  font-size: 14px;
+}
+
+input:focus {
+  box-shadow: 0 0 5px crimson;
+}
+
+input:focus::placeholder {
+  color: transparent;
 }
 
 /*=============== SCROLL BAR ===============*/
@@ -98,7 +161,10 @@ button {
   .wrapper {
     /* max-width: 640px; */
     padding-left: 30px;
-    padding-right: 30px;
+    padding-right: 30px;  
+  }
+  .auth_btn {
+    display: none;
   }
 }
 @media screen and (max-width: 640px) {
@@ -107,6 +173,8 @@ button {
     padding-left: 15px;
     padding-right: 15px;
   }
+
+  
 
 
 }

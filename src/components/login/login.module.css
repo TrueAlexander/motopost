@@ -4,5 +4,24 @@
 
 .login_title {
   font-size: 16px;
+  margin-top: 5px;
   color: var(--textColor);
+}
+
+.login_link {
+  color: var(--textColor);
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 13px;
+  background-color: var(--bg);
+  border: none;
+}
+
+.login_link:active {
+  font-weight: 600;
+}
+
+.login_error {
+  color: crimson;
+  margin: 3px 0;
 }

@@ -67,9 +67,8 @@ const Register = ({setShowModal, setModeLogin, setIsLoading}) => {
         className="form" 
         onSubmit={handleSubmit}
       >
-        <div className="mt-5">
+        <div>
           <input
-            className='px-3 py-1 bg-transparent text-white rounded-md max-w-[600px] text-[16px] placeholder:text-white border border-white shadow-sm focus:outline-none focus:border-none focus:ring-[#9f50ac] focus:outline-[#9f50ac] focus:placeholder-transparent'
             type="text" 
             name="name" 
             autoComplete="on"
@@ -77,9 +76,8 @@ const Register = ({setShowModal, setModeLogin, setIsLoading}) => {
             required 
           />
         </div>
-        <div className="my-7">
+        <div>
           <input
-            className='px-3 py-1 bg-transparent text-white rounded-md max-w-[600px] text-[16px] placeholder:text-white border border-white shadow-sm focus:outline-none focus:border-none focus:ring-[#9f50ac] focus:outline-[#9f50ac] focus:placeholder-transparent'
             type="email" 
             name="email" 
             autoComplete="on"
@@ -87,9 +85,9 @@ const Register = ({setShowModal, setModeLogin, setIsLoading}) => {
             required 
           />
         </div>
-        <div className="mb-9">
+        <div>
           <input
-            className='px-3 py-1 bg-transparent text-white rounded-md max-w-[600px] text-[16px] placeholder:text-white border border-white shadow-sm focus:outline-none focus:border-none focus:ring-[#9f50ac] focus:outline-[#9f50ac] focus:placeholder-transparent'
+            className="input_last"
             type="password" 
             name="password"
             minLength={5}
@@ -99,17 +97,17 @@ const Register = ({setShowModal, setModeLogin, setIsLoading}) => {
           />
         </div>
         <button 
-          className="bg-[#9f50ac] select-none font-bold h-[30px] min-w-[100px] rounded-[10px] text-white mr-2 ml-2" 
+          className="button" 
           type="submit"
           title='Fazer cadastro'
         >
           Enviar
         </button>
       </form>
-      <h3 className="text-[#9f50ac] py-4 mt-2 text-[17px] font-bold">ou identifique-se:</h3>
+      <h3 className={styles.register_title}>ou identifique-se:</h3>
         <button 
           title="Criar Usuário" 
-          className="text-white text-[13px] underline cursor-pointer active:scale-95"
+          className={styles.register_link}
           onClick={() => setModeLogin(true)}
         >
           fazer login

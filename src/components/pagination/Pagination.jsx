@@ -9,14 +9,14 @@ const Pagination = ({page, hasPrev, hasNext, catSlug}) => {
   return (
     <div className={styles.container}>
       <button 
-        className={styles.button}
+        className="button"
         disabled={!hasPrev}
         onClick={() => router.push(`?${catSlug ? `catSlug=${catSlug}&` : ''}page=${page - 1}`)}
       >
         Voltar
       </button>
       <button 
-        className={styles.button}
+        className="button"
         disabled={!hasNext}
         onClick={() => router.push(`?${catSlug ? `catSlug=${catSlug}&` : ''}page=${page + 1}`)}
       >

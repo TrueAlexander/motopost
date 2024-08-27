@@ -7,7 +7,8 @@ import AuthModal from "../authModal/AuthModal"
 
 const AuthLinks = () => {
 
-  const {status} = useSession()
+  // const {status} = useSession()
+  const status = "authenticated"
   console.log(status)
 
   //burger open for small screens
@@ -39,13 +40,13 @@ const AuthLinks = () => {
     <>
       {status === "unauthenticated" ? (
         <>
-          <button className={styles.link} onClick={openModal} >Entrar</button>
+          <button className="auth_btn" onClick={openModal} >Entrar</button>
           {showModal && <AuthModal showModal={showModal} setShowModal={setShowModal}/>}
         </> 
       ) : (
         <>
-          <Link href="/write" className={styles.link} >Write</Link>
-          <span className={styles.link}>Logout</span>
+          <Link href="/escrever" className={styles.link}>Novo Post</Link>
+          <span className="auth_btn">Sair</span>
         </>
       )}
       <div className={styles.burger} onClick={openBurger}>
@@ -66,7 +67,7 @@ const AuthLinks = () => {
         <div className={styles.responsiveMenu} onClick={closeBurger}>
           <Link href="/" >Home</Link>
           <Link href="/contato">Contato</Link>
-          {status === "notauthenticated" ? (
+          {status === "unauthenticated" ? (
               <Link href="/login">Login</Link>
             ) : (
               <>
