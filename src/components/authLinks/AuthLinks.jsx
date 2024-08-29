@@ -8,7 +8,7 @@ import AuthModal from "../authModal/AuthModal"
 const AuthLinks = () => {
 
   // const {status} = useSession()
-  const status = "authenticated"
+  const status = "unauthenticated"
   console.log(status)
 
   //burger open for small screens

@@ -13,7 +13,7 @@ const Footer = () => {
         <div className={styles.logo}>
           <div className={styles.image}>
             <Link href="/">
-              <Image src="/motorbike.png" alt="moto_logo" width={50} height={50} />
+              <Image className={styles.image_img} src="/motorbike.png" alt="moto_logo" width={50} height={50} />
             </Link>
           </div>
           <h1 className={styles.logoText}>MotoPost</h1>
