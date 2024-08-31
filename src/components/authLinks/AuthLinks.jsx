@@ -68,7 +68,7 @@ const AuthLinks = () => {
           <Link href="/" >Home</Link>
           <Link href="/contato">Contato</Link>
           {status === "unauthenticated" ? (
-              <Link href="/login">Login</Link>
+              <button className="auth_btn burger" onClick={openModal}>Entrar</button>
             ) : (
               <>
                 <Link href="/usuario">Seu perfil</Link>

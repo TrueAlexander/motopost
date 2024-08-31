@@ -162,6 +162,10 @@ input:focus::placeholder {
   .auth_btn {
     display: none;
   }
+  .auth_btn.burger {
+    display: initial;
+    font-size: 25px;
+  }
 }
 
 @media screen and (max-width: 768px) {
