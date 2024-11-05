@@ -3,7 +3,7 @@ import CategoryList from "@/components/categoryList/CategoryList"
 import CardList from "@/components/cardList/CardList"
 
 ///
-import CreatePost from "@/components/createPost/CreatePost"
+// import CreatePost from "@/components/createPost/CreatePost"
 ///
 
 export default function Home({searchParams}) {
@@ -16,7 +16,7 @@ export default function Home({searchParams}) {
     <div className={styles.content}>
       <CardList page={page} cat={null}/>
     </div>
-    <CreatePost/>
+    {/* <CreatePost/> */}
   </div>
   )
 }

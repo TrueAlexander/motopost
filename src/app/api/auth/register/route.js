@@ -16,7 +16,7 @@ const transporter = nodemailer.createTransport({
 
 export const POST = async (request) => {
 
-  const {name, email, password, isAdmin, emailVerified} = await request.json() 
+  const {name, email, password, isAdmin, emailVerified, posts, comments, likes} = await request.json() 
 
   await connect()
 
@@ -27,7 +27,10 @@ export const POST = async (request) => {
     email,
     password: hashedPassword,
     isAdmin: isAdmin,
-    emailVerified: emailVerified
+    emailVerified: emailVerified,
+    posts,
+    comments,
+    likes
   })
 
   try {
@@ -77,7 +80,7 @@ export const POST = async (request) => {
     })
     
   } catch (error) {
-   
+    console.log("error is here: ", error.message)
     return new NextResponse(error.message, {
       status: 500,
     })

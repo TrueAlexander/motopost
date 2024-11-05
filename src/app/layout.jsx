@@ -7,7 +7,7 @@ import ThemeProvider from '@/providers/ThemeProvider'
 import AuthProvider from '@/providers/AuthProvider'
 import UpArrow from '@/components/upArrow/UpArrow'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'], weight: ['200', '300', '400', '600', '700' ] })
 
 export const metadata = {
   title: 'MotoPost | Espaço de motociclistas',
@@ -27,7 +27,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body 
+        className={inter.className}
+      >
         <AuthProvider>
           <ThemeContextProvider>
             <ThemeProvider>

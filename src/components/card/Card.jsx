@@ -19,7 +19,7 @@ const Card = ({item}) => {
         <Link href={`/posts/${item.slug}`}>
           <h2>{item.title}</h2>
         </Link>
-        <p className={styles.desc}>{item.desc}</p>
+        <p className={styles.content}>{item.content}</p>
         <Link 
           href={`/posts/${item.slug}`} 
           className={styles.link}

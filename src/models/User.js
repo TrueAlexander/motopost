@@ -27,6 +27,10 @@ const userSchema = new Schema(
       default: false,
       required: true,
     },
+    posts: {
+      type: Array,
+      default: [],
+    },
     comments: {
       type: Array,
       default: [],

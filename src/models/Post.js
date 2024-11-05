@@ -12,7 +12,7 @@ const postSchema = new Schema(
       type: String,
       required: true,
     },
-    desc: {
+    content: {
       type: String,
       required: true,
     },

@@ -5,11 +5,11 @@ import { IoClose } from "react-icons/io5"
 import "animate.css"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import styles from "./authModal.module.css"
+import styles from "./inputModal.module.css"
 
 
 
-const AuthModal = ({showModal, setShowModal}) => {
+const InputModal = ({addEl, showModal, setShowModal}) => {
   const router = useRouter()
   const [modeLogin, setModeLogin] = useState(true)
 
@@ -18,7 +18,7 @@ const AuthModal = ({showModal, setShowModal}) => {
     // router.push('/')
   }
 
-  // return (<Loading/>)
+  console.log("modal window: " + addEl)
 
   return (
     <div 
@@ -50,4 +50,4 @@ const AuthModal = ({showModal, setShowModal}) => {
   )
 }
 
-export default AuthModal
+export default InputModal

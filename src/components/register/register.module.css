@@ -4,7 +4,7 @@
 
 .register_title {
   font-size: 16px;
-  margin-top: 5px;
+  margin: 20px 0;
   color: var(--textColor);
 }
 

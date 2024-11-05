@@ -2,13 +2,14 @@
 import Link from "next/link"
 import styles from "./authLinks.module.css"
 import { useEffect, useState } from "react"
-import { useSession } from "next-auth/react"
+import { signOut, useSession } from "next-auth/react"
 import AuthModal from "../authModal/AuthModal"
+// import Loading from "../loading/Loading"
 
 const AuthLinks = () => {
 
-  // const {status} = useSession()
-  const status = "unauthenticated"
+  const {status} = useSession()
+  // const status = "unauthenticated"
   console.log(status)
 
   //burger open for small screens
@@ -21,20 +22,32 @@ const AuthLinks = () => {
     open ? document.body.style.overflowY = 'auto' : document.body.style.overflowY = 'hidden'
   }
 
-  const closeBurger = () => {
+  const closeBurger = () => { 
+    // e.preventDefault() 
     setOpen(!open)
-    document.body.style.overflowY = 'auto'
+    // signOut()
+  }
+
+  const logOut = (e) => {
+    e.preventDefault()
+    signOut() 
+    if (open) closeBurger()
   }
 
   const openModal = () => {
     setShowModal(true)
+    console.log("TUT")
     ///to block the scroll of the page
     document.body.style.overflow = 'hidden'
   }
   ///to unblock the scroll of the page
   useEffect(() => {
-    if (!showModal) document.body.style.overflow = 'auto'
-  }, [showModal])
+    if (!showModal && !open) document.body.style.overflow = 'auto'
+  }, [showModal, open])
+
+  if (status === "loading") {
+    return (<> </>)
+  }
 
   return (
     <>
@@ -45,8 +58,8 @@ const AuthLinks = () => {
         </> 
       ) : (
         <>
-          <Link href="/escrever" className={styles.link}>Novo Post</Link>
-          <span className="auth_btn">Sair</span>
+          <Link href="/criar" className={styles.link}>Novo Post</Link>
+          <span className="auth_btn" onClick={logOut}>Sair</span>
         </>
       )}
       <div className={styles.burger} onClick={openBurger}>
@@ -68,12 +81,12 @@ const AuthLinks = () => {
           <Link href="/" >Home</Link>
           <Link href="/contato">Contato</Link>
           {status === "unauthenticated" ? (
-              <button className="auth_btn burger" onClick={openModal}>Entrar</button>
+              <span className="auth_btn burger" onClick={openModal}>Entrar</span>
             ) : (
               <>
                 <Link href="/usuario">Seu perfil</Link>
-                <Link href="/criar-post">Novo Post</Link>
-                <Link href="/" onClick={closeBurger}>Sair</Link>
+                <Link href="/criar">Novo Post</Link>
+                <span className="auth_btn burger" onClick={logOut}>Sair</span>
               </>
             )}
         </div>
