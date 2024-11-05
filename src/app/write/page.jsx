@@ -66,7 +66,7 @@ const WritePage = () => {
   }
 
   if (status === "unauthenticated") {
-    router.push("/");
+    router.push("/")
   }
 
   const slugify = (str) =>
@@ -148,7 +148,7 @@ const WritePage = () => {
         Publish
       </button>
     </div>
-  );
-};
+  )
+}
 
-export default WritePage;
+export default WritePage

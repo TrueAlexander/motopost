@@ -4,13 +4,13 @@ import styles from "./authLinks.module.css"
 import { useEffect, useState } from "react"
 import { signOut, useSession } from "next-auth/react"
 import AuthModal from "../authModal/AuthModal"
+import { confirmAlert } from 'react-confirm-alert'
+import '@/utils/react-confirm-alert.css'
 // import Loading from "../loading/Loading"
 
 const AuthLinks = () => {
 
   const {status} = useSession()
-  // const status = "unauthenticated"
-  console.log(status)
 
   //burger open for small screens
   const [open, setOpen] = useState(false)
@@ -30,8 +30,28 @@ const AuthLinks = () => {
 
   const logOut = (e) => {
     e.preventDefault()
-    signOut() 
-    if (open) closeBurger()
+    document.body.style.overflowY = 'hidden'
+
+    confirmAlert({
+      message: `Você tem certeza de que deseja sair?`,
+      buttons: [
+        {
+          label: 'Sim',
+          onClick: () => {
+            signOut() 
+            // setIsLoading(true)
+            document.body.style.overflowY = 'auto'
+            if (open) closeBurger()    
+          }
+        },
+        {
+          label: 'Não',
+          onClick: () => {
+            document.body.style.overflowY = 'auto'
+          }
+        }
+      ]
+    }) 
   }
 
   const openModal = () => {
