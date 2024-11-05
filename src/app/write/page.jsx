@@ -1,9 +1,9 @@
-"use client";
+"use client"
 
 import Image from "next/image";
 import styles from "./writePage.module.css";
 import { useEffect, useState } from "react";
-import "react-quill/dist/quill.bubble.css";
+// import "react-quill/dist/quill.bubble.css";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 // import {
@@ -13,7 +13,8 @@ import { useSession } from "next-auth/react";
 //   getDownloadURL,
 // } from "firebase/storage";
 // import { app } from "@/utils/firebase";
-import ReactQuill from "react-quill";
+
+// const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
 
 const WritePage = () => {
   const { status } = useSession();
@@ -136,13 +137,13 @@ const WritePage = () => {
             </button>
           </div>
         )}
-        <ReactQuill
+        {/* <ReactQuill
           className={styles.textArea}
           theme="bubble"
           value={value}
           onChange={setValue}
           placeholder="Tell your story..."
-        />
+        /> */}
       </div>
       <button className={styles.publish} onClick={handleSubmit}>
         Publish
