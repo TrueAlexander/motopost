@@ -29,8 +29,11 @@ const AuthLinks = () => {
   }
 
   const logOut = (e) => {
+    
     e.preventDefault()
+    console.log("here")
     document.body.style.overflowY = 'hidden'
+
 
     confirmAlert({
       message: `Você tem certeza de que deseja sair?`,
@@ -56,14 +59,20 @@ const AuthLinks = () => {
 
   const openModal = () => {
     setShowModal(true)
-    console.log("TUT")
     ///to block the scroll of the page
     document.body.style.overflow = 'hidden'
   }
+
+
+
   ///to unblock the scroll of the page
   useEffect(() => {
     if (!showModal && !open) document.body.style.overflow = 'auto'
+    // if (showModal) document.body.style.overflow = 'hidden'
   }, [showModal, open])
+
+
+
 
   if (status === "loading") {
     return (<> </>)
