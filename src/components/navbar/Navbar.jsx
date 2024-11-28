@@ -1,10 +1,16 @@
+"use client"
 import styles from './navbar.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
 import AuthLinks from '../authLinks/AuthLinks'
 import ThemeToggle from '../themeToggle/ThemeToggle'
+import { useState } from 'react'
 
 const Navbar = () => {
+
+   //burger open for small screens
+   const [open, setOpen] = useState(false)
+
   return (
     <nav className={styles.container} id='navbar'>
       <div className={styles.logo}>
@@ -16,10 +22,10 @@ const Navbar = () => {
         MotoPost
       </h1>   
       <div className={styles.links}>
-        <ThemeToggle/>
+        {!open && <ThemeToggle/>}
         <Link href="/" className={styles.link}>Home</Link>
         <Link href="/" className={styles.link}>Contato</Link>
-        <AuthLinks/>
+        <AuthLinks open={open} setOpen={setOpen}/>
       </div>
     </nav>
   )}

@@ -15,7 +15,7 @@ const AuthModal = ({showModal, setShowModal}) => {
 
   const handleClose = () => {
     setShowModal(false)
-    // router.push('/')
+    router.push('/')
   }
 
   // return (<Loading/>)

@@ -1,14 +1,15 @@
 "use client"
 import { confirmAlert } from 'react-confirm-alert'
 import '@/utils/react-confirm-alert.css'
+import confirmAlertStyles from './../../utils/confirmAlert.module.css'
 import styles from './register.module.css'
 import { ThemeContext } from "@/context/ThemeContext"
 import { useContext } from 'react'
-import confirmAlertStyles from './../../utils/confirmAlert.module.css'
 
 const Register = ({setShowModal, setModeLogin}) => {
 
   const {theme} = useContext(ThemeContext)
+  const themeClass = theme === 'dark' ? confirmAlertStyles.darkConfirmAlert : confirmAlertStyles.lightConfirmAlert
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -34,11 +35,6 @@ const Register = ({setShowModal, setModeLogin}) => {
           likes: []
         }),
       })
-
-      //////
-      const themeClass = theme === 'dark' ? confirmAlertStyles.darkConfirmAlert : confirmAlertStyles.lightConfirmAlert
-
-
 
       if (res.status === 201) {
         confirmAlert({
@@ -72,76 +68,7 @@ const Register = ({setShowModal, setModeLogin}) => {
       console.log(err, "Ocorreu um erro do lado do servidor.");
     }
   }
-      /////
-
-      // const themeClass = theme === 'dark' ? confirmAlertStyles.darkConfirmAlert : confirmAlertStyles.lightConfirmAlert
-
-      // if (res.status === 201) {
-      //   confirmAlert(({
-      //     customUI: ({ onClose }) => (
-      //       <div className={themeClass}>
-      //         <h1>Success</h1>
-      //         <p>Prezado {name}, seu usuário foi criado! Para ativá-lo, por favor, confira seu e-mail: {email}!</p>
-      //         <button onClick={() => { onClose(); setShowModal(false); }}>
-      //           Ok
-      //         </button>
-      //       </div>
-      //     ),
-      //   })
-      //////////////////////////
-          
-        //   {
-        //   message: `Prezado ${name}, seu usuário foi criado! Para ativá-lo, por favor, confira seu e-mail: ${email}!`,
-        //   buttons: [
-        //     {
-        //       label: 'Ok',
-        //       onClick: () => {
-        //         setShowModal(false)
-        //         // setIsLoading(false)
-        //       }
-        //     }
-        //   ]
-        // }
-        ///////////////////
-      // )
-      // } else {
-      //   confirmAlert({
-      //     customUI: ({ onClose }) => (
-      //       <div className={themeClass}>
-      //         <h1>Error</h1>
-      //         <p>Algo deu errado! Será que o usuário já existe? Faça login ou tente novamente.</p>
-      //         <button onClick={() => { onClose(); setModeLogin(true); }}>
-      //           Ok
-      //         </button>
-      //       </div>
-      //     ),
-      //   }
-        ////////////////
-          
-          
-          
-        //   {
-        //   message: "Algo deu errado! Será que o usuário já existe? Faça login ou tente novamente.",
-        //   buttons: [
-        //     {
-        //       label: 'Ok',
-        //       onClick: () => {
-        //         setModeLogin(true)
-        //         // setIsLoading(false)
-        //       }
-        //     }
-        //   ]
-        // }
-        /////////////
-  //     )  
-  //     }
-      
-      
-  //   } catch (err) {   
-  //     console.log(err, "Ocorreu um erro do lado do servidor.")
-  //   }
-  // }
-
+ 
   return (
     <div className={`${styles.register} ${"animate__animated"} ${"animate__fadeIn"}`}>
       <h3 className={styles.register_title}>Crie um novo usuário:</h3>

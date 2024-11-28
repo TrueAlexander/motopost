@@ -2,12 +2,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 80px;
+  height: 105px;
   padding: 0 80px;
   /* border-bottom: 0px solid rgba(128, 128, 128, 0.704); */
   /* background-color: rgba(128, 128, 128, 0.1); */
   /* box-shadow: 0 1px 3px rgba(128, 128, 128, 0.704); */
-  box-shadow: 0 3px 7px -3px rgba(128, 128, 128, 0.704);
+  box-shadow: 0 3px 7px -3px rgba(148, 74, 74, 0.704);
 }
 
 .logo {
@@ -29,10 +29,11 @@
 .links {
   display: flex;
   align-items: center;
-  /* gap: 20px; */
+  /* gap: 30px; */
   flex: 1;
   font-size: 20px;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  /* margin: 0 20px; */
 }
 
 .link:active {
@@ -64,6 +65,11 @@
 
   .title {
     font-size: 24px;
+  }
+
+  .links {
+    justify-content: end;
+    margin: 0 20px;
   }
 }
 
