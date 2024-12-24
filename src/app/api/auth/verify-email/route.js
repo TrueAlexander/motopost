@@ -25,7 +25,8 @@ export const GET = async (request) => {
         message: "User not found"
       }) 
     } else {
-      return NextResponse.redirect(`${process.env.URL_BASE}/notice?message=email_verified&user=${user.name}`) 
+      // return NextResponse.redirect(`${process.env.BASE_URL}/notice?message=email_verified&user=${user.name}`) 
+      return NextResponse.redirect(`${process.env.BASE_URL}/?verified=true`) 
     }  
   } catch (error) {
     return new NextResponse(error.message, {

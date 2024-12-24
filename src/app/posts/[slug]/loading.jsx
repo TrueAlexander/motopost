@@ -1,17 +1,9 @@
-// import Spinner from './spinner.gif'
-import Image from "next/image"
+import Spinner from "@/components/spinner/Spinner"
 
 const Loading = () => {
   return (
     <div>
-      carregando....
-       {/* <Image 
-          className="scale-50 mx-auto"
-          width={50}
-          height={50}
-          src='{Spinner}' 
-          alt="loading"
-        /> */}
+        <Spinner/>
     </div>
 )}
 
