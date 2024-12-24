@@ -62,8 +62,7 @@ export const POST = async (request) => {
         </div>
       </body>
       `}
-      console.log("Verification link:", `${process.env.BASE_URL}/api/auth/verify-email?token=${token}`);
-
+      
     await new Promise((resolve, reject) => {
       transporter.sendMail(mailOptions, (err, info) => {
         if (err) {

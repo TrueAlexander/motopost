@@ -38,6 +38,7 @@ const handleSubmit = async (e) => {
     }) 
 
     if (res?.error) {
+      setIsLoading(false)
       setError(res.error)  // Set the error state
     } else {
       // Handle successful login
@@ -56,6 +57,8 @@ const handleSubmit = async (e) => {
             </div>
           ),
         });
+      } else {
+        setIsLoading(false)
       }
     }
        
