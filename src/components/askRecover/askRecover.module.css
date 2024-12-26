@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.subtitle {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 25px;
+}
+
+.input_container {
+  margin: 20px 0;
+}
+
+.btn {
+  margin-left: 20px;
+}

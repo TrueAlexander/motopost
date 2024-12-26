@@ -84,6 +84,11 @@ useEffect(() => {
   }
   
 }, [params, router, session.status, setShowModal])
+
+const recoverAccess = () => {
+  setShowModal(false)
+  router.push("/recover-access")
+}
   
   return (
     <>
@@ -128,13 +133,13 @@ useEffect(() => {
               </button>
             </form>
             <p className={styles.login_error}>{error && decodeURIComponent(error?.slice(6))}</p>
-            <Link href="/recover-access">
+            <div onClick={recoverAccess}>
               <p
                 title="Recuperar a senha" 
                 className={styles.login_link}
               >
                 esqueceu a senha?</p>
-            </Link>
+            </div>
             <h3 className={styles.login_title}>ou crie um perfil:</h3>
               <button 
                 title="Criar Usuário" 

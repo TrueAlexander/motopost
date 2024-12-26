@@ -19,6 +19,7 @@ const AuthModal = ({showModal, setShowModal}) => {
   }
 
   // return (<Loading/>)
+  
 
   return (
     <div 

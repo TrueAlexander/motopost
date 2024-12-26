@@ -15,7 +15,7 @@ export const GET = async (request) => {
     await connect()
 
       ///temp
-  return NextResponse.redirect(`${process.env.URL_BASE}/recover-access?mode=pass&id=${_id}`) 
+  return NextResponse.redirect(`${process.env.BASE_URL}/recover-access?mode=pass&id=${_id}`) 
   ///
   } catch (error) {
     return new NextResponse(error.message, {
