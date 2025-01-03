@@ -37,7 +37,7 @@ const AskRecover = () => {
         confirmAlert({
           customUI: ({ onClose }) => (
             <div className={themeClass}>
-              <p>Para recuperar o acesso, por favor, abra seu e-mail: {email}</p>
+              <p>Para recuperar o acesso ou alterar a senha, por favor, verifique o seu e-mail: {email}</p>
               <button 
                 className="button"
                 onClick={() => { onClose(); setIsLoading(false);  router.push("/");  }}
@@ -86,7 +86,7 @@ const AskRecover = () => {
       <div className={styles.container}>
         <h2>Prezado Usuário!</h2>
         <div className="animate__animated animate__fadeIn">
-          <h3 className={styles.subtitle}>Para recuperar o acesso à plataforma, por favor, informe seu e-mail:</h3>
+          <h3 className={styles.subtitle}>Para recuperar o acesso à plataforma ou alterar a senha do seu perfil, por favor, informe o seu e-mail:</h3>
           <form 
             className="form" 
             onSubmit={handleSubmit}

@@ -164,6 +164,10 @@ const UsuarioPage = () => {
 
       setIsLoading(false)
     }
+
+    // const changePassword = async () => {
+
+    // }
   
   if (isLoading) {
     return <Loading/>
@@ -182,6 +186,9 @@ const UsuarioPage = () => {
               Postagens</button>
             <button 
               className="button"
+              // onClick={changePassword}
+              onClick={() => router.push("/recover-access")}
+
             >
               Alterar Senha</button>
             <button 

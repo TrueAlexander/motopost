@@ -7,6 +7,7 @@ import styles from "./passSend.module.css"
 import { ThemeContext } from "@/context/ThemeContext"
 import { useContext } from 'react'
 import confirmAlertStyles from './../../utils/confirmAlert.module.css'
+import { signOut } from 'next-auth/react'
 
 const PassSend = () => {
 
@@ -61,13 +62,14 @@ const PassSend = () => {
                 <p>Prezado Usuário, a senha foi alterada com sucesso! Por favor, faça o login com a nova senha!</p>
                 <button 
                   className="button"
-                  onClick={() => { onClose(); router.push("/");  }}
+                  onClick={() => { onClose(); signOut(); }}
                 >
                   Ok
                 </button>
               </div>
             )
           })
+          router.push("/");
         } else {
           confirmAlert({
             customUI: ({ onClose }) => (
@@ -95,7 +97,7 @@ const PassSend = () => {
           <div className={styles.container}>
             <h2>Prezado Usuário!</h2>
             <div className="animate__animated animate__fadeIn">
-              <h3 className={styles.subtitle}>Crie uma nova senha para recuperar o acesso ao seu perfil:</h3>
+              <h3 className={styles.subtitle}>Crie uma nova senha para o seu perfil:</h3>
               <form 
                 className={styles.form} 
                 onSubmit={handleSubmit}
