@@ -4,9 +4,12 @@ import '@/utils/react-confirm-alert.css'
 import confirmAlertStyles from '@/utils/confirmAlert.module.css'
 import styles from './register.module.css'
 import { ThemeContext } from "@/context/ThemeContext"
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
+import Loading from '@/app/loading'
 
 const Register = ({setShowModal, setModeLogin}) => {
+
+  const [isLoading, setIsLoading] = useState(false)
 
   const {theme} = useContext(ThemeContext)
   const themeClass = theme === 'dark' ? confirmAlertStyles.darkConfirmAlert : confirmAlertStyles.lightConfirmAlert
@@ -16,7 +19,7 @@ const Register = ({setShowModal, setModeLogin}) => {
     const name = e.target[0].value
     const email = e.target[1].value
     const password = e.target[2].value
-    // setIsLoading(true)
+    setIsLoading(true)
     ///
     try {
       const res = await fetch("/api/auth/register", {
@@ -37,6 +40,7 @@ const Register = ({setShowModal, setModeLogin}) => {
       })
 
       if (res.status === 201) {
+        setIsLoading(false)
         confirmAlert({
           customUI: ({ onClose }) => (
             <div className={themeClass}>
@@ -68,61 +72,66 @@ const Register = ({setShowModal, setModeLogin}) => {
       console.log(err, "Ocorreu um erro do lado do servidor.");
     }
   }
+
+  if (!isLoading) {
  
-  return (
-    <div className={`${styles.register} ${"animate__animated"} ${"animate__fadeIn"}`}>
-      <h3 className={styles.register_title}>Crie um novo usuário:</h3>
-      <form 
-        className="form" 
-        onSubmit={handleSubmit}
-      >
-        <div>
-          <input
-            type="text" 
-            name="name" 
-            autoComplete="on"
-            placeholder="nome" 
-            required 
-          />
-        </div>
-        <div>
-          <input
-            type="email" 
-            name="email" 
-            autoComplete="on"
-            placeholder="e-mail" 
-            required 
-          />
-        </div>
-        <div>
-          <input
-            className="input_last"
-            type="password" 
-            name="password"
-            minLength={5}
-            autoComplete="on" 
-            placeholder="senha" 
-            required 
-          />
-        </div>
-        <button 
-          className="button" 
-          type="submit"
-          title='Fazer cadastro'
+    return (
+      <div className={`${styles.register} ${"animate__animated"} ${"animate__fadeIn"}`}>
+        <h3 className={styles.register_title}>Crie um novo usuário:</h3>
+        <form 
+          className="form" 
+          onSubmit={handleSubmit}
         >
-          Enviar
-        </button>
-      </form>
-      <h3 className={styles.register_title}>ou identifique-se:</h3>
-        <button 
-          title="Criar Usuário" 
-          className={styles.register_link}
-          onClick={() => setModeLogin(true)}
-        >
-          fazer login
-        </button>
-    </div>
-  )
+          <div>
+            <input
+              type="text" 
+              name="name" 
+              autoComplete="on"
+              placeholder="nome" 
+              required 
+            />
+          </div>
+          <div>
+            <input
+              type="email" 
+              name="email" 
+              autoComplete="on"
+              placeholder="e-mail" 
+              required 
+            />
+          </div>
+          <div>
+            <input
+              className="input_last"
+              type="password" 
+              name="password"
+              minLength={5}
+              autoComplete="on" 
+              placeholder="senha" 
+              required 
+            />
+          </div>
+          <button 
+            className="button" 
+            type="submit"
+            title='Fazer cadastro'
+          >
+            Enviar
+          </button>
+        </form>
+        <h3 className={styles.register_title}>ou identifique-se:</h3>
+          <button 
+            title="Criar Usuário" 
+            className={styles.register_link}
+            onClick={() => setModeLogin(true)}
+          >
+            fazer login
+          </button>
+      </div>
+    )} else {
+      return <Loading/>
+    }
 }
+
 
 export default Register
