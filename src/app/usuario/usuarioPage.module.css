@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-height: 40vh;
+  margin: 15px 0 0;
+  font-weight: 400;
+  align-items: center;
+  justify-content: center;
+}
+
+.name {
+  color: crimson;
+}
+
+.btn_delete {
+  background-color: transparent;
+  color: var(--textColor);
+  border: 1px solid crimson;
+  opacity: 0.5;
+}

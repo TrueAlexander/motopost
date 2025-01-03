@@ -2,7 +2,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { signIn, useSession } from 'next-auth/react'
 import { useSearchParams, useRouter } from 'next/navigation'
-import Link from 'next/link'
 import styles from './login.module.css'
 import { ThemeContext } from "@/context/ThemeContext"
 import { useContext } from 'react'

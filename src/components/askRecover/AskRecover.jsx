@@ -85,7 +85,7 @@ const AskRecover = () => {
     <>{!isLoading ? 
       <div className={styles.container}>
         <h2>Prezado Usuário!</h2>
-        <div className="my-3 animate__animated animate__fadeIn">
+        <div className="animate__animated animate__fadeIn">
           <h3 className={styles.subtitle}>Para recuperar o acesso à plataforma, por favor, informe seu e-mail:</h3>
           <form 
             className="form" 

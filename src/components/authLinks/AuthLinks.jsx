@@ -9,11 +9,12 @@ import { useContext } from 'react'
 import { confirmAlert } from 'react-confirm-alert'
 import '@/utils/react-confirm-alert.css'
 import confirmAlertStyles from './../../utils/confirmAlert.module.css'
-// import Loading from "../loading/Loading"
+import { useRouter } from "next/navigation"
 
 const AuthLinks = ({open, setOpen}) => {
 
   const {status, data} = useSession()
+  const router = useRouter()
 
   const {theme} = useContext(ThemeContext)
   const themeClass = theme === 'dark' ? confirmAlertStyles.darkConfirmAlert : confirmAlertStyles.lightConfirmAlert
@@ -105,7 +106,14 @@ const AuthLinks = ({open, setOpen}) => {
         </> 
       ) : (
         <>
-          {!open && <span className={styles.name}>Olá, {data?.user?.name.substring(0, 8)}!</span>}
+          {!open && 
+          <span className={styles.name}>Olá, <span 
+              title="Seu perfil"
+              onClick={() => router.push("/usuario")}
+              style={{ textDecoration: 'underline', cursor: 'pointer' }}>
+                {data?.user?.name.substring(0, 8)}
+            </span>!
+          </span>}
           <Link href="/criar" className={styles.link}>Novo Post</Link>
           <span className="auth_btn" onClick={logOut}>Sair</span>
         </>

@@ -93,8 +93,8 @@ const PassSend = () => {
     <>
       {!isLoading ?
           <div className={styles.container}>
-            <h2 className="text-white p-4 font-bold text-[18px] block">Prezado Usuário!</h2>
-            <div className="my-3 animate__animated animate__fadeIn">
+            <h2>Prezado Usuário!</h2>
+            <div className="animate__animated animate__fadeIn">
               <h3 className={styles.subtitle}>Crie uma nova senha para recuperar o acesso ao seu perfil:</h3>
               <form 
                 className={styles.form} 
@@ -102,7 +102,6 @@ const PassSend = () => {
               >
                 <div className={styles.input_container}>
                   <input
-                    className='px-3 py-1 bg-transparent text-white rounded-md max-w-[600px] text-[16px] placeholder:text-white border border-white shadow-sm focus:outline-none focus:border-none focus:ring-[#9f50ac] focus:outline-[#9f50ac] focus:placeholder-transparent'
                     type="password" 
                     name="password"
                     minLength={5}
@@ -113,12 +112,11 @@ const PassSend = () => {
                 </div>
                 <div className="my-9">
                   <input
-                    className='px-3 py-1 bg-transparent text-white rounded-md max-w-[600px] text-[16px] placeholder:text-white border border-white shadow-sm focus:outline-none focus:border-none focus:ring-[#9f50ac] focus:outline-[#9f50ac] focus:placeholder-transparent'
                     type="password" 
                     name="password"
                     minLength={5}
                     autoComplete="on" 
-                    placeholder="senha nova" 
+                    placeholder="confirmar senha" 
                     required 
                   />
                 </div>
