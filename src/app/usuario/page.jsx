@@ -3,12 +3,11 @@ import styles from "./usuarioPage.module.css"
 import { signOut, useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
-// import Loading from "../loading"
 import { ThemeContext } from "@/context/ThemeContext"
 import { useContext } from 'react'
 import { confirmAlert } from 'react-confirm-alert'
 import '@/utils/react-confirm-alert.css'
-import confirmAlertStyles from './../../utils/confirmAlert.module.css'
+import confirmAlertStyles from '@/utils/confirmAlert.module.css'
 import Loading from "../loading"
 
 

@@ -1,7 +1,7 @@
 "use client"
 import { confirmAlert } from 'react-confirm-alert'
 import '@/utils/react-confirm-alert.css'
-import confirmAlertStyles from './../../utils/confirmAlert.module.css'
+import confirmAlertStyles from '@/utils/confirmAlert.module.css'
 import styles from './register.module.css'
 import { ThemeContext } from "@/context/ThemeContext"
 import { useContext } from 'react'

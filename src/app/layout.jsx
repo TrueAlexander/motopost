@@ -1,11 +1,11 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
-import Navbar from '@/components/navbar/Navbar'
-import Footer from '@/components/footer/Footer'
+import Navbar from '@/components/globals/navbar/Navbar'
+import Footer from '@/components/globals/footer/Footer'
 import { ThemeContextProvider } from '@/context/ThemeContext'
 import ThemeProvider from '@/providers/ThemeProvider'
 import AuthProvider from '@/providers/AuthProvider'
-import UpArrow from '@/components/upArrow/UpArrow'
+import UpArrow from '@/components/globals/upArrow/UpArrow'
 
 const inter = Inter({ subsets: ['latin'], weight: ['200', '300', '400', '600', '700' ] })
 

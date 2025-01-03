@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation"
 import { ThemeContext } from "@/context/ThemeContext"
 import { useContext } from 'react'
 import { confirmAlert } from 'react-confirm-alert'
-import confirmAlertStyles from './../../utils/confirmAlert.module.css'
+import confirmAlertStyles from '@/utils/confirmAlert.module.css'
 import '@/utils/react-confirm-alert.css'
 
 

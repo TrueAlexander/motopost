@@ -1,8 +1,8 @@
 import styles from "./singlePage.module.css"
 import Image from "next/image"
 import { formatDate } from "@/utils/dateFormat"
-import CatTitle from "@/components/catTitle/CatTitle"
-import Reactions from "@/components/reactions/Reactions"
+import CatTitle from "@/components/blog/catTitle/CatTitle"
+import Reactions from "@/components/blog/reactions/Reactions"
 // import Comments from "@/components/comments/Comments"
 
 const getPostBySlug = async (slug) => {

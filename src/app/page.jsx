@@ -1,7 +1,7 @@
 import styles from "./homepage.module.css"
-import CategoryList from "@/components/categoryList/CategoryList"
-import CardList from "@/components/cardList/CardList"
-import InfoModal from "@/components/infoModal/infoModal"
+import CategoryList from "@/components/blog/categoryList/CategoryList"
+import CardList from "@/components/blog/cardList/CardList"
+import InfoModal from "@/components/user/infoModal/infoModal"
 
 ///
 // import CreatePost from "@/components/createPost/CreatePost"

@@ -1,8 +1,8 @@
 'use client'
 import { useRouter, useSearchParams } from "next/navigation"
 import '@/utils/react-confirm-alert.css'
-import AskRecover from "@/components/askRecover/AskRecover"
-import PassSend from "@/components/passSend/PassSend"
+import AskRecover from "@/components/user/askRecover/AskRecover"
+import PassSend from "@/components/user/passSend/PassSend"
 import { useEffect, useState } from "react"
 import styles from "./recoverAccess.module.css"
 

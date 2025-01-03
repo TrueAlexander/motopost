@@ -1,6 +1,6 @@
-import CardList from "@/components/cardList/CardList"
+import CardList from "@/components/blog/cardList/CardList"
 import styles from "./blogPage.module.css"
-import CatTitle from "@/components/catTitle/CatTitle"
+import CatTitle from "@/components/blog/catTitle/CatTitle"
 
 const BlogPage = ({ searchParams }) => {
   const page = parseInt(searchParams.page) || 1

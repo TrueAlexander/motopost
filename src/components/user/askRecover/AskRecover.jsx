@@ -6,7 +6,7 @@ import Loading from "@/app/loading"
 import styles from "./askRecover.module.css"
 import { ThemeContext } from "@/context/ThemeContext"
 import { useContext } from 'react'
-import confirmAlertStyles from './../../utils/confirmAlert.module.css'
+import confirmAlertStyles from '@/utils/confirmAlert.module.css'
 
 const AskRecover = () => {
 

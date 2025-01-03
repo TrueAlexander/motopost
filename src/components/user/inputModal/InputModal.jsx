@@ -18,8 +18,6 @@ const InputModal = ({addEl, showModal, setShowModal}) => {
     // router.push('/')
   }
 
-  console.log("modal window: " + addEl)
-
   return (
     <div 
       className={showModal ? styles.modal_open : styles.modal_closed} 

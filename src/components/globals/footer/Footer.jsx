@@ -25,7 +25,6 @@ const Footer = () => {
           <span className={styles.listTitle}>Links</span>
           <Link className={styles.link} href="/">Home</Link>
           <Link className={styles.link} href="/">Contato</Link>
-          <Link className={styles.link} href="/">Login</Link>
         </div>
         <div className={styles.list}>
           <span className={styles.listTitle}>Categorías</span>
