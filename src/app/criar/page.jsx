@@ -4,10 +4,11 @@ import styles from "./criar.module.css"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
-import InputModal from "@/components/inputModal/InputModal"
+// import InputModal from "@/components/blog/inputModal/InputModal"
 import dynamic from "next/dynamic"
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
 import "react-quill/dist/quill.snow.css"
+import Loading from "./loading"
 
 
 const CriarPage = () => {
@@ -17,7 +18,7 @@ const CriarPage = () => {
 
   const [open, setOpen] = useState(false)
   const [content, setContent] = useState("")
-  const [erros, setErros] = useState({});
+  const [erros, setErros] = useState({})
   // const [mensagem, setMensagem] = useState("");
   // const [showModal, setShowModal] = useState(false);
   // const [file, setFile] = useState(null);
@@ -62,12 +63,11 @@ const CriarPage = () => {
   // }, [file]);
 
   if (status === "loading") {
-    return <div className={styles.loading}>Carregando...</div>
+    return (<Loading/>)
   }
 
   if (status === "unauthenticated") {
     router.push("/")
-    //to open login modal window
   }
 
   const slugify = (str) =>
@@ -78,12 +78,8 @@ const CriarPage = () => {
       .replace(/[\s_-]+/g, "-")
       .replace(/^-+|-+$/g, "")
 
-  
-
   const handleSubmit = async (e) => {
     e.preventDefault()
-
-   
 
     const newPost = {
       slug: slugify("main title forever"),
