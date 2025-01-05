@@ -4,6 +4,7 @@ import { formatDate } from "@/utils/dateFormat"
 import CatTitle from "@/components/blog/catTitle/CatTitle"
 import Reactions from "@/components/blog/reactions/Reactions"
 // import Comments from "@/components/comments/Comments"
+import ManagePostButtons from "@/components/blog/managePostButtons/ManagePostButtons"
 
 const getPostBySlug = async (slug) => {
 
@@ -64,6 +65,7 @@ const SinglePage = async ({params}) => {
             // className={styles.content}
             dangerouslySetInnerHTML={{ __html: data?.content }}
           />
+          <ManagePostButtons author={data?.author} slug={data?.slug}/>
           {/* <div className={styles.comment}>
             <Comments postSlug={slug}/>
           </div>       */}
