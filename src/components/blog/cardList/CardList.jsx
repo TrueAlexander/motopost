@@ -41,7 +41,7 @@ const CardList = async ({page, catSlug}) => {
     <div className={styles.container}>
       <h3 className={styles.title}>Postagens recentes</h3>
       <div className={styles.posts}>
-        {dataDB?.map((item, number) => (
+        {dataDB?.reverse().map((item, number) => (
           <Card item={item} key={number}/>
         ))}
       </div>

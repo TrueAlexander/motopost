@@ -19,7 +19,8 @@ const Card = ({item}) => {
         <Link href={`/posts/${item.slug}`}>
           <h2>{item.title}</h2>
         </Link>
-        <p className={styles.content}>{item.content}</p>
+        {/* <p className={styles.content} >{item.content}</p> */}
+        <p className={styles.content} dangerouslySetInnerHTML={{ __html: item.content }} />   
         <Link 
           href={`/posts/${item.slug}`} 
           className={styles.link}

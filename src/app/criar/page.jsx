@@ -9,6 +9,7 @@ import dynamic from "next/dynamic"
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
 import "react-quill/dist/quill.snow.css"
 import Loading from "./loading"
+import categoryName from "@/utils/categoryName"
 
 
 const CriarPage = () => {
@@ -24,8 +25,9 @@ const CriarPage = () => {
   // const [file, setFile] = useState(null);
   // const [media, setMedia] = useState("");
   // const [value, setValue] = useState("");
-  // const [title, setTitle] = useState("");
+  const [title, setTitle] = useState("");
   const [catSlug, setCatSlug] = useState("");
+  const [imgUrl, setImgUrl] = useState('');
 
   // useEffect(() => {
   //   const storage = getStorage(app);
@@ -82,35 +84,38 @@ const CriarPage = () => {
     e.preventDefault()
 
     const newPost = {
-      slug: slugify("main title forever"),
-      title: "",
+      slug: slugify(title),
+      title: title,
       content: content,
-      img: "/watch.png",
+      img: imgUrl,
       catSlug: catSlug || "noticias",
       author: session?.data?.user.name,
       authorEmail: session?.data?.user.email,
-      category: "notícias",
+      category: categoryName(catSlug),
     }
 
-    console.log(newPost)
-    
-    console.log("published")
+    try {
+      const res = await fetch("/api/create-post", {
+        method: "POST",
+        body: JSON.stringify(newPost),
+      })
 
-    // const res = await fetch("/api/posts", {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     title,
-    //     desc: value,
-    //     img: media,
-    //     slug: slugify(title),
-    //     catSlug: catSlug || "style", //If not selected, choose the general category
-    //   }),
-    // })
+      if (res.status === 200 || 201) {
+        // const data = await res.json()
+        // console.log(data)
+        router.push(`/posts/${newPost.slug}`)
+      }
 
-    // if (res.status === 200) {
-    //   const data = await res.json()
-    //   router.push(`/posts/${data.slug}`)
-    // }
+
+      
+    } catch (error) {
+      console.log(error)
+    }
+
+
+   
+
+
   }
 
   return (
@@ -132,12 +137,17 @@ const CriarPage = () => {
           type="text"
           placeholder="Título"
           className={styles.input}
-          // onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => setTitle(e.target.value)}
         />
         {erros.title && <p className={styles.error}>{erros.title}</p>}
         <h2 className={styles.title}>Adicione a imagem principal:</h2>
         {/* Add the URL of main image */}
-        <input type="text" placeholder="URL da imágem" className={styles.input} />
+        <input 
+          type="text" 
+          placeholder="URL da imágem" 
+          className={styles.input}
+          onChange={(e) => setImgUrl(e.target.value)}
+        />
         {erros.img && <p className={styles.error}>{erros.img}</p>}
         {/* Add the file of main image */}
         <input type="file" placeholder="file" className={styles.input} />
