@@ -6,8 +6,8 @@ import { useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
 // import InputModal from "@/components/blog/inputModal/InputModal"
 import dynamic from "next/dynamic"
-// const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
-// import "react-quill/dist/quill.snow.css"
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
+import "react-quill/dist/quill.snow.css"
 import Loading from "./loading"
 
 
@@ -143,12 +143,12 @@ const CriarPage = () => {
         <input type="file" placeholder="file" className={styles.input} />
         {/* Add the content */}
         <h2 className={styles.title}>Conteúdo da postagem:</h2>
-        {/* <ReactQuill
+        <ReactQuill
           value={content}
           onChange={setContent}
           className={styles.textEditor}
           placeholder="Escreva o conteúdo aqui..."
-        /> */}
+        />
         {erros.content && <p className={styles.error}>{erros.content}</p>}
 
         <button className="button" onClick={handleSubmit}>
