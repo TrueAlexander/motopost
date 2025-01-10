@@ -25,7 +25,6 @@ const getPostBySlug = async (slug) => {
   }  
 }
 
-
 const SinglePage = async ({params}) => {
 
   const {slug} = params
@@ -62,7 +61,7 @@ const SinglePage = async ({params}) => {
            dangerouslySetInnerHTML={{ __html: data?.desc }}
            /> */}
           <div 
-            // className={styles.content}
+            className={styles.content}
             dangerouslySetInnerHTML={{ __html: data?.content }}
           />
           <ManagePostButtons author={data?.author} slug={data?.slug}/>
