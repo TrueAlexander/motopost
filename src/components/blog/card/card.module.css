@@ -91,6 +91,8 @@
   border-bottom: 1px solid crimson;
   width: max-content;
   padding: 2px 0px;
+  display: block;
+  margin-bottom: 10px;
 }
 
 .link:active {
@@ -112,8 +114,14 @@
   }
 
   .link {
-    margin-top: -20px;
-    margin-bottom: 15px;
+    /* border-bottom: 1px solid crimson;
+    width: max-content;
+    padding: 2px 0px;
+    display: block;
+    margin-bottom: 10px; */
+
+    /* margin-top: -20px;
+    margin-bottom: 15px; */
   }
 
   .infoBox {

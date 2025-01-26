@@ -124,7 +124,7 @@ const ManagePostButtons = ({author, slug}) => {
          {!isLoading ? (<div className={styles.buttonContainer}>
             <button 
               className="button" 
-              // onClick={() => router.push(`/${postId}/edit`)}
+              onClick={() => router.push(`/posts/${slug}/edit`)}
             >
                 Editar
             </button>

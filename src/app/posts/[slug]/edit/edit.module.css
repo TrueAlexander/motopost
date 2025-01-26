@@ -1,0 +1,93 @@
+.container{
+  margin-top: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.main_title {
+  font-weight: normal;
+  text-align: center;
+}
+
+.title {
+  font-weight: normal;
+  font-size: 16px;
+}
+
+.select {
+  font-size: 18px;
+  margin: 25px 0;
+  padding: 3px 15px;
+  width: max-content;
+  background-color: var(--bg);
+  color: var(--textColor);
+  border-radius: 10px;
+  border-color: crimson;
+}
+
+.select:hover {
+  box-shadow: 0 0 5px crimson;
+}
+
+.textEditor {
+  margin: 25px 0;
+  color: var(--textColor);
+  /* display: flex;
+  gap: 20px;
+  height: 700px;
+  position: relative; */
+}
+
+/* .button,
+.addButton {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 1px solid var(--textColor);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+} */
+
+/* .addButton {
+  border-color: #1a8917;
+}
+
+.add {
+  display: flex;
+  gap: 20px;
+  background-color: var(--bg);
+  position: absolute;
+  z-index: 999;
+  width: 100%;
+  left: 50px;
+} */
+
+.input{
+  padding: 5px 20px;
+  font-size: 20px;
+  background-color: transparent;
+  color: var(--textColor);
+  margin: 25px 0;
+  width: max-content;
+}
+
+.input::placeholder{
+  color: var(--textColor);
+  font-size: 16px;
+}
+/* 
+.publish{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #1a8917;
+  color: white;
+  cursor: pointer;
+  border-radius: 20px;
+} */
