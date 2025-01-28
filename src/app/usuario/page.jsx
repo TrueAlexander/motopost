@@ -17,8 +17,6 @@ const UsuarioPage = () => {
   const userName = data?.user.name
   const router = useRouter()
 
-
-
   const {theme} = useContext(ThemeContext)
   const themeClass = theme === 'dark' ? confirmAlertStyles.darkConfirmAlert : confirmAlertStyles.lightConfirmAlert
 

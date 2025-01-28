@@ -64,13 +64,12 @@ const CriarPage = () => {
   //   file && upload();
   // }, [file]);
 
-  if (status === "loading") {
-    return (<Loading/>)
-  }
-
-  if (status === "unauthenticated") {
-    router.push("/")
-  }
+  useEffect(() => {
+    // Redirect to home page if the user is unauthenticated
+    if (status === "unauthenticated") {
+      router.push("/")
+    }
+  }, [status, router]) // Run when status or router changes
 
   const slugify = (str) =>
     str
@@ -118,98 +117,101 @@ const CriarPage = () => {
 
   }
 
-  return (
-    <div className={styles.container}>
-      {/* choose the category */}
-      <h2 className={styles.title}>Escolha uma categoria de sua postagem:</h2>
-      <select className={styles.select} onChange={(e) => setCatSlug(e.target.value)}>
-        <option value="noticias">Notícias</option>
-        <option value="viagens">Viagens</option>
-        <option value="oficina">Oficína</option>
-        <option value="dicas">Dicas</option>
-        <option value="estilo">Estilo</option>
-        <option value="outro">Outro</option>
-      </select> 
-      <form className="" onSubmit={handleSubmit}>
-      {/* Add the title */}
-      <h2 className={styles.title}>Escreve o título da postagem:</h2>
-        <input
-          type="text"
-          placeholder="Título"
-          className={styles.input}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        {erros.title && <p className={styles.error}>{erros.title}</p>}
-        <h2 className={styles.title}>Adicione a imagem principal:</h2>
-        {/* Add the URL of main image */}
-        <input 
-          type="text" 
-          placeholder="URL da imágem" 
-          className={styles.input}
-          onChange={(e) => setImgUrl(e.target.value)}
-        />
-        {erros.img && <p className={styles.error}>{erros.img}</p>}
-        {/* Add the file of main image */}
-        <input type="file" placeholder="file" className={styles.input} />
-        {/* Add the content */}
-        <h2 className={styles.title}>Conteúdo da postagem:</h2>
-        <ReactQuill
-          value={content}
-          onChange={setContent}
-          className={styles.textEditor}
-          placeholder="Escreva o conteúdo aqui..."
-        />
-        {erros.content && <p className={styles.error}>{erros.content}</p>}
-
-        <button className="button" onClick={handleSubmit}>
-          Publicar
-        </button>
-      </form>
-
-      
-      
-      
-      {/* <h2>Conteúdo da postagem:</h2>
-      <div className="post_content">
-        <h3>Escolhe um elemento para adicionar a postagem:</h3>
-        <div>
-          <button className="button" onClick={handleClickAdd}>subtítulo</button>
-          <button className="button" onClick={handleClickAdd}>parágrafo</button>
-          <button className="button" onClick={handleClickAdd}>imagens adicionais</button>
-          <button className="button" onClick={handleClickAdd}>Youtube Links</button>
-        </div>
-        <div>{content}</div>
-      </div> */}
-
-      {/* <div className={styles.editor}>
-        <button className={styles.button} onClick={() => setOpen(!open)}>
-          <Image src="/plus.png" alt="" width={16} height={16} />
-        </button>
-        {open && (
-          <div className={styles.add}>
-            <input
-              type="file"
-              id="image"
-              onChange={(e) => setFile(e.target.files[0])}
-              style={{ display: "none" }}
-            />
-            <button className={styles.addButton}>
-              <label htmlFor="image">
-                <Image src="/image.png" alt="" width={16} height={16} />
-              </label>
-            </button>
-            <button className={styles.addButton}>
-              <Image src="/external.png" alt="" width={16} height={16} />
-            </button>
-            <button className={styles.addButton}>
-              <Image src="/video.png" alt="" width={16} height={16} />
-            </button>
+  if (status === "authenticated") {
+    return (
+      <div className={styles.container}>
+        {/* choose the category */}
+        <h2 className={styles.title}>Escolha uma categoria de sua postagem:</h2>
+        <select className={styles.select} onChange={(e) => setCatSlug(e.target.value)}>
+          <option value="noticias">Notícias</option>
+          <option value="viagens">Viagens</option>
+          <option value="oficina">Oficína</option>
+          <option value="dicas">Dicas</option>
+          <option value="estilo">Estilo</option>
+          <option value="outro">Outro</option>
+        </select> 
+        <form className="" onSubmit={handleSubmit}>
+        {/* Add the title */}
+        <h2 className={styles.title}>Escreve o título da postagem:</h2>
+          <input
+            type="text"
+            placeholder="Título"
+            className={styles.input}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          {erros.title && <p className={styles.error}>{erros.title}</p>}
+          <h2 className={styles.title}>Adicione a imagem principal:</h2>
+          {/* Add the URL of main image */}
+          <input 
+            type="text" 
+            placeholder="URL da imágem" 
+            className={styles.input}
+            onChange={(e) => setImgUrl(e.target.value)}
+          />
+          {erros.img && <p className={styles.error}>{erros.img}</p>}
+          {/* Add the file of main image */}
+          <input type="file" placeholder="file" className={styles.input} />
+          {/* Add the content */}
+          <h2 className={styles.title}>Conteúdo da postagem:</h2>
+          <ReactQuill
+            value={content}
+            onChange={setContent}
+            className={styles.textEditor}
+            placeholder="Escreva o conteúdo aqui..."
+          />
+          {erros.content && <p className={styles.error}>{erros.content}</p>}
+  
+          <button className="button" onClick={handleSubmit}>
+            Publicar
+          </button>
+        </form>
+  
+        
+        
+        
+        {/* <h2>Conteúdo da postagem:</h2>
+        <div className="post_content">
+          <h3>Escolhe um elemento para adicionar a postagem:</h3>
+          <div>
+            <button className="button" onClick={handleClickAdd}>subtítulo</button>
+            <button className="button" onClick={handleClickAdd}>parágrafo</button>
+            <button className="button" onClick={handleClickAdd}>imagens adicionais</button>
+            <button className="button" onClick={handleClickAdd}>Youtube Links</button>
           </div>
-        )}
-
-      </div> */}
-    </div>
-  );
+          <div>{content}</div>
+        </div> */}
+  
+        {/* <div className={styles.editor}>
+          <button className={styles.button} onClick={() => setOpen(!open)}>
+            <Image src="/plus.png" alt="" width={16} height={16} />
+          </button>
+          {open && (
+            <div className={styles.add}>
+              <input
+                type="file"
+                id="image"
+                onChange={(e) => setFile(e.target.files[0])}
+                style={{ display: "none" }}
+              />
+              <button className={styles.addButton}>
+                <label htmlFor="image">
+                  <Image src="/image.png" alt="" width={16} height={16} />
+                </label>
+              </button>
+              <button className={styles.addButton}>
+                <Image src="/external.png" alt="" width={16} height={16} />
+              </button>
+              <button className={styles.addButton}>
+                <Image src="/video.png" alt="" width={16} height={16} />
+              </button>
+            </div>
+          )}
+  
+        </div> */}
+      </div>
+    )
+  }
+  return <Loading />
 }
 
 export default CriarPage
