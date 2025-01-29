@@ -11,9 +11,8 @@ export const PUT = async (request, {params}) => {
   await connect()
 
   try {
-    console.log("slug: ", slug)
     const post = await Post.findOneAndUpdate(
-      slug,                                           
+      {slug},                                           
       { $set: { 
         slug: postData.slug,
         title: postData.title,
@@ -26,8 +25,6 @@ export const PUT = async (request, {params}) => {
       } },  
       { new: true }  
     )
-
-    console.log(post)
 
     if (!post) {
       return new NextResponse("Post not found", {
@@ -46,26 +43,3 @@ export const PUT = async (request, {params}) => {
     })
   }
 }
-
-
-// export const PUT = async (request, {params}) => {
-
-//   const {id} = params;
-//   const body = await request.json()
-
-//   try{
-//      await connect();
-//      const post = await Post.findByIdAndUpdate(id, 
-//       { title: body.newTitle, content: body.newContent , img: body.newImg}, 
-//       { new: true } )
-//       if (!post) {
-//           return new NextResponse("Post was not found", {status: 404});
-//       }
-//       return new NextResponse("Post was updated successfully", {status: 200});
-
-//   }catch(err){
-//       console.log(err)
-//       return new NextResponse("Database Error",{status: 500});
-//   }
-  
-// }

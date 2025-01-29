@@ -4,7 +4,6 @@ import styles from "./criar.module.css"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
-// import InputModal from "@/components/blog/inputModal/InputModal"
 import dynamic from "next/dynamic"
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
 import "react-quill/dist/quill.snow.css"
@@ -17,7 +16,7 @@ const CriarPage = () => {
   const { status } = useSession()
   const router = useRouter()
 
-  const [open, setOpen] = useState(false)
+  // const [open, setOpen] = useState(false)
   const [content, setContent] = useState("")
   const [erros, setErros] = useState({})
   // const [mensagem, setMensagem] = useState("");
@@ -25,44 +24,9 @@ const CriarPage = () => {
   // const [file, setFile] = useState(null);
   // const [media, setMedia] = useState("");
   // const [value, setValue] = useState("");
-  const [title, setTitle] = useState("");
-  const [catSlug, setCatSlug] = useState("");
-  const [imgUrl, setImgUrl] = useState('');
-
-  // useEffect(() => {
-  //   const storage = getStorage(app);
-  //   const upload = () => {
-  //     const name = new Date().getTime() + file.name;
-  //     const storageRef = ref(storage, name);
-
-  //     const uploadTask = uploadBytesResumable(storageRef, file);
-
-  //     uploadTask.on(
-  //       "state_changed",
-  //       (snapshot) => {
-  //         const progress =
-  //           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-  //         console.log("Upload is " + progress + "% done");
-  //         switch (snapshot.state) {
-  //           case "paused":
-  //             console.log("Upload is paused");
-  //             break;
-  //           case "running":
-  //             console.log("Upload is running");
-  //             break;
-  //         }
-  //       },
-  //       (error) => {},
-  //       () => {
-  //         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-  //           setMedia(downloadURL);
-  //         });
-  //       }
-  //     );
-  //   };
-
-  //   file && upload();
-  // }, [file]);
+  const [title, setTitle] = useState("")
+  const [catSlug, setCatSlug] = useState("noticias")
+  const [imgUrl, setImgUrl] = useState('')
 
   useEffect(() => {
     // Redirect to home page if the user is unauthenticated
@@ -87,7 +51,7 @@ const CriarPage = () => {
       title: title,
       content: content,
       img: imgUrl,
-      catSlug: catSlug || "noticias",
+      catSlug: catSlug,
       author: session?.data?.user.name,
       authorEmail: session?.data?.user.email,
       category: categoryName(catSlug),
@@ -103,18 +67,10 @@ const CriarPage = () => {
         // const data = await res.json()
         // console.log(data)
         router.push(`/posts/${newPost.slug}`)
-      }
-
-
-      
+      }  
     } catch (error) {
       console.log(error)
     }
-
-
-   
-
-
   }
 
   if (status === "authenticated") {
@@ -122,7 +78,11 @@ const CriarPage = () => {
       <div className={styles.container}>
         {/* choose the category */}
         <h2 className={styles.title}>Escolha uma categoria de sua postagem:</h2>
-        <select className={styles.select} onChange={(e) => setCatSlug(e.target.value)}>
+        <select 
+          className={styles.select}
+          value={catSlug} 
+          onChange={(e) => setCatSlug(e.target.value)}
+        >
           <option value="noticias">Notícias</option>
           <option value="viagens">Viagens</option>
           <option value="oficina">Oficína</option>

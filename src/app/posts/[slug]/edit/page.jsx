@@ -8,20 +8,24 @@ import { useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
 import Loading from "./loading"
 import categoryName from "@/utils/categoryName"
+import { ThemeContext } from "@/context/ThemeContext"
+import { useContext } from 'react'
+import confirmAlertStyles from '@/utils/confirmAlert.module.css'
+import '@/utils/react-confirm-alert.css'
+import { confirmAlert } from 'react-confirm-alert'
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
 
 const EditPostPage = () => {
 
   const router = useRouter()
-
   const { status } = useSession()
+  const {theme} = useContext(ThemeContext)
+  const themeClass = theme === 'dark' ? confirmAlertStyles.darkConfirmAlert : confirmAlertStyles.lightConfirmAlert
 
-  const [post, setPost] = useState(null);
-  // const [erros, setErros] = useState({});
   // const [mensagem, setMensagem] = useState("");
   // const [showModal, setShowModal] = useState(false);
-  const [open, setOpen] = useState(false)
+  // const [open, setOpen] = useState(false)
   const [content, setContent] = useState("")
   const [erros, setErros] = useState({})
   const [title, setTitle] = useState("")
@@ -45,12 +49,10 @@ const EditPostPage = () => {
 
         if (data.status === 201) {
           const { res } = await data.json() 
-            setPost(res)
-            setContent(res.content || "")
+            setContent(res.content)
             setImgUrl(res.img)
             setTitle(res.title)
-          } else {
-            setPost(null) 
+            setCatSlug(res.catSlug)
           }
         }     
        catch (error) {
@@ -77,12 +79,10 @@ const EditPostPage = () => {
       content: content,
       img: imgUrl,
       catSlug: catSlug,
-      author: session?.data?.user.name,
-      authorEmail: session?.data?.user.email,
+      // author: session?.data?.user.name,
+      // authorEmail: session?.data?.user.email,
       category: categoryName(catSlug),
     }
-
-   
 
     try {
       const res = await fetch(`/api/edit-post/${slug}`, {
@@ -94,28 +94,50 @@ const EditPostPage = () => {
     })
   
       if (res.ok) {
-          alert("O post foi editado com sucesso")
-          router.push(`posts/${slug}`);
-          // window.location.href = `/${id}`;
+          confirmAlert({
+            customUI: ({ onClose }) => (
+              <div className={themeClass}>
+                <p>A postagem foi editada com sucesso</p>
+                <button 
+                  className="button"
+                  onClick={() => { onClose(); router.push(`/posts/${updatedPost.slug}`);  }}
+                >
+                  Ok
+                </button>
+              </div>
+            )
+          })
         } else {
-          alert("Erro ao editar o post.");
+          confirmAlert({
+            customUI: ({ onClose }) => (
+              <div className={themeClass}>
+                <p>Erro ao editar a postagem.</p> <p>Por favor, tente editar mais tarde.</p>
+                <button 
+                  className="button"
+                  onClick={() => { onClose(); }}
+                >
+                  Ok
+                </button>
+              </div>
+            )
+          })
         }
     } catch (err) {
       console.log(err);
-      alert("Erro do lado de servidor.");
+      confirmAlert({
+        customUI: ({ onClose }) => (
+          <div className={themeClass}>
+            <p>Erro ao editar a postagem. Por favor, tente editar mais tarde.</p>
+            <button 
+              className="button"
+              onClick={() => { onClose(); }}
+            >
+              Ok
+            </button>
+          </div>
+        )
+      })
     }
-  }
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setPost((prevPost) => ({
-      ...prevPost,
-      [name]: value
-    }));
-  }
-
-  const handleContentChange = (event) => {
-    setContent(event)
   }
 
   useEffect(() => {
@@ -130,7 +152,10 @@ const EditPostPage = () => {
       <div className={styles.container}>
         <h2 className={styles.main_title}>Editar post</h2>
         <h2 className={styles.title}>Categoria:</h2>
-          <select className={styles.select} onChange={(e) => setCatSlug(e.target.value)}>
+          <select 
+            className={styles.select}
+            value={catSlug}
+            onChange={(e) => setCatSlug(e.target.value)}>
             <option value="noticias">Notícias</option>
             <option value="viagens">Viagens</option>
             <option value="oficina">Oficína</option>
@@ -187,106 +212,6 @@ const EditPostPage = () => {
 }
 
 export default EditPostPage
-
-
-
-
-
-
- 
-
-  
-
-  // if (status === "loading") {
-  //   return (<Loading/>)
-  // }
-
-  // if (status === "unauthenticated") {
-  //   router.push("/")
-  // }
-
-  // const slugify = (str) =>
-  //   str
-  //     .toLowerCase()
-  //     .trim()
-  //     .replace(/[^\w\s-]/g, "")
-  //     .replace(/[\s_-]+/g, "-")
-  //     .replace(/^-+|-+$/g, "")
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault()
-
-  //   const newPost = {
-  //     slug: slugify(title),
-  //     title: title,
-  //     content: content,
-  //     img: imgUrl,
-  //     catSlug: catSlug || "noticias",
-  //     author: session?.data?.user.name,
-  //     authorEmail: session?.data?.user.email,
-  //     category: categoryName(catSlug),
-  //   }
-
-  //   try {
-  //     const res = await fetch("/api/create-post", {
-  //       method: "POST",
-  //       body: JSON.stringify(newPost),
-  //     })
-
-  //     if (res.status === 200 || 201) {
-  //       router.push(`/posts/${newPost.slug}`)
-  //     }
-  
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-
-  // return (
-  //   <div className={styles.container}>
-  //     <h2 className={styles.title}>Escolha uma categoria de sua postagem:</h2>
-  //     <select className={styles.select} onChange={(e) => setCatSlug(e.target.value)}>
-  //       <option value="noticias">Notícias</option>
-  //       <option value="viagens">Viagens</option>
-  //       <option value="oficina">Oficína</option>
-  //       <option value="dicas">Dicas</option>
-  //       <option value="estilo">Estilo</option>
-  //       <option value="outro">Outro</option>
-  //     </select> 
-  //     <form className="" onSubmit={handleSubmit}>
-  //     <h2 className={styles.title}>Escreve o título da postagem:</h2>
-  //       <input
-  //         type="text"
-  //         placeholder="Título"
-  //         className={styles.input}
-  //         onChange={(e) => setTitle(e.target.value)}
-  //       />
-  //       {erros.title && <p className={styles.error}>{erros.title}</p>}
-  //       <h2 className={styles.title}>Adicione a imagem principal:</h2>
-  //       <input 
-  //         type="text" 
-  //         placeholder="URL da imágem" 
-  //         className={styles.input}
-  //         onChange={(e) => setImgUrl(e.target.value)}
-  //       />
-  //       {erros.img && <p className={styles.error}>{erros.img}</p>}
-  //       <input type="file" placeholder="file" className={styles.input} />
-  //       <h2 className={styles.title}>Conteúdo da postagem:</h2>
-  //       <ReactQuill
-  //         value={content}
-  //         onChange={setContent}
-  //         className={styles.textEditor}
-  //         placeholder="Escreva o conteúdo aqui..."
-  //       />
-  //       {erros.content && <p className={styles.error}>{erros.content}</p>}
-
-  //       <button className="button" onClick={handleSubmit}>
-  //         Publicar
-  //       </button>
-  //     </form> 
-  //   </div>
-  // )
-
 
   
 
