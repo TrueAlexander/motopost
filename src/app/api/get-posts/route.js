@@ -5,15 +5,33 @@ import { NextResponse } from "next/server"
 export const POST = async (request) => {
 
   await connect()
-  const { catSlug } = await request.json() 
+  const { page, catSlug } = await request.json() 
+
+  const POST_PER_PAGE = 5
   
   try {
-    const postsArray = catSlug ? await Post.find({catSlug: catSlug}) : await Post.find({})
+  
+    /////
+    if(catSlug) {
+      const postsPromise = Post.find({catSlug: catSlug}).sort({ createdAt: -1 }).skip(POST_PER_PAGE * (page - 1)).limit(POST_PER_PAGE)
+      const countPromise = Post.countDocuments({catSlug: catSlug})
 
-    // if (postsArray.length > 0) { 
-    //   return NextResponse.json({ res: postsArray }, { status: 201 })
-    // }
-    return NextResponse.json({ res: postsArray }, { status: 201 })
+      // Wait for both queries to resolve
+      const [posts, count] = await Promise.all([postsPromise, countPromise]);
+
+      return new NextResponse(JSON.stringify({ posts, count }, { status: 201 }))
+
+    } else {
+      const postsPromise = Post.find({}).sort({ createdAt: -1 }).skip(POST_PER_PAGE * (page - 1)).limit(POST_PER_PAGE)
+      const countPromise = Post.countDocuments()
+
+      // Wait for both queries to resolve
+      const [posts, count] = await Promise.all([postsPromise, countPromise])
+      console.log("backend posts all: ", posts)
+      return new NextResponse(JSON.stringify({ posts, count }, { status: 201 }))
+    }
+
+   
     
   } catch (error) {
     console.log(error)
