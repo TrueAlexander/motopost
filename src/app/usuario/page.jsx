@@ -178,14 +178,12 @@ const UsuarioPage = () => {
             <button 
               title="suas postagens" 
               className="button"
-              disabled
+              onClick={() => router.push(`/blog/?author=${userName}`)}
             >
               Postagens</button>
             <button 
               className="button"
-              // onClick={changePassword}
               onClick={() => router.push("/recover-access")}
-
             >
               Alterar Senha</button>
             <button 

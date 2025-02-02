@@ -31,8 +31,6 @@ const SinglePage = async ({params}) => {
 
   const data = await getPostBySlug(slug)
 
-  console.log(data)
-
   return (
     <div className={styles.container}>
       <CatTitle cat={data.category} catSlug={data.catSlug}/>

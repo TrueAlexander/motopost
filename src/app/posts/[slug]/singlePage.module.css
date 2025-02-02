@@ -11,7 +11,7 @@
 }
 
 .title {
-  font-size: 34px;
+  font-size: 1.5rem;
   margin-top: 25px;
 }
 
@@ -62,21 +62,18 @@
   object-fit: cover;
 }
 
-.content {
-  /* display: flex;
-  gap: 50px; */
-}
-
 .post {
+  
   flex: 5;
   margin-top: 35px;
-  /* border: 1px solid grey; */
-  padding: 5px;
+  padding: 15px 15px;
+  text-align: justify;
 }
 
 .content {
-  font-size: 17px;
-  line-height: 23px;
+  font-size: 16px;
+  text-indent: 30px;
+  line-height: 24px;
   font-weight: 400;
   margin-bottom: 25px;
 }
@@ -99,7 +96,7 @@
     margin: 0 auto;
   }
   .title {
-    font-size: 28px;
+    /* font-size: 28px; */
     margin: 10px 0 15px;
   }
   .username {
@@ -107,6 +104,7 @@
   }
   .post {
     margin-top: 25px;
+    padding: 10px 10px;
 
   }
 }
