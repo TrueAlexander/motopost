@@ -21,7 +21,7 @@ const CategoryList = () => {
               ? styles.dicas : item === 'estilo' 
               ? styles.estilo : item === 'outro' 
               ? styles.outro : ''} `}
-            key={item._id}
+            key={index}
           >
             {categories[index]}
           </Link>

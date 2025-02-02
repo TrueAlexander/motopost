@@ -18,7 +18,6 @@ export const POST = async (request) => {
 
       // Wait for both queries to resolve
       const [posts, count] = await Promise.all([postsPromise, countPromise]);
-
       return new NextResponse(JSON.stringify({ posts, count }, { status: 201 }))
 
     } else {
@@ -27,12 +26,9 @@ export const POST = async (request) => {
 
       // Wait for both queries to resolve
       const [posts, count] = await Promise.all([postsPromise, countPromise])
-      console.log("backend posts all: ", posts)
       return new NextResponse(JSON.stringify({ posts, count }, { status: 201 }))
     }
-
-   
-    
+ 
   } catch (error) {
     console.log(error)
     return new NextResponse(error.message, {
