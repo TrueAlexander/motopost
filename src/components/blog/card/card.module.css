@@ -26,7 +26,6 @@
 
 .imageContainer {
   flex: 1;
-  
   height: 400px;
   position: relative;
 }
@@ -36,11 +35,18 @@
 }
 
 .textContainer {
-  flex: 1;
   display: flex;
-  flex-direction: column;
-  gap: 30px;
+  flex-direction: row-reverse;
+  gap: 30px;  
+}
+
+.column {
+  flex: 1;
   padding: 15px 15px 0;
+}
+
+.column:last-child {
+  padding: 0 0 0;
 }
 
 .date {
@@ -53,6 +59,7 @@
 }
 
 .infoBox {
+  margin: 20px 0;
   position: relative;
 }
 
@@ -66,16 +73,29 @@
   font-size: 16px;
 }
 
+.post_link {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  margin-bottom: 15px;
+}
+
 .content {
   text-indent: 30px;
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  height: 150px;
+  height: 210px;
   overflow: hidden;
   color: var(--softTextColor);
   position: relative;
   text-align: justify;
+}
+
+.content h3 {
+  margin: 10px 0;
 }
 
 .content::after {
@@ -100,14 +120,15 @@
   border-bottom: 2px solid crimson;
 }
 
-@media screen and (max-width: 1280px) {
+@media screen and (max-width: 1100px) {
   .container {
     display: block;
   }
   .textContainer {
-    padding: 10px 10px 0;
+    flex-direction: column;
+    gap: 0;  
   }
-  
+
   .imageContainer {
     /* max-width: 600px; */
     max-height: 450px;
@@ -126,8 +147,7 @@
   }
 
   .infoBox {
-    margin-top: -20px;
-    /* border: 1px solid; */
+    margin: 15px 0;
   }
   
 }
