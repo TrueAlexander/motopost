@@ -66,6 +66,18 @@ a {
   font-weight: 600;
 }
 
+h2 {
+  font-size: 24px;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+ul {
+  list-style-position: inside;
+}
+
 .button {
   width: 100px;
   border: none;
@@ -204,6 +216,12 @@ input:focus::placeholder {
     /* max-width: 768px; */
     padding-left: 30px;
     padding-right: 30px;
+  }
+  h2 {
+    font-size: 20px;
+  }
+  h3 {
+    font-size: 18px;
   }
 }
 

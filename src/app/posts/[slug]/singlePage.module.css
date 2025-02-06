@@ -1,42 +1,5 @@
-.infoContainer {
-  margin-top: 20px;
-  display: flex;
-  align-items: center;
-  gap: 50px;
-  
-}
-
-.textContainer {
-  flex: 1;
-}
-
-.title {
-  font-size: 1.5rem;
+.detailsContainer {
   margin-top: 25px;
-}
-
-.user {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.date {
-  color: grey;
-}
-
-/* .userImageContainer {
-  width: 50px;
-  height: 50px;
-  position: relative;
-} */
-
-/* .avatar {
-  border-radius: 50%;
-  object-fit: cover;
-} */
-
-.userTextContainer {
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -44,6 +7,7 @@
   padding-bottom: 10px;
   position: relative;
   width: 100%;
+
 }
 
 .username {
@@ -52,22 +16,42 @@
   color: crimson;
 }
 
+.title {
+  margin-top: 25px;
+}
+
+
+.date {
+  color: grey;
+}
+
+.infoContainer {
+  margin-top: 20px;
+}
+
+
 .imageContainer {
-  flex: 1;
-  height: 350px;
+  height: 500px;
+  width: 55%;
   position: relative;
+  float: left;
+  margin-right: 15px;
+  padding-right: 15px;
+  overflow: hidden;
 }
 
 .image {
-  object-fit: cover;
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
 }
 
-.post {
-  
-  flex: 5;
+.contentContainer {
+
+  /* flex: 5;
   margin-top: 35px;
   padding: 15px 15px;
-  text-align: justify;
+  text-align: justify; */
 }
 
 .content {
@@ -76,45 +60,70 @@
   line-height: 24px;
   font-weight: 400;
   margin-bottom: 25px;
+  text-align: justify;
 }
 
-@media screen and (max-width: 1536px) {
-  /* .title {
-    font-size: 20px;
-  } */
+.content h3 {
+  margin: 10px 0;
 }
-@media screen and (max-width: 1280px) {
-  .title {
-    /* font-size: 48px; */
-  }
-}
+
 @media screen and (max-width: 1024px) {
+  .detailsContainer {
+    margin-top: 15px;
+  }
+
   .infoContainer {
     display: block;
   }
-  .imageContainer {
+
+  .imageContainer { 
     margin: 0 auto;
+    float: none;
+    width: 100%;
   }
+
   .title {
-    /* font-size: 28px; */
     margin: 10px 0 15px;
   }
+
   .username {
     font-size: 18px;
   }
-  .post {
+
+  .contentContainer {
     margin-top: 25px;
     padding: 10px 10px;
 
   }
 }
-@media screen and (max-width: 640px) {
+
+@media screen and (max-width: 768px) {
+  .detailsContainer {
+    margin-top: 10px;
+  }
+
   .imageContainer {
-    height: 280px;
+    height: 350px;
   }
 
+  
+}
 
-  .description p{
-    font-size: 18px;
+
+@media screen and (max-width: 500px) {
+
+  .imageContainer {
+    height: 300px;
   }
+
+  
+}
+
+@media screen and (max-width: 430px) {
+
+  .imageContainer {
+    height: 235px;
+  }
+
+  
 }

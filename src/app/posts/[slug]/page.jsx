@@ -25,7 +25,7 @@ const getPostBySlug = async (slug) => {
   }  
 }
 
-const SinglePage = async ({params}) => {
+const SinglePostPage = async ({params}) => {
 
   const {slug} = params
 
@@ -33,31 +33,18 @@ const SinglePage = async ({params}) => {
 
   return (
     <div className={styles.container}>
-      <CatTitle cat={data.category} catSlug={data.catSlug}/>
+      <CatTitle cat={data.category} catSlug={data.catSlug}/>  
+      <div className={styles.detailsContainer}>
+        <Reactions id={data._id} />
+        <span className={styles.username}>{data?.author}</span>
+        <span className={styles.date}>{formatDate(data.createdAt)}</span>
+      </div>
+      <h2 className={styles.title}>{data?.title}</h2>
       <div className={styles.infoContainer}>
-        <div className={styles.textContainer}>
-          <div className={styles.user}>
-            {/* {data?.user?.image && <div className={styles.userImageContainer} >
-              <Image src={data.user.image} alt="image avatar" fill className={styles.avatar} />
-            </div>} */}
-            <div className={styles.userTextContainer}>
-              <Reactions id={data._id} />
-              <span className={styles.username}>{data?.author}</span>
-              <span className={styles.date}>{formatDate(data.createdAt)}</span>
-            </div>
-          </div>
-          <h2 className={styles.title}>{data?.title}</h2>
-        </div>
         {data?.img && <div className={styles.imageContainer}>
           <Image src={data.img} alt={data.title} title={data.title} fill className={styles.image} />
         </div>}
-      </div>
-      <div className={styles.content}>
-        <div className={styles.post}>
-          {/* <div
-           className={styles.description} 
-           dangerouslySetInnerHTML={{ __html: data?.desc }}
-           /> */}
+        <div className={styles.contentContainer}>
           <div 
             className={styles.content}
             dangerouslySetInnerHTML={{ __html: data?.content }}
@@ -68,9 +55,10 @@ const SinglePage = async ({params}) => {
           </div>       */}
         </div>
       </div>
+
     </div>
   )
 }
 
-export default SinglePage
+export default SinglePostPage
 
