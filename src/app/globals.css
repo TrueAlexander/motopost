@@ -74,7 +74,7 @@ h3 {
   font-size: 20px;
 }
 
-ul {
+ul, ol {
   list-style-position: inside;
 }
 
