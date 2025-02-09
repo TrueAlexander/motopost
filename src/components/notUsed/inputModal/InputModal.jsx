@@ -1,6 +1,6 @@
 'use client'
-import Login from "../login/Login"
-import Register from "../register/Register"
+import Login from "../../user/login/Login"
+import Register from "../../user/register/Register"
 import { IoClose } from "react-icons/io5"
 import "animate.css"
 import { useState } from "react"

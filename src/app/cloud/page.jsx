@@ -11,12 +11,19 @@ export default function Page() {
   const handleSuccess = (result) => setImageId(result.info.public_id)
   const handleError = (error) => console.error('Error uploading:', error)
 
+
+  const postId = "post0123456"
+
   return (
     <div>
       <CldUploadWidget
         uploadPreset="upload_moto" // Make sure this is correctly configured in your Cloudinary account
         onSuccess={handleSuccess}
         onError={handleError} // Add an error handler to log any errors
+        options={{
+          folder: `${postId}`, // Specify the folder here (nested folders allowed)
+          resource_type: 'image', // You can specify other resource types like video
+        }}
       >
         {({ open }) => {
           return (
