@@ -65,7 +65,11 @@ const postSchema = new Schema(
     moderated: {
       type: Boolean,
       default: false
-    }
+    },
+    folderId: {
+      type: String,
+      required: true,
+    },
 
   },
   { timestamps: true }

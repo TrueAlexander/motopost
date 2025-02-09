@@ -9,6 +9,7 @@ const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
 import "react-quill/dist/quill.snow.css"
 import Loading from "./loading"
 import categoryName from "@/utils/categoryName"
+import CloudUploadElement from "@/components/blog/cloudUploadElement/CloudUploadElement"
 
 
 const CriarPage = () => {
@@ -27,6 +28,11 @@ const CriarPage = () => {
   const [title, setTitle] = useState("")
   const [catSlug, setCatSlug] = useState("noticias")
   const [imgUrl, setImgUrl] = useState('')
+  ///folderId(folder) and imageId(main image name) for cloudinary
+  // const [folderId, setFolderId] = useState('')
+  const [imageId, setImageId] = useState('')
+
+  console.log("imageId: ", imageId)
 
   useEffect(() => {
     // Redirect to home page if the user is unauthenticated
@@ -46,31 +52,46 @@ const CriarPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    const newPost = {
-      slug: slugify(title),
-      title: title,
-      content: content,
-      img: imgUrl,
-      catSlug: catSlug,
-      author: session?.data?.user.name,
-      authorEmail: session?.data?.user.email,
-      category: categoryName(catSlug),
+    if(title.length < 9 || content.length < 60 || !imageId) {
+
+
+
+      alert('pusto')
+
+    } else {
+      const newPost = {
+        slug: slugify(title),
+        title: title,
+        content: content,
+        img: `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/${folderId}/${imageId}`,
+        catSlug: catSlug,
+        author: session?.data?.user.name,
+        authorEmail: session?.data?.user.email,
+        category: categoryName(catSlug),
+        folderId: folderId
+      }
+  
+      try {
+        const res = await fetch("/api/create-post", {
+          method: "POST",
+          body: JSON.stringify(newPost),
+        })
+  
+        if (res.status === 200 || 201) {
+          // const data = await res.json()
+          // console.log(data)
+          router.push(`/posts/${newPost.slug}`)
+        }  
+      } catch (error) {
+        console.log(error)
+      }
+
+
+
+
     }
 
-    try {
-      const res = await fetch("/api/create-post", {
-        method: "POST",
-        body: JSON.stringify(newPost),
-      })
-
-      if (res.status === 200 || 201) {
-        // const data = await res.json()
-        // console.log(data)
-        router.push(`/posts/${newPost.slug}`)
-      }  
-    } catch (error) {
-      console.log(error)
-    }
+    
   }
 
   if (status === "authenticated") {
@@ -89,7 +110,14 @@ const CriarPage = () => {
           <option value="dicas">Dicas</option>
           <option value="estilo">Estilo</option>
           <option value="outro">Outro</option>
-        </select> 
+        </select>
+        <CloudUploadElement 
+          author={session?.data?.user.name} 
+          folderId={folderId} 
+          setFolderId={setFolderId}
+          imageId={imageId}
+          setImageId={setImageId}
+        /> 
         <form className="" onSubmit={handleSubmit}>
         {/* Add the title */}
         <h2 className={styles.title}>Escreve o título da postagem:</h2>
