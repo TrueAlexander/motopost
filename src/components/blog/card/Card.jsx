@@ -6,8 +6,7 @@ import Reactions from "../reactions/Reactions"
 
 const Card = ({item}) => {
   return (
-    <div className={styles.container} key={item._id}> 
-      
+    <div className={styles.container} key={item._id}>       
         <div className={styles.textContainer}>
           <div className={styles.column}>
             <div className={styles.detail}>
@@ -45,14 +44,5 @@ const Card = ({item}) => {
     </div>
   )
 }
-
-
-
-
-
-
-
-
-
 
 export default Card

@@ -29,11 +29,10 @@ const CriarPage = () => {
   const [catSlug, setCatSlug] = useState("noticias")
   const [imgUrl, setImgUrl] = useState('')
   ///folderId(folder) and imageId(main image name) for cloudinary
-  // const [folderId, setFolderId] = useState('')
+  const [folder, setFolder] = useState('')
   const [imageId, setImageId] = useState('')
 
-  console.log("imageId: ", imageId)
-
+ 
   useEffect(() => {
     // Redirect to home page if the user is unauthenticated
     if (status === "unauthenticated") {
@@ -54,8 +53,6 @@ const CriarPage = () => {
 
     if(title.length < 9 || content.length < 60 || !imageId) {
 
-
-
       alert('pusto')
 
     } else {
@@ -63,12 +60,12 @@ const CriarPage = () => {
         slug: slugify(title),
         title: title,
         content: content,
-        img: `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/${folderId}/${imageId}`,
+        img: `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/${imageId}`,
         catSlug: catSlug,
         author: session?.data?.user.name,
         authorEmail: session?.data?.user.email,
         category: categoryName(catSlug),
-        folderId: folderId
+        folderId: folder
       }
   
       try {
@@ -85,13 +82,7 @@ const CriarPage = () => {
       } catch (error) {
         console.log(error)
       }
-
-
-
-
-    }
-
-    
+    }   
   }
 
   if (status === "authenticated") {
@@ -111,10 +102,11 @@ const CriarPage = () => {
           <option value="estilo">Estilo</option>
           <option value="outro">Outro</option>
         </select>
+         {/* Add the main image (Cloudinary) */}
+        <h2 className={styles.title}>Adicione a imagem principal:</h2>
         <CloudUploadElement 
           author={session?.data?.user.name} 
-          folderId={folderId} 
-          setFolderId={setFolderId}
+          setFolder={setFolder}
           imageId={imageId}
           setImageId={setImageId}
         /> 
@@ -127,19 +119,7 @@ const CriarPage = () => {
             className={styles.input}
             onChange={(e) => setTitle(e.target.value)}
           />
-          {erros.title && <p className={styles.error}>{erros.title}</p>}
-          <h2 className={styles.title}>Adicione a imagem principal:</h2>
-          {/* Add the URL of main image */}
-          <input 
-            type="text" 
-            placeholder="URL da imágem" 
-            className={styles.input}
-            onChange={(e) => setImgUrl(e.target.value)}
-          />
-          {erros.img && <p className={styles.error}>{erros.img}</p>}
-          {/* Add the file of main image */}
-          <input type="file" placeholder="file" className={styles.input} />
-          {/* Add the content */}
+          {/* {erros.title && <p className={styles.error}>{erros.title}</p>} */}
           <h2 className={styles.title}>Conteúdo da postagem:</h2>
           <ReactQuill
             value={content}
@@ -147,7 +127,7 @@ const CriarPage = () => {
             className={styles.textEditor}
             placeholder="Escreva o conteúdo aqui..."
           />
-          {erros.content && <p className={styles.error}>{erros.content}</p>}
+          {/* {erros.content && <p className={styles.error}>{erros.content}</p>} */}
   
           <button className="button" onClick={handleSubmit}>
             Publicar

@@ -5,6 +5,7 @@ import CatTitle from "@/components/blog/catTitle/CatTitle"
 import Reactions from "@/components/blog/reactions/Reactions"
 // import Comments from "@/components/comments/Comments"
 import ManagePostButtons from "@/components/blog/managePostButtons/ManagePostButtons"
+import Link from "next/link"
 
 const getPostBySlug = async (slug) => {
 
@@ -33,10 +34,14 @@ const SinglePostPage = async ({params}) => {
 
   return (
     <div className={styles.container}>
-      <CatTitle cat={data.category} catSlug={data.catSlug}/>  
+      <Link href={`/blog/?catSlug=${data.catSlug}`}>
+        <CatTitle cat={data.category} catSlug={data.catSlug}/> 
+      </Link>
       <div className={styles.detailsContainer}>
         <Reactions id={data._id} />
-        <span className={styles.username}>{data?.author}</span>
+        <Link href={`/blog/?author=${data.author}`}>
+          <span className={styles.username}>{data?.author}</span>
+        </Link>
         <span className={styles.date}>{formatDate(data.createdAt)}</span>
       </div>
       <h2 className={styles.title}>{data?.title}</h2>
