@@ -37,6 +37,9 @@ export default function CloudUploadElement({ imageId, setImageId, setFolder }) {
         options={{
           folder: folder, // Specify the folder here (nested folders allowed)
           resource_type: 'image', // You can specify other resource types like video
+          transformation: [
+            { width: 800, height: 600, crop: "limit", quality: "auto" }, // Resize and compress
+          ],
         }}
       >
         {({ open }) => {
@@ -56,7 +59,8 @@ export default function CloudUploadElement({ imageId, setImageId, setFolder }) {
             crop="fill"
             src={imageId}
             sizes="100vw"
-            alt="Description of my image"
+            loading="lazy"
+            alt="my image"
           />
         </div> 
       )}

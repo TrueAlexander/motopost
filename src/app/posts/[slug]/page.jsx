@@ -47,7 +47,7 @@ const SinglePostPage = async ({params}) => {
       <h2 className={styles.title}>{data?.title}</h2>
       <div className={styles.infoContainer}>
         {data?.img && <div className={styles.imageContainer}>
-          <Image src={data.img} alt={data.title} title={data.title} fill className={styles.image} />
+          <Image src={data.img} alt={data.title} title={data.title} fill className={styles.image} loading="lazy" />
         </div>}
         <div className={styles.contentContainer}>
           <div 

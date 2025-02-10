@@ -35,7 +35,7 @@ const Card = ({item}) => {
           <div className={styles.column}>
             <Link href={`/posts/${item.slug}`} >
               {item.img && <div className={styles.imageContainer} title={item.title}>
-                  <Image src={item.img} alt={item.title} fill className={styles.image}/>
+                  <Image src={item.img} alt={item.title} fill className={styles.image} loading="lazy"/>
                 </div>}
             </Link>
           </div>    
