@@ -46,7 +46,7 @@ const handleSubmit = async (e) => {
         confirmAlert({
           customUI: ({ onClose }) => (
             <div className={themeClass}>
-              <h3>Bem-vindo a Motopost!</h3>
+              <p>Bem-vindo a Motopost!</p>
               <button 
                 className="button"
                 onClick={() => { onClose(); setShowModal(false); }}

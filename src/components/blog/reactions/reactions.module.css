@@ -16,3 +16,8 @@
   vertical-align:text-top;
   margin-left: 3px;
 }
+
+.likes:hover {
+  /* display: none; */
+  cursor: pointer;
+}
