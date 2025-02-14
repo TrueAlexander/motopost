@@ -10,12 +10,20 @@ import "react-quill/dist/quill.snow.css"
 import Loading from "./loading"
 import categoryName from "@/utils/categoryName"
 import CloudUploadElement from "@/components/blog/cloudUploadElement/CloudUploadElement"
+import { ThemeContext } from "@/context/ThemeContext"
+import { useContext } from 'react'
+import { confirmAlert } from 'react-confirm-alert'
+import '@/utils/react-confirm-alert.css'
+import confirmAlertStyles from '@/utils/confirmAlert.module.css'
 
 
 const CriarPage = () => {
   const session = useSession()
   const { status } = useSession()
   const router = useRouter()
+
+  const {theme} = useContext(ThemeContext)
+  const themeClass = theme === 'dark' ? confirmAlertStyles.darkConfirmAlert : confirmAlertStyles.lightConfirmAlert
 
   // const [open, setOpen] = useState(false)
   const [content, setContent] = useState("")
@@ -51,10 +59,48 @@ const CriarPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    if(title.length < 9 || content.length < 60 || !imageId) {
-
-      alert('pusto')
-
+    if(title.length < 10) {
+      confirmAlert({
+        customUI: ({ onClose }) => (
+          <div className={themeClass}>
+            <p>O título deve conter no mínimo 10 símbolos!</p>
+            <button 
+              className="button"
+              onClick={() => { onClose(); }}
+            >
+              Ok
+            </button>
+          </div>
+        ),
+      })
+    } else if (content.length < 250) {
+      confirmAlert({
+        customUI: ({ onClose }) => (
+          <div className={themeClass}>
+            <p>O conteúdo deve conter no mínimo 250 símbolos!</p>
+            <button 
+              className="button"
+              onClick={() => { onClose(); }}
+            >
+              Ok
+            </button>
+          </div>
+        ),
+      })
+    } else if (!imageId) {
+      confirmAlert({
+        customUI: ({ onClose }) => (
+          <div className={themeClass}>
+            <p>Por favor, adicione a imagem principal!</p>
+            <button 
+              className="button"
+              onClick={() => { onClose(); }}
+            >
+              Ok
+            </button>
+          </div>
+        ),
+      })
     } else {
       const newPost = {
         slug: slugify(title),
