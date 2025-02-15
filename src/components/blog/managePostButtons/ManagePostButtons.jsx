@@ -10,7 +10,7 @@ import { confirmAlert } from 'react-confirm-alert'
 import '@/utils/react-confirm-alert.css'
 import confirmAlertStyles from '@/utils/confirmAlert.module.css'
 
-const ManagePostButtons = ({author, slug}) => {
+const ManagePostButtons = ({author, slug, imagePublicId}) => {
 
     const {data} = useSession()
     const router = useRouter()
@@ -70,19 +70,33 @@ const ManagePostButtons = ({author, slug}) => {
         body: JSON.stringify({slug}),
       })
       if (res.ok) {
-          confirmAlert({
-            customUI: ({ onClose }) => (
-              <div className={themeClass}>
-                <p>A postagem foi deletada com sucesso!</p>
-                <button 
-                  className="button"
-                  onClick={() => { onClose();  router.push("/"); router.refresh(); }}
-                >
-                  Ok
-                </button>
-              </div>
-            )
-          })    
+      // If the post is deleted, proceed to delete the image from Cloudinary
+        const imageDeleteRes = await fetch("/api/delete-image-cloud", {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ publicId: imagePublicId })
+        })
+
+          if (imageDeleteRes.ok) {
+            confirmAlert({
+              customUI: ({ onClose }) => (
+                <div className={themeClass}>
+                  <p>A postagem foi deletada com sucesso!</p>
+                  <button 
+                    className="button"
+                    onClick={() => { onClose();  router.push("/"); router.refresh(); }}
+                  >
+                    Ok
+                  </button>
+                </div>
+              )
+            })   
+          } else {
+            console.log("the image was not deleted in the Cloudinary")
+          }
+            
         } else {
           confirmAlert({
             customUI: ({ onClose }) => (

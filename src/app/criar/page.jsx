@@ -105,7 +105,7 @@ const CriarPage = () => {
       confirmAlert({
         customUI: ({ onClose }) => (
           <div className={themeClass}>
-            <p>Adicione pelo menos uma tag à postagem!</p>
+            <p>Insira de 1 a 5 tags para a postagem!</p>
             <button 
               className="button"
               onClick={() => { onClose(); }}
@@ -209,6 +209,7 @@ const CriarPage = () => {
             className={styles.input}
             onChange={(e) => setTags(e.target.value.split(/[, ]+/).filter(Boolean))}
           />
+          <h2 className={styles.title}>Após preencher todos os campos, clique</h2>
           <button className="button" onClick={handleSubmit}>
             Publicar
           </button>
