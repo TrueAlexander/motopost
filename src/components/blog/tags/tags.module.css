@@ -1,0 +1,32 @@
+.container {
+  color: crimson;
+  text-align:justify;
+  font-size: 14px;
+  display: inline-block;
+  position: absolute;
+  bottom: 10px;
+  right: 0;
+  max-width: 60%;
+  
+}
+
+
+.tag {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.tag::before {
+  content: "#";
+}
+
+@media screen and (max-width: 539px) {
+  .container {
+    font-size: 13px;
+    bottom: 5px;  
+  }
+  
+  .tag {
+    margin: 0 7px;
+  }
+}

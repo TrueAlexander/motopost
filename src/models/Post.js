@@ -25,11 +25,6 @@ const postSchema = new Schema(
       required: false,
       default: 0,
     },
-    likes: {
-      type: Number,
-      required: false,
-      default: 0,
-    },
     catSlug: {
       type: String,
       required: true,
@@ -70,6 +65,11 @@ const postSchema = new Schema(
       type: String,
       required: true,
     },
+    tags: {
+      type: Array,
+      default: [],
+      required: true,
+    }
 
   },
   { timestamps: true }

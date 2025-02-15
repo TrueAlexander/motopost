@@ -3,6 +3,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { formatDate } from "@/utils/dateFormat"
 import Reactions from "../reactions/Reactions"
+import Tags from "../tags/Tags"
 
 const Card = ({item}) => {
   return (
@@ -28,19 +29,20 @@ const Card = ({item}) => {
                 title="Leia a postagem completa"
               >
                 Leia mais
-              </p> 
-            </Link>                
+              </p>
+              
+            </Link> 
+            <Tags tags={item.tags ? item.tags : ""} />               
           </div>
 
           <div className={styles.column}>
             <Link href={`/posts/${item.slug}`} >
               {item.img && <div className={styles.imageContainer} title={item.title}>
-                  <Image src={item.img} alt={item.title} fill className={styles.image} loading="lazy"/>
-                </div>}
+                <Image src={item.img} alt={item.title} fill className={styles.image} loading="lazy"/>
+              </div>}
             </Link>
           </div>    
         </div>       
-
     </div>
   )
 }

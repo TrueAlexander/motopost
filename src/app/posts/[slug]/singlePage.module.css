@@ -59,6 +59,21 @@
   margin: 10px 0;
 }
 
+.tagsContainer{
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  margin: 25px 0;
+  /* border: 1px solid yellow; */
+}
+
+.tagsContainer > * {
+  position: absolute;  /* Apply to all direct children */
+  left: 0;
+  max-width: 100% !important;
+  bottom: 0;
+}
+
 @media screen and (max-width: 1024px) {
   .detailsContainer {
     margin-top: 15px;

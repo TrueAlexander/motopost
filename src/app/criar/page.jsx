@@ -34,12 +34,12 @@ const CriarPage = () => {
   // const [media, setMedia] = useState("");
   // const [value, setValue] = useState("");
   const [title, setTitle] = useState("")
+  const [tags, setTags] = useState([])
   const [catSlug, setCatSlug] = useState("noticias")
-  const [imgUrl, setImgUrl] = useState('')
+  // const [imgUrl, setImgUrl] = useState('')
   ///folderId(folder) and imageId(main image name) for cloudinary
   const [folder, setFolder] = useState('')
   const [imageId, setImageId] = useState('')
-
  
   useEffect(() => {
     // Redirect to home page if the user is unauthenticated
@@ -101,6 +101,34 @@ const CriarPage = () => {
           </div>
         ),
       })
+    } else if(tags.length < 1) {
+      confirmAlert({
+        customUI: ({ onClose }) => (
+          <div className={themeClass}>
+            <p>Adicione pelo menos uma tag à postagem!</p>
+            <button 
+              className="button"
+              onClick={() => { onClose(); }}
+            >
+              Ok
+            </button>
+          </div>
+        ),
+      })
+    } else if(tags.length > 5) {
+      confirmAlert({
+        customUI: ({ onClose }) => (
+          <div className={themeClass}>
+            <p>A quantidade máxima de tags para a postagem é 5!</p>
+            <button 
+              className="button"
+              onClick={() => { onClose(); }}
+            >
+              Ok
+            </button>
+          </div>
+        ),
+      })
     } else {
       const newPost = {
         slug: slugify(title),
@@ -111,7 +139,8 @@ const CriarPage = () => {
         author: session?.data?.user.name,
         authorEmail: session?.data?.user.email,
         category: categoryName(catSlug),
-        folderId: folder
+        folderId: folder,
+        tags: tags
       }
   
       try {
@@ -159,7 +188,7 @@ const CriarPage = () => {
         <form className="" onSubmit={handleSubmit}>
         {/* Add the title */}
         <h2 className={styles.title}>Escreve o título da postagem:</h2>
-          <input
+        <input
             type="text"
             placeholder="Título"
             className={styles.input}
@@ -173,55 +202,17 @@ const CriarPage = () => {
             className={styles.textEditor}
             placeholder="Escreva o conteúdo aqui..."
           />
-          {/* {erros.content && <p className={styles.error}>{erros.content}</p>} */}
-  
+          <h2 className={styles.title}>Insira de 1 a 5 tags para a postagem, separadas por vírgulas ou espaços.</h2>
+          <input
+            type="text"
+            placeholder="Tags"
+            className={styles.input}
+            onChange={(e) => setTags(e.target.value.split(/[, ]+/).filter(Boolean))}
+          />
           <button className="button" onClick={handleSubmit}>
             Publicar
           </button>
         </form>
-  
-        
-        
-        
-        {/* <h2>Conteúdo da postagem:</h2>
-        <div className="post_content">
-          <h3>Escolhe um elemento para adicionar a postagem:</h3>
-          <div>
-            <button className="button" onClick={handleClickAdd}>subtítulo</button>
-            <button className="button" onClick={handleClickAdd}>parágrafo</button>
-            <button className="button" onClick={handleClickAdd}>imagens adicionais</button>
-            <button className="button" onClick={handleClickAdd}>Youtube Links</button>
-          </div>
-          <div>{content}</div>
-        </div> */}
-  
-        {/* <div className={styles.editor}>
-          <button className={styles.button} onClick={() => setOpen(!open)}>
-            <Image src="/plus.png" alt="" width={16} height={16} />
-          </button>
-          {open && (
-            <div className={styles.add}>
-              <input
-                type="file"
-                id="image"
-                onChange={(e) => setFile(e.target.files[0])}
-                style={{ display: "none" }}
-              />
-              <button className={styles.addButton}>
-                <label htmlFor="image">
-                  <Image src="/image.png" alt="" width={16} height={16} />
-                </label>
-              </button>
-              <button className={styles.addButton}>
-                <Image src="/external.png" alt="" width={16} height={16} />
-              </button>
-              <button className={styles.addButton}>
-                <Image src="/video.png" alt="" width={16} height={16} />
-              </button>
-            </div>
-          )}
-  
-        </div> */}
       </div>
     )
   }

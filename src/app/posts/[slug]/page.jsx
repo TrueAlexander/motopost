@@ -6,6 +6,7 @@ import Reactions from "@/components/blog/reactions/Reactions"
 // import Comments from "@/components/comments/Comments"
 import ManagePostButtons from "@/components/blog/managePostButtons/ManagePostButtons"
 import Link from "next/link"
+import Tags from "@/components/blog/tags/Tags"
 
 const getPostBySlug = async (slug) => {
 
@@ -54,6 +55,9 @@ const SinglePostPage = async ({params}) => {
             className={styles.content}
             dangerouslySetInnerHTML={{ __html: data?.content }}
           />
+          <div className={styles.tagsContainer}>
+            <Tags tags={data?.tags}/>
+          </div>
           <ManagePostButtons author={data?.author} slug={data?.slug}/>
           {/* <div className={styles.comment}>
             <Comments postSlug={slug}/>
