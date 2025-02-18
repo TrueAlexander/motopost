@@ -3,14 +3,16 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  
   background-color: pink;
-
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   margin: 0;
+  overflow-y: auto;
+  padding-bottom: 50px;
 }
 
 .main_title {
