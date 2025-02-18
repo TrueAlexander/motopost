@@ -13,11 +13,12 @@
 .title {
   font-weight: normal;
   font-size: 16px;
+  margin: 10px 0;
 }
 
 .select {
   font-size: 18px;
-  margin: 25px 0;
+  margin: 10px 0;
   padding: 3px 15px;
   width: max-content;
   background-color: var(--bg);
@@ -31,12 +32,13 @@
 }
 
 .textEditor {
-  margin: 25px 0;
+  margin: 20px 0;
   color: var(--textColor);
   /* display: flex;
   gap: 20px;
   height: 700px;
   position: relative; */
+  overflow: hidden;
 }
 
 /* .button,
@@ -71,7 +73,7 @@
   font-size: 20px;
   background-color: transparent;
   color: var(--textColor);
-  margin: 25px 0;
+  margin: 10px 0;
   width: max-content;
 }
 

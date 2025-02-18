@@ -13,24 +13,25 @@ import { useContext } from 'react'
 import confirmAlertStyles from '@/utils/confirmAlert.module.css'
 import '@/utils/react-confirm-alert.css'
 import { confirmAlert } from 'react-confirm-alert'
+import CloudUploadElement from "@/components/blog/cloudUploadElement/CloudUploadElement"
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
 
 const EditPostPage = () => {
 
   const router = useRouter()
+  const session = useSession()
   const { status } = useSession()
   const {theme} = useContext(ThemeContext)
   const themeClass = theme === 'dark' ? confirmAlertStyles.darkConfirmAlert : confirmAlertStyles.lightConfirmAlert
 
-  // const [mensagem, setMensagem] = useState("");
-  // const [showModal, setShowModal] = useState(false);
-  // const [open, setOpen] = useState(false)
   const [content, setContent] = useState("")
-  const [erros, setErros] = useState({})
   const [title, setTitle] = useState("")
   const [catSlug, setCatSlug] = useState("")
   const [imgUrl, setImgUrl] = useState("")
+  const [folder, setFolder] = useState('')
+  const [imageId, setImageId] = useState('')
+  const [tags, setTags] = useState([])
 
   const {slug} = useParams()
 
@@ -50,9 +51,10 @@ const EditPostPage = () => {
         if (data.status === 201) {
           const { res } = await data.json() 
             setContent(res.content)
-            setImgUrl(res.img)
             setTitle(res.title)
             setCatSlug(res.catSlug)
+            setTags(res.tags)
+            setImageId(res.img.replace(/^https:\/\/res\.cloudinary\.com\/[a-zA-Z0-9]+\/image\/upload\//, ''))
           }
         }     
        catch (error) {
@@ -77,11 +79,13 @@ const EditPostPage = () => {
       slug: slugify(title),
       title: title,
       content: content,
-      img: imgUrl,
+      img: `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/${imageId}`,
       catSlug: catSlug,
       // author: session?.data?.user.name,
       // authorEmail: session?.data?.user.email,
       category: categoryName(catSlug),
+      folderId: folder,
+      tags: tags
     }
 
     try {
@@ -140,6 +144,8 @@ const EditPostPage = () => {
     }
   }
 
+  console.log("imageId from page: ", imageId)
+
   useEffect(() => {
     // Redirect to home page if the user is unauthenticated
     if (status === "unauthenticated") {
@@ -150,7 +156,7 @@ const EditPostPage = () => {
   if (status === "authenticated") {
     return (
       <div className={styles.container}>
-        <h2 className={styles.main_title}>Editar post</h2>
+        <h2 className={styles.main_title}>Editar postagem</h2>
         <h2 className={styles.title}>Categoria:</h2>
           <select 
             className={styles.select}
@@ -162,9 +168,18 @@ const EditPostPage = () => {
             <option value="dicas">Dicas</option>
             <option value="estilo">Estilo</option>
             <option value="outro">Outro</option>
-          </select> 
+          </select>
+          {/*main image (Cloudinary) */}
+          <h2 className={styles.title}>A imagem principal:</h2>
+          <CloudUploadElement 
+            author={session?.data?.user.name} 
+            setFolder={setFolder}
+            imageId={imageId}
+            setImageId={setImageId}
+            modeCreate={false}
+          /> 
           <form className="" onSubmit={handleSubmit}>
-          <h2 className={styles.title}>Título:</h2>
+          <h2 className={styles.title}>O título da postagem:</h2>
           <input
             type="text"
             value={title}
@@ -172,26 +187,22 @@ const EditPostPage = () => {
             className={styles.input}
             onChange={(e) => setTitle(e.target.value)}
           />
-          {erros.title && <p className={styles.error}>{erros.title}</p>}
-          <h2 className={styles.title}>Imagem principal:</h2>
-          <input 
-            type="text"
-            value={imgUrl}
-            placeholder="URL da imágem" 
-            className={styles.input}
-            onChange={(e) => setImgUrl(e.target.value)}
-          />
-          {erros.img && <p className={styles.error}>{erros.img}</p>}
-          <input type="file" placeholder="file" className={styles.input} />
-          <h2 className={styles.title}>Conteúdo:</h2>
+          <h2 className={styles.title}>Conteúdo da postagem:</h2>
           <ReactQuill
             value={content}
             onChange={setContent}
             className={styles.textEditor}
             placeholder="Escreva o conteúdo aqui..."
           />
-          {erros.content && <p className={styles.error}>{erros.content}</p>}
-  
+          <h2 className={styles.title}>Insira de 1 a 5 tags para a postagem, separadas por vírgulas ou espaços.</h2>
+          <input
+            type="text"
+            value={tags}
+            placeholder="Tags"
+            className={styles.input}
+            onChange={(e) => setTags(e.target.value.split(/[, ]+/).filter(Boolean))}
+          />
+          <h2 className={styles.title}>Após preencher todos os campos, clique</h2>
           <button className="button" onClick={handleSubmit}>
             Publicar
           </button>

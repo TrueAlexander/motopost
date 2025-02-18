@@ -23,11 +23,10 @@ export const DELETE = async (request) => {
 
   try {
     // Delete the image from Cloudinary
-    const result = cloudinary.v2.uploader.destroy(publicIdCleaned)
+    const result = await cloudinary.v2.uploader.destroy(publicIdCleaned)
 
     if (result.result === 'ok') {
       // Image deleted successfully
-      console.log("DELETED!!!!")
       return new NextResponse({
         message: 'Image deleted successfully',
         status: 200, 

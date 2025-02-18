@@ -27,7 +27,6 @@ const CriarPage = () => {
 
   // const [open, setOpen] = useState(false)
   const [content, setContent] = useState("")
-  const [erros, setErros] = useState({})
   // const [mensagem, setMensagem] = useState("");
   // const [showModal, setShowModal] = useState(false);
   // const [file, setFile] = useState(null);
@@ -163,8 +162,9 @@ const CriarPage = () => {
   if (status === "authenticated") {
     return (
       <div className={styles.container}>
+        <h2 className={styles.main_title}>Criar postagem</h2>
         {/* choose the category */}
-        <h2 className={styles.title}>Escolha uma categoria de sua postagem:</h2>
+        <h2 className={styles.title}>Categoria da sua postagem:</h2>
         <select 
           className={styles.select}
           value={catSlug} 
@@ -184,17 +184,17 @@ const CriarPage = () => {
           setFolder={setFolder}
           imageId={imageId}
           setImageId={setImageId}
+          modeCreate={true}
         /> 
         <form className="" onSubmit={handleSubmit}>
         {/* Add the title */}
-        <h2 className={styles.title}>Escreve o título da postagem:</h2>
+        <h2 className={styles.title}>O título da postagem:</h2>
         <input
             type="text"
             placeholder="Título"
             className={styles.input}
             onChange={(e) => setTitle(e.target.value)}
           />
-          {/* {erros.title && <p className={styles.error}>{erros.title}</p>} */}
           <h2 className={styles.title}>Conteúdo da postagem:</h2>
           <ReactQuill
             value={content}

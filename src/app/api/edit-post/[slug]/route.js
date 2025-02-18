@@ -22,6 +22,8 @@ export const PUT = async (request, {params}) => {
         // author: session?.data?.user.name,
         // authorEmail: session?.data?.user.email,
         category: postData.category,
+        folderId: postData.folderId,
+        tags: postData.tags
       } },  
       { new: true }  
     )
