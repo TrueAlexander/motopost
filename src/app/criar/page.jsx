@@ -15,6 +15,7 @@ import { useContext } from 'react'
 import { confirmAlert } from 'react-confirm-alert'
 import '@/utils/react-confirm-alert.css'
 import confirmAlertStyles from '@/utils/confirmAlert.module.css'
+import { IoClose } from "react-icons/io5"
 
 
 const CriarPage = () => {
@@ -27,6 +28,7 @@ const CriarPage = () => {
 
   // const [open, setOpen] = useState(false)
   const [content, setContent] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
   // const [mensagem, setMensagem] = useState("");
   // const [showModal, setShowModal] = useState(false);
   // const [file, setFile] = useState(null);
@@ -159,7 +161,109 @@ const CriarPage = () => {
     }   
   }
 
-  if (status === "authenticated") {
+  const handleClose = () => {
+
+    confirmAlert({
+      customUI: ({ onClose }) => (
+        <div className={themeClass}>
+          <h2 style={{color: "crimson"}}>Atenção!</h2>
+          <h3 style={{ marginTop: '15px', marginBottom: '15px' }}>Você tem certeza de que deseja sair sem salvar a postagem?</h3>
+          <p>Não será possível restaurar seus dados depois de sair!</p>
+          <button 
+            className="button"
+            onClick={ async () => { 
+              setIsLoading(true)
+              onClose()
+
+              if (imageId) {
+                try {
+                  const imageDeleteRes = await fetch("/api/delete-image-cloud", {
+                    method: "DELETE",
+                    headers: {
+                      "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ publicId: imageId })
+                  })
+                  
+                } catch (error) {
+                  console.log(error)
+                }
+              }
+              router.push("/")
+            }}
+          >
+            Sim
+          </button>
+          <button 
+            className="button"
+            onClick={() => { 
+              onClose()
+            }}
+          >
+            Não
+          </button>
+        </div>
+      ),
+    })
+
+    
+  }
+
+   // to block go back
+   useEffect(() => {
+    // Add a new state to the history stack to prevent going back
+    const preventBack = () => {
+      window.history.pushState(null, "", window.location.href);  // Add a new history entry
+      window.history.forward(); // Move forward in history if the back button is clicked
+    };
+
+    // When the page is loaded or reloaded, set up the prevention
+    preventBack();
+
+    // Add a popstate listener to prevent going back
+    window.addEventListener("popstate", preventBack);
+
+    return () => {
+      // Clean up the event listener when the component is unmounted
+      window.removeEventListener("popstate", preventBack);
+    };
+  }, []); // Empty dependency array means it runs only once on mount
+
+// to block refresh
+  useEffect(() => {
+    const handleBeforeUnload = async (event) => {
+      // Prevent default behavior (showing confirmation dialog)
+      event.preventDefault();
+  
+      // Check if the imageId exists and delete the image
+      if (imageId) {
+        try {
+          await fetch("/api/delete-image-cloud", {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ publicId: imageId })
+          });
+        } catch (error) {
+          console.error('Error deleting image:', error);
+        }
+      }
+  
+      // For older browsers
+      event.returnValue = '';  // Required for certain browsers to show confirmation
+    };
+  
+    // Attach the handler to the beforeunload event
+    window.addEventListener('beforeunload', handleBeforeUnload);
+  
+    // Cleanup handler on unmount
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [imageId]);  // Re-run the effect when imageId changes
+  
+ 
+
+  if (status === "authenticated" && !isLoading) {
     return (
       <div className={styles.container}>
         <h2 className={styles.main_title}>Criar postagem</h2>
@@ -214,6 +318,12 @@ const CriarPage = () => {
             Publicar
           </button>
         </form>
+        <button
+          onClick={ handleClose }
+          className={styles.return_button}
+          title="à página principal"
+        >  
+          <IoClose/></button>
       </div>
     )
   }

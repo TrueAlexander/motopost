@@ -14,6 +14,7 @@ import confirmAlertStyles from '@/utils/confirmAlert.module.css'
 import '@/utils/react-confirm-alert.css'
 import { confirmAlert } from 'react-confirm-alert'
 import CloudUploadElement from "@/components/blog/cloudUploadElement/CloudUploadElement"
+import { IoClose } from "react-icons/io5"
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
 
@@ -25,6 +26,7 @@ const EditPostPage = () => {
   const {theme} = useContext(ThemeContext)
   const themeClass = theme === 'dark' ? confirmAlertStyles.darkConfirmAlert : confirmAlertStyles.lightConfirmAlert
 
+  const [isLoading, setIsLoading] = useState(false)
   const [content, setContent] = useState("")
   const [title, setTitle] = useState("")
   const [catSlug, setCatSlug] = useState("")
@@ -146,6 +148,92 @@ const EditPostPage = () => {
 
   console.log("imageId from page: ", imageId)
 
+  const handleClose = () => {
+
+    confirmAlert({
+      customUI: ({ onClose }) => (
+        <div className={themeClass}>
+          <h2 style={{color: "crimson"}}>Atenção!</h2>
+          <h3 style={{ marginTop: '15px', marginBottom: '15px' }}>Você tem certeza de que deseja sair sem salvar a postagem?</h3>
+          <p>Não será possível restaurar seus dados depois de sair!</p>
+          <button 
+            className="button"
+            onClick={ async () => { 
+              setIsLoading(true)
+              onClose()
+
+              if (imageId) {
+                try {
+                  const imageDeleteRes = await fetch("/api/delete-image-cloud", {
+                    method: "DELETE",
+                    headers: {
+                      "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ publicId: imageId })
+                  })
+                  
+                } catch (error) {
+                  console.log(error)
+                }
+              }
+              router.push("/")
+            }}
+          >
+            Sim
+          </button>
+          <button 
+            className="button"
+            onClick={() => { 
+              onClose()
+            }}
+          >
+            Não
+          </button>
+        </div>
+      ),
+    })
+
+    
+  }
+
+   // to block go back
+   useEffect(() => {
+    // Add a new state to the history stack to prevent going back
+    const preventBack = () => {
+      window.history.pushState(null, "", window.location.href);  // Add a new history entry
+      window.history.forward(); // Move forward in history if the back button is clicked
+    };
+
+    // When the page is loaded or reloaded, set up the prevention
+    preventBack();
+
+    // Add a popstate listener to prevent going back
+    window.addEventListener("popstate", preventBack);
+
+    return () => {
+      // Clean up the event listener when the component is unmounted
+      window.removeEventListener("popstate", preventBack);
+    };
+  }, []); // Empty dependency array means it runs only once on mount
+
+  // to block refresh
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      // Optionally show a confirmation dialog (standard for some browsers)
+      event.returnValue = "Are you sure you want to leave?";
+    };
+  
+    window.addEventListener("beforeunload", handleBeforeUnload);
+  
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
+  
+
+
+
+
   useEffect(() => {
     // Redirect to home page if the user is unauthenticated
     if (status === "unauthenticated") {
@@ -153,7 +241,7 @@ const EditPostPage = () => {
     }
   }, [status, router]) // Run when status or router changes
 
-  if (status === "authenticated") {
+  if (status === "authenticated" && !isLoading) {
     return (
       <div className={styles.container}>
         <h2 className={styles.main_title}>Editar postagem</h2>
@@ -206,7 +294,13 @@ const EditPostPage = () => {
           <button className="button" onClick={handleSubmit}>
             Publicar
           </button>
-        </form> 
+        </form>
+        <button
+          onClick={ handleClose }
+          className={styles.return_button}
+          title="à página principal"
+        >  
+          <IoClose/></button> 
         
         {/* {showModal && (
           <div className={styles.modalOverlay}>

@@ -1,10 +1,9 @@
 .container{
-  margin-top: 20px;
-  position: relative;
+
   display: flex;
   flex-direction: column;
   
-  background-color: pink;
+  background-color: var(--bg);
   position: absolute;
   top: 0;
   left: 0;
@@ -12,12 +11,14 @@
   bottom: 0;
   margin: 0;
   overflow-y: auto;
-  padding-bottom: 50px;
+  height: 100%;
+  padding: 30px 140px;
 }
 
 .main_title {
   font-weight: normal;
   text-align: center;
+  margin-bottom: 10px;
 }
 
 .title {
@@ -46,6 +47,17 @@
   color: var(--textColor);
 
   overflow: hidden;
+}
+
+.return_button {
+  color: crimson;
+  font-size: 45px;
+  position: absolute;
+  right: 140px;
+  top: 70px;
+  background-color: var(--bg);
+  border: none;
+  cursor: pointer;
 }
 
 
@@ -105,3 +117,29 @@
   cursor: pointer;
   border-radius: 20px;
 } */
+
+@media screen and (max-width: 1024px) {
+  .container{
+    padding: 25px 40px;
+  }
+
+  .return_button {
+    font-size: 40px;
+
+    right: 40px;
+    top: 70px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .container{
+    padding: 20px 15px;
+  }
+
+  .return_button {
+    font-size: 30px;
+
+    right: 15px;
+    top: 60px;
+  }
+}
