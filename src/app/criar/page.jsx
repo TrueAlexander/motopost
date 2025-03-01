@@ -1,5 +1,4 @@
 "use client"
-import Image from "next/image"
 import styles from "./criar.module.css"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
@@ -17,7 +16,6 @@ import '@/utils/react-confirm-alert.css'
 import confirmAlertStyles from '@/utils/confirmAlert.module.css'
 import { IoClose } from "react-icons/io5"
 
-
 const CriarPage = () => {
   const session = useSession()
   const { status } = useSession()
@@ -26,18 +24,11 @@ const CriarPage = () => {
   const {theme} = useContext(ThemeContext)
   const themeClass = theme === 'dark' ? confirmAlertStyles.darkConfirmAlert : confirmAlertStyles.lightConfirmAlert
 
-  // const [open, setOpen] = useState(false)
   const [content, setContent] = useState("")
   const [isLoading, setIsLoading] = useState(false)
-  // const [mensagem, setMensagem] = useState("");
-  // const [showModal, setShowModal] = useState(false);
-  // const [file, setFile] = useState(null);
-  // const [media, setMedia] = useState("");
-  // const [value, setValue] = useState("");
   const [title, setTitle] = useState("")
   const [tags, setTags] = useState([])
   const [catSlug, setCatSlug] = useState("noticias")
-  // const [imgUrl, setImgUrl] = useState('')
   ///folderId(folder) and imageId(main image name) for cloudinary
   const [folder, setFolder] = useState('')
   const [imageId, setImageId] = useState('')
@@ -162,7 +153,6 @@ const CriarPage = () => {
   }
 
   const handleClose = () => {
-
     confirmAlert({
       customUI: ({ onClose }) => (
         <div className={themeClass}>
@@ -174,7 +164,6 @@ const CriarPage = () => {
             onClick={ async () => { 
               setIsLoading(true)
               onClose()
-
               if (imageId) {
                 try {
                   const imageDeleteRes = await fetch("/api/delete-image-cloud", {
@@ -189,6 +178,7 @@ const CriarPage = () => {
                   console.log(error)
                 }
               }
+
               router.push("/")
             }}
           >
@@ -204,9 +194,7 @@ const CriarPage = () => {
           </button>
         </div>
       ),
-    })
-
-    
+    })  
   }
 
    // to block go back
@@ -227,30 +215,37 @@ const CriarPage = () => {
       // Clean up the event listener when the component is unmounted
       window.removeEventListener("popstate", preventBack);
     };
-  }, []); // Empty dependency array means it runs only once on mount
+  }, []) // Empty dependency array means it runs only once on mount
 
-// to block refresh
-  useEffect(() => {
+// in case of refresh
+  useEffect( () => {
     const handleBeforeUnload = async (event) => {
       // Prevent default behavior (showing confirmation dialog)
       event.preventDefault();
-  
       // Check if the imageId exists and delete the image
       if (imageId) {
+        setIsLoading(true)
         try {
-          await fetch("/api/delete-image-cloud", {
+          const imageDeleteRes = await fetch("/api/delete-image-cloud", {
             method: "DELETE",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+              "Content-Type": "application/json"
+            },
             body: JSON.stringify({ publicId: imageId })
-          });
+          })
+          // Optionally handle the response, e.g. checking for success
+          if (!imageDeleteRes.ok) {
+            console.log(`Failed to delete image with ID: ${imageId}`);
+          }
+          
         } catch (error) {
-          console.error('Error deleting image:', error);
+          console.log(error)
         }
-      }
   
+      }
       // For older browsers
-      event.returnValue = '';  // Required for certain browsers to show confirmation
-    };
+      event.returnValue = ''  // Required for certain browsers to show confirmation
+    }
   
     // Attach the handler to the beforeunload event
     window.addEventListener('beforeunload', handleBeforeUnload);
@@ -258,9 +253,8 @@ const CriarPage = () => {
     // Cleanup handler on unmount
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, [imageId]);  // Re-run the effect when imageId changes
-  
+    } 
+  }, [imageId]) // Re-run the effect when imageId changes
  
 
   if (status === "authenticated" && !isLoading) {
@@ -289,6 +283,7 @@ const CriarPage = () => {
           imageId={imageId}
           setImageId={setImageId}
           modeCreate={true}
+          setIsLoading={setIsLoading}
         /> 
         <form className="" onSubmit={handleSubmit}>
         {/* Add the title */}
@@ -305,6 +300,15 @@ const CriarPage = () => {
             onChange={setContent}
             className={styles.textEditor}
             placeholder="Escreva o conteúdo aqui..."
+            modules={{
+              toolbar: [         
+                [{ 'header': [1, 2, 3] }],
+                [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                ['bold', 'italic', 'underline'],
+                ['link', 'image'],
+              ],
+            }}
+            formats={['header', 'font', 'bold', 'italic', 'underline', 'list', 'link', 'image', 'align']}
           />
           <h2 className={styles.title}>Insira de 1 a 5 tags para a postagem, separadas por vírgulas ou espaços.</h2>
           <input

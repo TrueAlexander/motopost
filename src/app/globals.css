@@ -161,6 +161,18 @@ input:focus::placeholder {
   background-color: #f5f5f5; 
 }
 
+.ql-toolbar button{
+    margin: 4px;
+    border: 1px solid rgba(220, 20, 60, 0.348) !important; /* Border for each button */
+    border-radius: 4px; /* Rounded buttons */
+    background-color: #fff; /* White background for buttons */
+    color: #333 !important; /* Button text color */
+    font-weight: bold;
+    padding: 8px 12px; /* Button padding */
+    transition: background-color 0.2s ease; /* Smooth background color transition */
+  
+}
+
 .ql-container {
   border: 1px solid crimson !important; /* Add border to the editor */
   border-bottom-left-radius: 10px; /* Rounded corners */
@@ -178,8 +190,8 @@ input:focus::placeholder {
 .ql-editor {
   /* font-family: Arial, sans-serif; */
   height: 200px !important;
-  font-size: 16px; /* Change font size */
-  padding: 15px 10px; /* Adjust padding */
+  font-size: 16px!important; /* Change font size */
+  padding: 15px 10px!important; /* Adjust padding */
 
 }
 
@@ -201,6 +213,8 @@ input:focus::placeholder {
 .ql-editor:focus::before {
   content: '' !important; /* Hide the placeholder on focus */
 }
+
+
 
 @media screen and (max-width: 1536px) {
   .wrapper {

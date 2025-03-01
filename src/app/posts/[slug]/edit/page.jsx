@@ -30,10 +30,12 @@ const EditPostPage = () => {
   const [content, setContent] = useState("")
   const [title, setTitle] = useState("")
   const [catSlug, setCatSlug] = useState("")
-  const [imgUrl, setImgUrl] = useState("")
   const [folder, setFolder] = useState('')
   const [imageId, setImageId] = useState('')
   const [tags, setTags] = useState([])
+
+  // const [imgsDel, setImgsDel] = useState([])
+  
 
   const {slug} = useParams()
 
@@ -162,20 +164,23 @@ const EditPostPage = () => {
               setIsLoading(true)
               onClose()
 
-              if (imageId) {
-                try {
-                  const imageDeleteRes = await fetch("/api/delete-image-cloud", {
-                    method: "DELETE",
-                    headers: {
-                      "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ publicId: imageId })
-                  })
+              ///??
+              // if (imageId) {
+              //   try {
+              //     const imageDeleteRes = await fetch("/api/delete-image-cloud", {
+              //       method: "DELETE",
+              //       headers: {
+              //         "Content-Type": "application/json"
+              //       },
+              //       body: JSON.stringify({ publicId: imageId })
+              //     })
                   
-                } catch (error) {
-                  console.log(error)
-                }
-              }
+              //   } catch (error) {
+              //     console.log(error)
+              //   }
+              // }
+              ///??
+
               router.push("/")
             }}
           >
@@ -265,6 +270,9 @@ const EditPostPage = () => {
             imageId={imageId}
             setImageId={setImageId}
             modeCreate={false}
+            setIsLoading={setIsLoading}
+            // imgsDel={imgsDel}
+            // setImgsDel={setImgsDel}
           /> 
           <form className="" onSubmit={handleSubmit}>
           <h2 className={styles.title}>O título da postagem:</h2>
@@ -281,6 +289,15 @@ const EditPostPage = () => {
             onChange={setContent}
             className={styles.textEditor}
             placeholder="Escreva o conteúdo aqui..."
+            modules={{
+              toolbar: [         
+                [{ 'header': [1, 2, 3] }],
+                [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                ['bold', 'italic', 'underline'],
+                ['link', 'image'],
+              ],
+            }}
+            formats={['header', 'font', 'bold', 'italic', 'underline', 'list', 'link', 'image', 'align']}
           />
           <h2 className={styles.title}>Insira de 1 a 5 tags para a postagem, separadas por vírgulas ou espaços.</h2>
           <input

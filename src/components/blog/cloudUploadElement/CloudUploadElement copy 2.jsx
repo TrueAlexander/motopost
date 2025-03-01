@@ -10,21 +10,20 @@ import '@/utils/react-confirm-alert.css'
 import { confirmAlert } from 'react-confirm-alert'
 import { useRouter } from "next/navigation"
 
-export default function CloudUploadElement({ imageId, setImageId, setFolder, modeCreate, setIsLoading }) {
+export default function CloudUploadElement({ imageId, setImageId, setFolder, modeCreate, photosDel, setPhotosDel }) {
   const { theme } = useContext(ThemeContext)
   const themeClass = theme === 'dark' ? confirmAlertStyles.darkConfirmAlert : confirmAlertStyles.lightConfirmAlert
   const router = useRouter()
   
-  // useEffect(() => {
-  //   if(imageId) setPhotosDel(prev => [...prev, imageId])
-  // }, [imageId])
+  useEffect(() => {
+    if(imageId) setPhotosDel(prev => [...prev, imageId])
+  }, [imageId])
 
   const previousImageIdRef = useRef(imageId) // Track the previous imageId
 
   const handleError = (error) => console.error('Error uploading:', error)
 
-  const handleSuccess = !modeCreate ? 
-  async (result) => {
+  const handleSuccess = !modeCreate ? async (result) => {
     // The new image ID from Cloudinary's result
     const newImageId = result.info.public_id
 
@@ -70,8 +69,7 @@ export default function CloudUploadElement({ imageId, setImageId, setFolder, mod
         alert('Erro ao tentar deletar a imagem')
       }
     }
-  } : 
-  (result) => {
+  } : (result) => {
     // For create mode, just set the imageId to the new image ID
     setImageId(result.info.public_id)
   }
@@ -97,33 +95,6 @@ export default function CloudUploadElement({ imageId, setImageId, setFolder, mod
     setFolder(folder) // Pass folder ID to parent
   }, [imageId, setFolder]) // Update ref when imageId changes
 
-  const deleteUploaded = async () => {
-    setIsLoading(true)
-    if (imageId) {
-      try {
-        // Proceed to delete the image
-        const oldImageDelete = await fetch("/api/delete-image-cloud", {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ publicId: imageId })
-        })
-
-        if (oldImageDelete.ok) {
-          console.log('Old image deleted successfully')
-          setIsLoading(false)
-          setImageId(null)
-          // router.push("/criar")
-        } else {
-          console.error('Failed to delete old image')
-        }
-      } catch (error) {
-        console.error('Error deleting image:', error)
-      }
-    }
-  }
-
   return (
     <div>
       <CldUploadWidget
@@ -139,10 +110,8 @@ export default function CloudUploadElement({ imageId, setImageId, setFolder, mod
         }}
       >
         {({ open }) => (
-          !imageId ? <button onClick={() => open()} className="button">
+          <button onClick={() => open()} className="button">
             Carregar
-          </button> : <button onClick={deleteUploaded} className="button">
-            Deletar
           </button>
         )}
       </CldUploadWidget>
