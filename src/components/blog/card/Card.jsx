@@ -19,18 +19,20 @@ const Card = ({item}) => {
               <Reactions id={item._id} />
             </div>
             <Link href={`/posts/${item.slug}`} className={styles.post_link} >
-              <h2 className={styles.title} title={item.title}>{item.title}</h2>
-              <p 
-                className={styles.content} 
-                dangerouslySetInnerHTML={{ __html: item?.content }} 
-              />   
+              <div className={styles.box}>
+                <h2 className={styles.title} title={item.title}>{item.title}</h2>
+                <p 
+                  className={styles.content} 
+                  dangerouslySetInnerHTML={{ __html: item?.content }} 
+                /> 
+
+              </div>    
               <p 
                 className={styles.link}
                 title="Leia a postagem completa"
               >
                 Leia mais
-              </p>
-              
+              </p>   
             </Link> 
             <Tags tags={item.tags ? item.tags : ""} />               
           </div>
@@ -38,7 +40,12 @@ const Card = ({item}) => {
           <div className={styles.column}>
             <Link href={`/posts/${item.slug}`} >
               {item.img && <div className={styles.imageContainer} title={item.title}>
-                <Image src={item.img} alt={item.title} fill className={styles.image} loading="lazy"/>
+                <Image 
+                  src={item.img} 
+                  alt={item.title} 
+                  fill 
+                  className={styles.image} 
+                  loading="lazy"/>
               </div>}
             </Link>
           </div>    
