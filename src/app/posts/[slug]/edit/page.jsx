@@ -35,6 +35,8 @@ const EditPostPage = () => {
   const [tags, setTags] = useState([])
 
   // const [imgsDel, setImgsDel] = useState([])
+    //track the initial image for edit mode
+    const [initialImage, setInitialImage] = useState(imageId)
   
 
   const {slug} = useParams()
@@ -85,8 +87,6 @@ const EditPostPage = () => {
       content: content,
       img: `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/${imageId}`,
       catSlug: catSlug,
-      // author: session?.data?.user.name,
-      // authorEmail: session?.data?.user.email,
       category: categoryName(catSlug),
       folderId: folder,
       tags: tags
@@ -164,25 +164,25 @@ const EditPostPage = () => {
               setIsLoading(true)
               onClose()
 
-              ///??
-              // if (imageId) {
-              //   try {
-              //     const imageDeleteRes = await fetch("/api/delete-image-cloud", {
-              //       method: "DELETE",
-              //       headers: {
-              //         "Content-Type": "application/json"
-              //       },
-              //       body: JSON.stringify({ publicId: imageId })
-              //     })
+              setImageId(initialImage)
+              if (imageId !== initialImage) {
+                try {
+                  const imageDeleteRes = await fetch("/api/delete-image-cloud", {
+                    method: "DELETE",
+                    headers: {
+                      "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ publicId: imageId })
+                  })
                   
-              //   } catch (error) {
-              //     console.log(error)
-              //   }
-              // }
-              ///??
+                } catch (error) {
+                  console.log(error)
+                }
+    
+              
 
               router.push("/")
-            }}
+            }}}
           >
             Sim
           </button>
@@ -271,7 +271,8 @@ const EditPostPage = () => {
             setImageId={setImageId}
             modeCreate={false}
             setIsLoading={setIsLoading}
-            // imgsDel={imgsDel}
+            initialImage={initialImage}
+            setInitialImage={setInitialImage}
             // setImgsDel={setImgsDel}
           /> 
           <form className="" onSubmit={handleSubmit}>

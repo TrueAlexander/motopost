@@ -10,21 +10,23 @@ import '@/utils/react-confirm-alert.css'
 import { confirmAlert } from 'react-confirm-alert'
 import { useRouter } from "next/navigation"
 
-export default function CloudUploadElement({ imageId, setImageId, setFolder, modeCreate, setIsLoading }) {
+export default function CloudUploadElement({ imageId, setImageId, setFolder, modeCreate, setIsLoading, setInitialImage, initialImage }) {
   const { theme } = useContext(ThemeContext)
   const themeClass = theme === 'dark' ? confirmAlertStyles.darkConfirmAlert : confirmAlertStyles.lightConfirmAlert
   const router = useRouter()
   
-  // useEffect(() => {
-  //   if(imageId) setPhotosDel(prev => [...prev, imageId])
-  // }, [imageId])
+  useEffect(() => {
+    if(imageId) setInitialImage(imageId)
+  }, [])
 
-  const previousImageIdRef = useRef(imageId) // Track the previous imageId
+  const previousImageIdRef = useRef(imageId) // Track the previous imageId in case of iterations
 
   const handleError = (error) => console.error('Error uploading:', error)
 
   const handleSuccess = !modeCreate ? 
   async (result) => {
+
+   
     // The new image ID from Cloudinary's result
     const newImageId = result.info.public_id
 

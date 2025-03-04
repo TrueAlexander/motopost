@@ -51,11 +51,12 @@ const CriarPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    if(title.length < 10) {
+    console.log("submitted")
+    if(title.length < 9) {
       confirmAlert({
         customUI: ({ onClose }) => (
           <div className={themeClass}>
-            <p>O título deve conter no mínimo 10 símbolos!</p>
+            <p>O título deve conter no mínimo 9 símbolos!</p>
             <button 
               className="button"
               onClick={() => { onClose(); }}
@@ -79,21 +80,7 @@ const CriarPage = () => {
           </div>
         ),
       })
-    } else if (!imageId) {
-      confirmAlert({
-        customUI: ({ onClose }) => (
-          <div className={themeClass}>
-            <p>Por favor, adicione a imagem principal!</p>
-            <button 
-              className="button"
-              onClick={() => { onClose(); }}
-            >
-              Ok
-            </button>
-          </div>
-        ),
-      })
-    } else if(tags.length < 1) {
+    } else if (tags.length < 1) {
       confirmAlert({
         customUI: ({ onClose }) => (
           <div className={themeClass}>
@@ -121,12 +108,63 @@ const CriarPage = () => {
           </div>
         ),
       })
+    } else if (!imageId) {
+      confirmAlert({
+        customUI: ({ onClose }) => (
+          <div className={themeClass}>
+            <p>Está seguro de que não quer adicionar a imagem principal?</p>
+            <button 
+              className="button"
+              onClick={ async () => { 
+                setIsLoading(true)
+                onClose()
+
+                const newPost = {
+                  slug: slugify(title),
+                  title: title,
+                  content: content,
+                  img: imageId ? `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/${imageId}`: null,
+                  catSlug: catSlug,
+                  author: session?.data?.user.name,
+                  authorEmail: session?.data?.user.email,
+                  category: categoryName(catSlug),
+                  folderId: folder,
+                  tags: tags
+                }
+
+                try {
+                  const res = await fetch("/api/create-post", {
+                    method: "POST",
+                    body: JSON.stringify(newPost),
+                  })
+            
+                  if (res.status === 200 || 201) {
+                    router.push(`/posts/${newPost.slug}`)
+                  }  
+                } catch (error) {
+                  console.log(error)
+                }
+              }}
+            >
+              Confirmo
+            </button>
+            <button 
+              className="button"
+              onClick={() => { 
+                onClose()
+              }}
+            >
+              Adicionar 
+            </button>
+          </div>
+        ),
+      })
     } else {
       const newPost = {
         slug: slugify(title),
         title: title,
         content: content,
-        img: `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/${imageId}`,
+        img: imageId ? `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/${imageId}`: null,
         catSlug: catSlug,
         author: session?.data?.user.name,
         authorEmail: session?.data?.user.email,
@@ -134,7 +172,7 @@ const CriarPage = () => {
         folderId: folder,
         tags: tags
       }
-  
+
       try {
         const res = await fetch("/api/create-post", {
           method: "POST",
@@ -142,14 +180,12 @@ const CriarPage = () => {
         })
   
         if (res.status === 200 || 201) {
-          // const data = await res.json()
-          // console.log(data)
           router.push(`/posts/${newPost.slug}`)
         }  
       } catch (error) {
         console.log(error)
       }
-    }   
+    }  
   }
 
   const handleClose = () => {

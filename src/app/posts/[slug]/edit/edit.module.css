@@ -12,9 +12,6 @@
   overflow-y: auto;
   height: 100%;
   padding: 30px 140px;
-
-
-
 }
 
 .main_title {
@@ -86,7 +83,7 @@
   background-color: transparent;
   color: var(--textColor);
   margin: 10px 0;
-  width: max-content;
+  width: 100% !important;
 }
 
 .input::placeholder{

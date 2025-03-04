@@ -8,7 +8,7 @@ import Tags from "../tags/Tags"
 const Card = ({item}) => {
   return (
     <div className={styles.container} key={item._id}>       
-        <div className={styles.textContainer}>
+        <div className={item.img ? styles.textContainer : styles.textContainerText}>
           <div className={styles.column}>
             <div className={styles.detail}>
               <span className={styles.date}>{formatDate(item.createdAt)} - </span>
@@ -37,7 +37,7 @@ const Card = ({item}) => {
             <Tags tags={item.tags ? item.tags : ""} />               
           </div>
 
-          <div className={styles.column}>
+          {item.img ? <div className={styles.column}>
             <Link href={`/posts/${item.slug}`} >
               {item.img && <div className={styles.imageContainer} title={item.title}>
                 <Image 
@@ -48,7 +48,7 @@ const Card = ({item}) => {
                   loading="lazy"/>
               </div>}
             </Link>
-          </div>    
+          </div> : <div className={styles.column_empty}></div>}    
         </div>       
     </div>
   )
