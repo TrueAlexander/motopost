@@ -37,10 +37,6 @@
   flex: 1;
 }
 
-.column_empty {
-  background-color: blueviolet;
-}
-
 .date {
   color: gray;
 }
@@ -58,17 +54,22 @@
 .author {
   color: gray;
   font-size: 14px;
+
+
+  white-space: nowrap;        /* Prevents the text from wrapping */
+  overflow: hidden;           /* Hides the overflow text */
+  text-overflow: ellipsis;    /* Adds "..." at the end of the text */
+  max-width: 325px;  
 }
 
 .author_name {
   color: crimson;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .post_link {
   display: flex;
   flex-direction: column;
-
 }
 
 .title {
@@ -137,24 +138,20 @@
     
 
   }
-  /* .column_empty {
-    display: none;
-  } */
-
-  .column {
-
-  }
 
   .imageContainer {
     margin: 0 auto;
-  }
-
-  .link {
-
   }
 
   .infoBox {
     margin: 15px 0;
   }
   
+}
+
+@media screen and (max-width: 500px) {
+  .author { 
+
+    max-width: 175px;  
+  }
 }
