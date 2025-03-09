@@ -10,7 +10,7 @@ import '@/utils/react-confirm-alert.css'
 import { confirmAlert } from 'react-confirm-alert'
 import { useRouter } from "next/navigation"
 
-export default function CloudUploadElement({ imageId, setImageId, setFolder, modeCreate, setIsLoading, setInitialImage, initialImage }) {
+export default function CloudUploadElement({ imageId, setImageId, setFolder, modeCreate, setIsLoading }) {
   const { theme } = useContext(ThemeContext)
   const themeClass = theme === 'dark' ? confirmAlertStyles.darkConfirmAlert : confirmAlertStyles.lightConfirmAlert
   const router = useRouter()

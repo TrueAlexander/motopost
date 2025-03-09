@@ -36,7 +36,7 @@ const EditPostPage = () => {
 
   // const [imgsDel, setImgsDel] = useState([])
     //track the initial image for edit mode
-    const [initialImage, setInitialImage] = useState(imageId)
+    // const [initialImage, setInitialImage] = useState(imageId)
   
 
   const {slug} = useParams()
@@ -60,7 +60,7 @@ const EditPostPage = () => {
             setTitle(res.title)
             setCatSlug(res.catSlug)
             setTags(res.tags)
-            setImageId(res.img.replace(/^https:\/\/res\.cloudinary\.com\/[a-zA-Z0-9]+\/image\/upload\//, ''))
+            setImageId(res?.img?.replace(/^https:\/\/res\.cloudinary\.com\/[a-zA-Z0-9]+\/image\/upload\//, ''))
           }
         }     
        catch (error) {
@@ -85,7 +85,7 @@ const EditPostPage = () => {
       slug: slugify(title),
       title: title,
       content: content,
-      img: `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/${imageId}`,
+      img: imageId ? `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/${imageId}`: null,
       catSlug: catSlug,
       category: categoryName(catSlug),
       folderId: folder,
@@ -108,7 +108,9 @@ const EditPostPage = () => {
                 <p>A postagem foi editada com sucesso</p>
                 <button 
                   className="button"
-                  onClick={() => { onClose(); router.push(`/posts/${updatedPost.slug}`);  }}
+                  onClick={() => { onClose(); router.push(`/posts/${updatedPost.slug}?tmp=${Date.now()}`)
+                  
+                  }}
                 >
                   Ok
                 </button>
@@ -148,8 +150,6 @@ const EditPostPage = () => {
     }
   }
 
-  console.log("imageId from page: ", imageId)
-
   const handleClose = () => {
 
     confirmAlert({
@@ -164,25 +164,28 @@ const EditPostPage = () => {
               setIsLoading(true)
               onClose()
 
-              setImageId(initialImage)
-              if (imageId !== initialImage) {
-                try {
-                  const imageDeleteRes = await fetch("/api/delete-image-cloud", {
-                    method: "DELETE",
-                    headers: {
-                      "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ publicId: imageId })
-                  })
+              // setImageId(initialImage)
+            //   if (imageId !== initialImage) {
+            //     // try {
+            //     //   const imageDeleteRes = await fetch("/api/delete-image-cloud", {
+            //     //     method: "DELETE",
+            //     //     headers: {
+            //     //       "Content-Type": "application/json"
+            //     //     },
+            //     //     body: JSON.stringify({ publicId: imageId })
+            //     //   })
                   
-                } catch (error) {
-                  console.log(error)
-                }
+            //     // } catch (error) {
+            //     //   console.log(error)
+            //     // }
     
               
 
-              router.push("/")
-            }}}
+             
+            // }
+            router.push("/")
+          
+          }}
           >
             Sim
           </button>
@@ -271,8 +274,8 @@ const EditPostPage = () => {
             setImageId={setImageId}
             modeCreate={false}
             setIsLoading={setIsLoading}
-            initialImage={initialImage}
-            setInitialImage={setInitialImage}
+            // initialImage={initialImage}
+            // setInitialImage={setInitialImage}
             // setImgsDel={setImgsDel}
           /> 
           <form className="" onSubmit={handleSubmit}>

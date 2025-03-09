@@ -25,6 +25,7 @@ export const POST = async (request) => {
     // if (postsArray.length > 0) { 
     //   return NextResponse.json({ res: postsArray }, { status: 201 })
     // }
+   
     return NextResponse.json({ res: post }, { status: 201 })
     
   } catch (error) {

@@ -51,7 +51,7 @@ const CriarPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    console.log("submitted")
+ 
     if(title.length < 9) {
       confirmAlert({
         customUI: ({ onClose }) => (
@@ -137,10 +137,69 @@ const CriarPage = () => {
                     method: "POST",
                     body: JSON.stringify(newPost),
                   })
-            
-                  if (res.status === 200 || 201) {
-                    router.push(`/posts/${newPost.slug}`)
-                  }  
+                  console.log(res.status)
+
+                  if (res.status === 400) {
+                    confirmAlert({
+                      customUI: ({ onClose }) => (
+                        <div className={themeClass}>
+                          <p>A postagem com este título já existe.</p><p>Provavelmente, a postagem já foi criada antes.</p>
+                          <button 
+                            className="button"
+                            onClick={() => { onClose(); setIsLoading(false)}}
+                          >
+                            Ok
+                          </button>
+                        </div>
+                      ),
+                    })
+                  } else if (res.status === 200 || 201) {
+                    console.log("here")
+                    confirmAlert({
+                      customUI: ({ onClose }) => (
+                        <div className={themeClass}>
+                          <p>A postagem foi criada com sucesso!</p>
+                          <button 
+                            className="button"
+                            onClick={() => { onClose(); router.push(`/posts/${newPost.slug}`)}}
+                          >
+                            Ok
+                          </button>
+                        </div>
+                      ),
+                    })  
+                  } 
+                  // else if (res.status === 400) {
+                  //   confirmAlert({
+                  //     customUI: ({ onClose }) => (
+                  //       <div className={themeClass}>
+                  //         <p>A postagem com este título já existe.</p><p>Provavelmente, a postagem já foi criada antes.</p>
+                  //         <button 
+                  //           className="button"
+                  //           onClick={() => { onClose();}}
+                  //         >
+                  //           Ok
+                  //         </button>
+                  //       </div>
+                  //     ),
+                  //   })
+                  // }
+                   else {
+
+                    confirmAlert({
+                      customUI: ({ onClose }) => (
+                        <div className={themeClass}>
+                          <p>Algo deu errado.</p><p>Tente criar a postagem mais tarde.</p>
+                          <button 
+                            className="button"
+                            onClick={() => { onClose(); setIsLoading(false)}}
+                          >
+                            Ok
+                          </button>
+                        </div>
+                      ),
+                    })             
+                  }
                 } catch (error) {
                   console.log(error)
                 }
@@ -178,14 +237,57 @@ const CriarPage = () => {
           method: "POST",
           body: JSON.stringify(newPost),
         })
-  
-        if (res.status === 200 || 201) {
-          router.push(`/posts/${newPost.slug}`)
-        }  
+
+        if (res.status === 400) {
+          confirmAlert({
+            customUI: ({ onClose }) => (
+              <div className={themeClass}>
+                <p>A postagem com este título já existe.</p><p>Provavelmente, a postagem já foi criada antes.</p>
+                <button 
+                  className="button"
+                  onClick={() => { onClose(); setIsLoading(false)}}
+                >
+                  Ok
+                </button>
+              </div>
+            ),
+          })
+        } else if (res.status === 200 || 201) {
+          confirmAlert({
+            customUI: ({ onClose }) => (
+              <div className={themeClass}>
+                <p>A postagem foi criada com sucesso!</p>
+                <button 
+                  className="button"
+                  onClick={() => { onClose(); router.push(`/posts/${newPost.slug}`)}}
+                >
+                  Ok
+                </button>
+              </div>
+            ),
+          })  
+      
+        } else {
+
+          confirmAlert({
+            customUI: ({ onClose }) => (
+              <div className={themeClass}>
+                <p>Algo deu errado.</p><p>Tente criar a postagem mais tarde.</p>
+                <button 
+                  className="button"
+                  onClick={() => { onClose(); setIsLoading(false) }}
+                >
+                  Ok
+                </button>
+              </div>
+            ),
+          })             
+        }
       } catch (error) {
         console.log(error)
       }
     }  
+
   }
 
   const handleClose = () => {
