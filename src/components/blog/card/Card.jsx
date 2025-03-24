@@ -18,7 +18,7 @@ const Card = ({item}) => {
               <p className={styles.author}>autor: <Link href={`/blog/?author=${item.author}`} className={styles.author_name}>{item.author}</Link></p>
               <Reactions id={item._id} />
             </div>
-            <Link href={`/posts/${item.slug}`} className={styles.post_link} >
+            <Link href={`/posts/${item.slug}?tmp=${Date.now().toString().slice(-2)}`} className={styles.post_link} >
               <div className={styles.box}>
                 <h2 className={styles.title} title={item.title}>{item.title}</h2>
                 <p 
@@ -38,7 +38,7 @@ const Card = ({item}) => {
           </div>
 
           {item.img ? <div className={styles.column}>
-            <Link href={`/posts/${item.slug}`} >
+            <Link href={`/posts/${item.slug}?tmp=${Date.now().toString().slice(-2)}`} >
               {item.img && <div className={styles.imageContainer} title={item.title}>
                 <Image 
                   src={item.img} 

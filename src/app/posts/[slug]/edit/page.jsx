@@ -36,8 +36,8 @@ const EditPostPage = () => {
 
   // const [imgsDel, setImgsDel] = useState([])
     //track the initial image for edit mode
-    // const [initialImage, setInitialImage] = useState(imageId)
-  
+    const [initialImage, setInitialImage] = useState("")
+   console.log("imageId on Edit Page", imageId)
 
   const {slug} = useParams()
 
@@ -61,6 +61,7 @@ const EditPostPage = () => {
             setCatSlug(res.catSlug)
             setTags(res.tags)
             setImageId(res?.img?.replace(/^https:\/\/res\.cloudinary\.com\/[a-zA-Z0-9]+\/image\/upload\//, ''))
+            setInitialImage(res?.img?.replace(/^https:\/\/res\.cloudinary\.com\/[a-zA-Z0-9]+\/image\/upload\//, ''))
           }
         }     
        catch (error) {
@@ -85,12 +86,14 @@ const EditPostPage = () => {
       slug: slugify(title),
       title: title,
       content: content,
-      img: imageId ? `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/${imageId}`: null,
+      img: imageId ? `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/${imageId}`: "deleted",
       catSlug: catSlug,
       category: categoryName(catSlug),
       folderId: folder,
       tags: tags
     }
+
+    console.log("send imageID", updatedPost.img)
 
     try {
       const res = await fetch(`/api/edit-post/${slug}`, {
@@ -99,7 +102,7 @@ const EditPostPage = () => {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(updatedPost)
-    })
+      })
   
       if (res.ok) {
           confirmAlert({
@@ -108,7 +111,7 @@ const EditPostPage = () => {
                 <p>A postagem foi editada com sucesso</p>
                 <button 
                   className="button"
-                  onClick={() => { onClose(); router.push(`/posts/${updatedPost.slug}?tmp=${Date.now()}`)
+                  onClick={() => { onClose(); router.push(`/posts/${updatedPost.slug}?tmp=${Date.now().toString().slice(-2)}`)
                   
                   }}
                 >
@@ -156,7 +159,7 @@ const EditPostPage = () => {
       customUI: ({ onClose }) => (
         <div className={themeClass}>
           <h2 style={{color: "crimson"}}>Atenção!</h2>
-          <h3 style={{ marginTop: '15px', marginBottom: '15px' }}>Você tem certeza de que deseja sair sem salvar a postagem?</h3>
+          <h3 style={{ marginTop: '15px', marginBottom: '15px' }}>Você tem certeza de que deseja sair sem salvar as alterações da postagem?</h3>
           <p>Não será possível restaurar seus dados depois de sair!</p>
           <button 
             className="button"
@@ -164,26 +167,29 @@ const EditPostPage = () => {
               setIsLoading(true)
               onClose()
 
-              // setImageId(initialImage)
-            //   if (imageId !== initialImage) {
-            //     // try {
-            //     //   const imageDeleteRes = await fetch("/api/delete-image-cloud", {
-            //     //     method: "DELETE",
-            //     //     headers: {
-            //     //       "Content-Type": "application/json"
-            //     //     },
-            //     //     body: JSON.stringify({ publicId: imageId })
-            //     //   })
-                  
-            //     // } catch (error) {
-            //     //   console.log(error)
-            //     // }
-    
-              
+              const updatedPost = {
 
-             
-            // }
-            router.push("/")
+                img: imageId ? `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/${imageId}`: null,
+ 
+              }
+
+              try {
+                const res = await fetch(`/api/edit-post/${slug}`, {
+                  method: "PUT",
+                  headers: {
+                      "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify(updatedPost)
+                })
+                
+              } catch (error) {
+                console.log(error)
+              }
+
+    
+  
+            
+            router.push(`/?tmp=${Date.now().toString().slice(-2)}`)
           
           }}
           >

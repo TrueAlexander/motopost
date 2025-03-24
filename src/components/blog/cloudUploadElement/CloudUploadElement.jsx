@@ -15,9 +15,9 @@ export default function CloudUploadElement({ imageId, setImageId, setFolder, mod
   const themeClass = theme === 'dark' ? confirmAlertStyles.darkConfirmAlert : confirmAlertStyles.lightConfirmAlert
   const router = useRouter()
   
-  useEffect(() => {
-    if(imageId) setInitialImage(imageId)
-  }, [])
+  // useEffect(() => {
+  //   if(imageId) setInitialImage(imageId)
+  // }, [])
 
   const previousImageIdRef = useRef(imageId) // Track the previous imageId in case of iterations
 
@@ -87,7 +87,6 @@ export default function CloudUploadElement({ imageId, setImageId, setFolder, mod
       .replace(/[-:]/g, '')
       .split('.')[0]
       .concat('', add)
-
     return dateStr
   }
 
@@ -100,36 +99,61 @@ export default function CloudUploadElement({ imageId, setImageId, setFolder, mod
   }, [imageId, setFolder]) // Update ref when imageId changes
 
   const deleteUploaded = async () => {
-    setIsLoading(true)
-    if (imageId) {
-      try {
-        // Proceed to delete the image
-        const oldImageDelete = await fetch("/api/delete-image-cloud", {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ publicId: imageId })
-        })
+    confirmAlert({
+      customUI: ({ onClose }) => (
+        <div className={themeClass}>
+          <p>Está seguro de que deseja deletar a imagem? </p>
+          <p>Não será possível recuperá-la depois!</p>
+          <button 
+            className="button"
+            onClick={ async () => { 
+              setIsLoading(true)
+              onClose()
 
-        if (oldImageDelete.ok) {
-          console.log('Old image deleted successfully')
-          setIsLoading(false)
-          setImageId(null)
-          // router.push("/criar")
-        } else {
-          console.error('Failed to delete old image')
-        }
-      } catch (error) {
-        console.error('Error deleting image:', error)
-      }
-    }
+              if (imageId) {
+                try {
+                  // Proceed to delete the image
+                  const oldImageDelete = await fetch("/api/delete-image-cloud", {
+                    method: "DELETE",
+                    headers: {
+                      "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ publicId: imageId })
+                  })
+          
+                  if (oldImageDelete.ok) {
+                    console.log('Old image deleted successfully')
+                    setIsLoading(false)
+                    setImageId(null)
+                    // router.push("/criar")
+                  } else {
+                    console.error('Failed to delete old image')
+                  }
+                } catch (error) {
+                  console.error('Error deleting image:', error)
+                }
+              }
+            }}
+          >
+            Confirmo
+          </button>
+          <button 
+            className="button"
+            onClick={() => { 
+              onClose()
+            }}
+          >
+            Não 
+          </button>
+        </div>
+      ),
+    })   
   }
 
   return (
     <div>
       <CldUploadWidget
-        uploadPreset="upload_moto" // Ensure this is correctly configured in your Cloudinary account
+        uploadPreset="upload_moto" 
         onSuccess={handleSuccess}
         onError={handleError} // Add an error handler to log any errors
         options={{
@@ -141,7 +165,10 @@ export default function CloudUploadElement({ imageId, setImageId, setFolder, mod
         }}
       >
         {({ open }) => (
-          !imageId ? <button onClick={() => open()} className="button">
+          !imageId ? <button onClick={(e) => {
+            e.preventDefault()
+            open()
+          }} className="button">
             Carregar
           </button> : <button onClick={deleteUploaded} className="button">
             Deletar

@@ -24,25 +24,27 @@ const Reactions =  ({id}) => {
 
   const getReactions = async (id) => {
     let reactions = {likes: 0, views: 0}
-    try {
-      const res = await fetch("/api/get-reactions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id }),
-        cache: "no-store",
-      })
-
-      const data = await res.json()
-      reactions = {likes: data.res.likes, views: data.res.views, likedBy: data.res.likedBy}
-      
-      // Check if the current user already liked the post
-      if (data.res.likedBy.includes(data?.user?.email)) {
-        setAlreadyLiked(true)
+    if (id) {
+      try {
+        const res = await fetch("/api/get-reactions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id }),
+          cache: "no-store",
+        })
+  
+        const data = await res.json()
+        reactions = {likes: data.res.likes, views: data.res.views, likedBy: data.res.likedBy}
+        
+        // Check if the current user already liked the post
+        if (data?.res?.likedBy.includes(data?.user?.email)) {
+          setAlreadyLiked(true)
+        }
+      } catch (error) {
+        console.log(error)
       }
-    } catch (error) {
-      console.log(error)
     }
     return reactions
   }
@@ -53,7 +55,7 @@ const Reactions =  ({id}) => {
       setLikes(res.likes)
       setViews(res.views)
       setLikedBy(res.likedBy)
-      if (res.likedBy.includes(data?.user?.email)){
+      if (res?.likedBy.includes(data?.user?.email)){
         setAlreadyLiked(true)
       }
     })

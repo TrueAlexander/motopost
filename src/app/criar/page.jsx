@@ -51,7 +51,6 @@ const CriarPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
- 
     if(title.length < 9) {
       confirmAlert({
         customUI: ({ onClose }) => (

@@ -14,7 +14,7 @@ const ManagePostButtons = ({author, slug, imagePublicId}) => {
 
     const {data} = useSession()
     const router = useRouter()
-
+  
     const [isLoading, setIsLoading] = useState(false)
 
     const {theme} = useContext(ThemeContext)
@@ -70,15 +70,15 @@ const ManagePostButtons = ({author, slug, imagePublicId}) => {
         body: JSON.stringify({slug}),
       })
       if (res.ok) {
-      // If the post is deleted, proceed to delete the image from Cloudinary
-        const imageDeleteRes = await fetch("/api/delete-image-cloud", {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ publicId: imagePublicId })
-        })
-
+      // If the post is deleted, proceed to delete the image from Cloudinary if exists
+        if (imagePublicId) {
+          const imageDeleteRes = await fetch("/api/delete-image-cloud", {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ publicId: imagePublicId })
+          }) 
           if (imageDeleteRes.ok) {
             confirmAlert({
               customUI: ({ onClose }) => (
@@ -90,13 +90,14 @@ const ManagePostButtons = ({author, slug, imagePublicId}) => {
                   >
                     Ok
                   </button>
-                </div>
-              )
-            })   
+                </div>)})   
           } else {
             console.log("the image was not deleted in the Cloudinary")
           }
-            
+        }
+        
+        router.push("/")
+
         } else {
           confirmAlert({
             customUI: ({ onClose }) => (
