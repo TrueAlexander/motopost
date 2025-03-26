@@ -56,7 +56,6 @@ const EditPostPage = () => {
             setCatSlug(res.catSlug)
             setTags(res.tags)
             setImageId(res?.img?.replace(/^https:\/\/res\.cloudinary\.com\/[a-zA-Z0-9]+\/image\/upload\//, ''))
-            setInitialImage(res?.img?.replace(/^https:\/\/res\.cloudinary\.com\/[a-zA-Z0-9]+\/image\/upload\//, ''))
           }
         }     
        catch (error) {
@@ -85,12 +84,10 @@ const EditPostPage = () => {
       catSlug: catSlug,
       category: categoryName(catSlug),
       folderId: folder,
-      tags: tags.split(/[, ]+/) // split by commas or spaces
+      tags: typeof tags === "string" ? tags.split(/[, ]+/) // split by commas or spaces
             .map(tag => tag.replace(/^#/, '')) // remove leading '#'
-            .filter(Boolean) // remove empty strings
+            .filter(Boolean) : null // remove empty strings
     }
-
-    console.log("send imageID", updatedPost.img)
 
     try {
       const res = await fetch(`/api/edit-post/${slug}`, {
@@ -149,6 +146,7 @@ const EditPostPage = () => {
       })
     }
   }
+
 
   const handleClose = () => {
 
@@ -241,10 +239,6 @@ const EditPostPage = () => {
     };
   }, []);
   
-
-
-
-
   useEffect(() => {
     // Redirect to home page if the user is unauthenticated
     if (status === "unauthenticated") {
