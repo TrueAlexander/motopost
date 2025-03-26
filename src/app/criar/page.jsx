@@ -452,7 +452,12 @@ const CriarPage = () => {
             type="text"
             placeholder="Tags"
             className={styles.input}
-            onChange={(e) => setTags(e.target.value.split(/[, ]+/).filter(Boolean))}
+            onChange={(e) => setTags(
+              e.target.value
+                .split(/[, ]+/) // split by commas or spaces
+                .map(tag => tag.replace(/^#/, '')) // remove leading '#'
+                .filter(Boolean) // remove empty strings
+            )}
           />
           <h2 className={styles.title}>Após preencher todos os campos, clique</h2>
           <button className="button" onClick={handleSubmit}>

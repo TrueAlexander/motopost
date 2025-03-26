@@ -34,11 +34,6 @@ const EditPostPage = () => {
   const [imageId, setImageId] = useState('')
   const [tags, setTags] = useState([])
 
-  // const [imgsDel, setImgsDel] = useState([])
-    //track the initial image for edit mode
-    const [initialImage, setInitialImage] = useState("")
-   console.log("imageId on Edit Page", imageId)
-
   const {slug} = useParams()
 
   //get the post from DB by slug
@@ -90,7 +85,9 @@ const EditPostPage = () => {
       catSlug: catSlug,
       category: categoryName(catSlug),
       folderId: folder,
-      tags: tags
+      tags: tags.split(/[, ]+/) // split by commas or spaces
+            .map(tag => tag.replace(/^#/, '')) // remove leading '#'
+            .filter(Boolean) // remove empty strings
     }
 
     console.log("send imageID", updatedPost.img)
@@ -280,9 +277,6 @@ const EditPostPage = () => {
             setImageId={setImageId}
             modeCreate={false}
             setIsLoading={setIsLoading}
-            // initialImage={initialImage}
-            // setInitialImage={setInitialImage}
-            // setImgsDel={setImgsDel}
           /> 
           <form className="" onSubmit={handleSubmit}>
           <h2 className={styles.title}>O título da postagem:</h2>
@@ -312,10 +306,10 @@ const EditPostPage = () => {
           <h2 className={styles.title}>Insira de 1 a 5 tags para a postagem, separadas por vírgulas ou espaços.</h2>
           <input
             type="text"
-            value={tags}
+            value={tags}  // Show the tags as a comma-separated string
             placeholder="Tags"
             className={styles.input}
-            onChange={(e) => setTags(e.target.value.split(/[, ]+/).filter(Boolean))}
+            onChange={(e) => setTags(e.target.value)}
           />
           <h2 className={styles.title}>Após preencher todos os campos, clique</h2>
           <button className="button" onClick={handleSubmit}>
@@ -344,6 +338,3 @@ const EditPostPage = () => {
 }
 
 export default EditPostPage
-
-  
-
