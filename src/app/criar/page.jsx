@@ -406,11 +406,11 @@ const CriarPage = () => {
           onChange={(e) => setCatSlug(e.target.value)}
         >
           <option value="noticias">Notícias</option>
+          <option value="motopedia">Motopédia</option>
           <option value="viagens">Viagens</option>
-          <option value="oficina">Oficína</option>
-          <option value="dicas">Dicas</option>
+          <option value="oficina">Oficina</option> 
           <option value="estilo">Estilo</option>
-          <option value="outro">Outro</option>
+          <option value="custom">Custom</option>
         </select>
          {/* Add the main image (Cloudinary) */}
         <h2 className={styles.title}>Adicione a imagem principal:</h2>

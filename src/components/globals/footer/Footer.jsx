@@ -4,8 +4,8 @@ import Link from 'next/link'
 
 const Footer = () => {
 
-  const catSlugsOrder = ['noticias', 'viagens', 'oficina', 'dicas', 'estilo', 'outro']
-  const categories = ['Notícias', 'Viagens', 'Oficína', 'Dicas', 'Estilo', 'Outro']
+  const catSlugsOrder = ['noticias', 'motopedia', 'viagens', 'oficina', 'estilo', 'custom' ]
+  const categories = ['notícias', 'motopédia', 'viagens', 'oficina', 'estilo', 'custom']
 
   return (
     <div className={styles.container}>
@@ -34,8 +34,7 @@ const Footer = () => {
               className={styles.link} 
               href={`/blog?catSlug=${item}`}
             >
-              {/* {categories[index].charAt(0).toUpperCase() + item.slice(1)} */}
-              {categories[index]}
+              {categories[index].charAt(0).toUpperCase() + categories[index].slice(1)}
             </Link>
           ))}
         </div>

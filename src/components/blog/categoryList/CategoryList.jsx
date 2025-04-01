@@ -4,8 +4,8 @@ import Link from 'next/link'
 const CategoryList = () => {
 
 
-  const catSlugsOrder = ['noticias', 'viagens', 'oficina', 'dicas', 'estilo', 'outro']
-  const categories = ['notícias', 'viagens', 'oficína', 'dicas', 'estilo', 'outro']
+  const catSlugsOrder = ['noticias', 'motopedia', 'viagens', 'oficina', 'estilo', 'custom' ]
+  const categories = ['notícias', 'motopédia', 'viagens', 'oficina', 'estilo', 'custom']
 
   return (
     <div className={styles.container}>
@@ -17,10 +17,10 @@ const CategoryList = () => {
             className={`${styles.category} ${item === 'noticias' 
               ? styles.noticias : item === 'viagens' 
               ? styles.viagens : item === 'oficina' 
-              ? styles.oficina : item === 'dicas' 
-              ? styles.dicas : item === 'estilo' 
-              ? styles.estilo : item === 'outro' 
-              ? styles.outro : ''} `}
+              ? styles.oficina : item === 'motopedia' 
+              ? styles.motopedia : item === 'estilo' 
+              ? styles.estilo : item === 'custom' 
+              ? styles.custom : ''} `}
             key={index}
           >
             {categories[index]}

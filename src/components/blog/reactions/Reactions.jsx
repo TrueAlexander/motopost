@@ -55,7 +55,7 @@ const Reactions =  ({id}) => {
       setLikes(res.likes)
       setViews(res.views)
       setLikedBy(res.likedBy)
-      if (res?.likedBy.includes(data?.user?.email)){
+      if (res?.likedBy?.includes(data?.user?.email)){
         setAlreadyLiked(true)
       }
     })

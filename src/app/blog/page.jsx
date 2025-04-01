@@ -10,12 +10,12 @@ const BlogPage = ({ searchParams }) => {
   console.log("author from search: ", author)
   ///
   const cats = {
-    noticias: 'notícias', 
+    noticias: 'notícias',
+    motopedia: 'motopédia', 
     viagens:'viagens',
-    oficina: 'oficína', 
-    dicas: 'dicas', 
+    oficina: 'oficina', 
     estilo: 'estilo', 
-    outro: 'outro'
+    custom: 'custom'
   }
 
   const cat = cats[catSlug]

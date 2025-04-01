@@ -2,11 +2,11 @@ const categoryName = (catSlug) => {
   
   const wordsWithAccents = {
     'noticias': 'notícias',
+    'motopedia' : 'motopédia',
     'viagens' : 'viagens',
-    'oficina' : 'oficína',
-    'dicas' : 'dicas',
+    'oficina' : 'oficina',
     'estilo' : 'estilo',
-    'outro' : 'outro'
+    'custom' : 'custom'
     }
 
   return wordsWithAccents[catSlug.toLowerCase()] || catSlug
