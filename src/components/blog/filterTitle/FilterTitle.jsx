@@ -23,8 +23,16 @@ const FilterTitle = ({cat, catSlug, author, tag}) => {
         className={styles.title} 
         style={{backgroundColor: `${randomColor}`, fontSize: "14px"}}
       > 
-        {/* Posts do/da <span className={styles.name}> {author.length > 15 ? author.slice(0, 15) + '...' : author}</span> */}
         Posts do/da <span className={styles.name}>{author}</span>
+      </h2>
+    )
+  } else if (!catSlug && !author && tag) {
+    return (
+      <h2 
+        className={styles.title} 
+        style={{backgroundColor: `${randomColor}`, fontSize: "14px"}}
+      > 
+        Posts com <span className={styles.name}>#{tag}</span>
       </h2>
     )
   }

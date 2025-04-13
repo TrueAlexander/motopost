@@ -6,7 +6,7 @@ const Tags = ({tags}) => {
   return (
     <div className={styles.container}>
       {tags?.map((item, index) => (
-        <Link href="" className={styles.tag} key={index}>{item}</Link>
+        <Link href={`/blog/?tag=${item}`} className={styles.tag} key={index}>{item}</Link>
       ))}
     </div>
   )

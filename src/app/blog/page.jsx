@@ -8,6 +8,7 @@ const BlogPage = ({ searchParams }) => {
 
   console.log("catSlug from search: ", catSlug)
   console.log("author from search: ", author)
+  console.log("tag from search: ", tag)
   ///
   const cats = {
     noticias: 'notícias',
