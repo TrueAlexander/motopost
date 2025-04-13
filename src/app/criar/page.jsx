@@ -155,7 +155,7 @@ const CriarPage = () => {
                   authorEmail: session?.data?.user.email,
                   category: categoryName(catSlug),
                   folderId: folder,
-                  tags: tags
+                  tags: [...new Set(tags)]
                 }
 
                 try {
@@ -255,7 +255,7 @@ const CriarPage = () => {
         authorEmail: session?.data?.user.email,
         category: categoryName(catSlug),
         folderId: folder,
-        tags: tags
+        tags: [...new Set(tags)]
       }
 
       try {
