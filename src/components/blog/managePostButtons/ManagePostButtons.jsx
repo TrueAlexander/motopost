@@ -86,7 +86,7 @@ const ManagePostButtons = ({author, slug, imagePublicId}) => {
                   <p>A postagem foi deletada com sucesso!</p>
                   <button 
                     className="button"
-                    onClick={() => { onClose();  router.push("/"); router.refresh(); }}
+                    onClick={() => { onClose();}}
                   >
                     Ok
                   </button>
@@ -96,7 +96,7 @@ const ManagePostButtons = ({author, slug, imagePublicId}) => {
           }
         }
         
-        router.push("/")
+        router.push(`/?tmp=${Date.now().toString().slice(-2)}`)
 
         } else {
           confirmAlert({

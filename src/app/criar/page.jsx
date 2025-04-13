@@ -1,6 +1,6 @@
 "use client"
 import styles from "./criar.module.css"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
 import dynamic from "next/dynamic"
@@ -15,6 +15,7 @@ import { confirmAlert } from 'react-confirm-alert'
 import '@/utils/react-confirm-alert.css'
 import confirmAlertStyles from '@/utils/confirmAlert.module.css'
 import { IoClose } from "react-icons/io5"
+import { uploadImageToCloudinary } from "@/utils/uploadImageCloudinary"
 
 const CriarPage = () => {
   const session = useSession()
@@ -118,10 +119,36 @@ const CriarPage = () => {
                 setIsLoading(true)
                 onClose()
 
+                /////!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                // Извлекаем все base64 изображения из контента с помощью регулярного выражения
+                const imageRegex = /data:image\/\w+;base64,([^\"]+)/g;
+                let contentWithRealUrls = content; // Сохраняем оригинальный контент
+                let matches;
+                
+                // Get signature from backend
+                const response = await fetch('/api/generate-signature', {mode: 'no-cors',})
+                const { signature, timestamp } = await response.json()
+
+
+
+                // Проходим по всем найденным изображениям
+                while ((matches = imageRegex.exec(content)) !== null) {
+                  const base64Image = matches[0];
+
+                  // Загружаем изображение в Cloudinary
+                  const imageUrl = await uploadImageToCloudinary(base64Image, signature, timestamp)
+
+                  if (imageUrl) {
+                    // Заменяем base64 строку на реальный URL изображения
+                    contentWithRealUrls = contentWithRealUrls.replace(base64Image, imageUrl);
+                  }
+                }
+                ///////!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
                 const newPost = {
                   slug: slugify(title),
                   title: title,
-                  content: content,
+                  content: contentWithRealUrls,
                   img: imageId ? `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/${imageId}`: null,
                   catSlug: catSlug,
                   author: session?.data?.user.name,

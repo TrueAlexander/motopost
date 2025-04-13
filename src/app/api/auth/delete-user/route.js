@@ -1,5 +1,6 @@
 import connect from "@/utils/db"
 import User from "@/models/User"
+import Post from "@/models/Post"
 import { NextResponse } from "next/server"
 
 
@@ -17,7 +18,12 @@ export const DELETE = async (request) => {
         status: 404, 
       })
     }
-
+    // Change all their posts' author to "Deletado"
+    await Post.updateMany(
+      { author: deletedUser.name }, // or deletedUser._id depending on how you store it
+      { $set: { author: "Deletado" } }
+    )
+    
     return new NextResponse("User has been deleted", {
       status: 200,
     })

@@ -21,55 +21,72 @@ const Register = ({setShowModal, setModeLogin}) => {
     const password = e.target[2].value
     setIsLoading(true)
     ///
-    try {
-      const res = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-          isAdmin: false,
-          emailVerified: false,
-          posts: [],
-          comments: [],
-          likes: []
-        }),
-      })
-
-      if (res.status === 201) {
-        setIsLoading(false)
-        confirmAlert({
-          customUI: ({ onClose }) => (
-            <div className={themeClass}>
-              <p>Prezado {name}, seu usuário foi criado! Para ativá-lo, por favor, confira seu e-mail: {email}!</p>
-              <button 
-                className="button"
-                onClick={() => { onClose(); setShowModal(false); }}
-              >
-                Ok
-              </button>
-            </div>
-          ),
-        });
-      } else {
-        confirmAlert({
-          customUI: ({ onClose }) => (
-            <div className={themeClass}>
-              <p>Algo deu errado! Será que o usuário já existe? Faça login ou tente novamente.</p>
-              <button 
+    if (name.length < 3 || name.length > 21 ) {
+      confirmAlert({
+        customUI: ({ onClose }) => (
+          <div className={themeClass}>
+            <p>O nome de usuário deve conter de 3 a 20 caracteres</p>
+            <button 
               className="button"
-              onClick={() => { onClose(); setModeLogin(true); }}>
-                Ok
-              </button>
-            </div>
-          ),
-        });
+              onClick={() => { onClose(); setIsLoading(false) }}
+            >
+              Ok
+            </button>
+          </div>
+        ),
+      })
+    } else {
+      try {
+        const res = await fetch("/api/auth/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            password,
+            isAdmin: false,
+            emailVerified: false,
+            posts: [],
+            comments: [],
+            likes: []
+          }),
+        })
+  
+        if (res.status === 201) {
+          setIsLoading(false)
+          confirmAlert({
+            customUI: ({ onClose }) => (
+              <div className={themeClass}>
+                <p>Prezado {name}, seu usuário foi criado! Para ativá-lo, por favor, confira seu e-mail: {email}!</p>
+                <button 
+                  className="button"
+                  onClick={() => { onClose(); setShowModal(false); }}
+                >
+                  Ok
+                </button>
+              </div>
+            ),
+          });
+        } else {
+          confirmAlert({
+            customUI: ({ onClose }) => (
+              <div className={themeClass}>
+                <p>Algo deu errado! Será que o usuário já existe? Faça login ou tente novamente.</p>
+                <button 
+                className="button"
+                onClick={() => { onClose(); setModeLogin(true); }}>
+                  Ok
+                </button>
+              </div>
+            ),
+          });
+        }
+      } catch (err) {
+        console.log(err, "Ocorreu um erro do lado do servidor.");
       }
-    } catch (err) {
-      console.log(err, "Ocorreu um erro do lado do servidor.");
+
     }
   }
 

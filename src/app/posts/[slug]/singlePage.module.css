@@ -14,10 +14,14 @@
   font-size: 20px;
   font-weight: 500;
   color: crimson;
+
+
 }
 
 .title {
   margin-top: 25px;
+  overflow-wrap: break-word; /* preferred over word-wrap */
+  word-break: break-word; /* adds stronger breaking */
 }
 
 
@@ -52,6 +56,8 @@
   font-weight: 400;
   margin-bottom: 25px;
   text-align: justify;
+  overflow-wrap: break-word; /* preferred over word-wrap */
+  word-break: break-word; /* adds stronger breaking */
 }
 
 .content h3 {
@@ -94,7 +100,7 @@
   }
 
   .username {
-    font-size: 18px;
+    font-size: 14px;
   }
 
   .contentContainer {
@@ -131,6 +137,11 @@
 
   .imageContainer {
     height: 235px;
+  }
+
+  .username { 
+
+    max-width: 20ch;  
   }
 
   

@@ -13,6 +13,8 @@
   flex: 1;
   height: 100%;
   position: relative;
+  /*  */
+  overflow: hidden;
 }
 
 .image {
@@ -24,6 +26,8 @@
   flex-direction: row-reverse;
   gap: 30px;
   width: 100%;
+  /*  */
+  overflow: hidden;
 }
 
  .column{
@@ -56,10 +60,10 @@
   font-size: 14px;
 
 
-  white-space: nowrap;        /* Prevents the text from wrapping */
-  overflow: hidden;           /* Hides the overflow text */
-  text-overflow: ellipsis;    /* Adds "..." at the end of the text */
-  max-width: 325px;  
+  /* white-space: nowrap;        
+  overflow: hidden;          
+  text-overflow: ellipsis;   
+  max-width: 325px;   */
 }
 
 .author_name {
@@ -76,6 +80,7 @@
   margin-bottom: 15px;
   text-indent: 30px;
   line-height: 33px;
+  word-wrap: break-word;
 }
 
 .box {
@@ -103,6 +108,9 @@
   height: 210px;
   color: var(--softTextColor);
   text-align: justify;
+  /* word-wrap: break-word; */
+  overflow-wrap: break-word; /* preferred over word-wrap */
+  word-break: break-word; /* adds stronger breaking */
 }
 
 .content h3 {
@@ -149,9 +157,10 @@
   
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 425px) {
   .author { 
 
-    max-width: 175px;  
+    max-width: 20ch;  
   }
 }
+

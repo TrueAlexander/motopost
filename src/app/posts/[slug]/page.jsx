@@ -1,7 +1,7 @@
 import styles from "./singlePage.module.css"
 import Image from "next/image"
 import { formatDate } from "@/utils/dateFormat"
-import CatTitle from "@/components/blog/catTitle/CatTitle"
+import CatTitle from "@/components/blog/filterTitle/FilterTitle"
 import Reactions from "@/components/blog/reactions/Reactions"
 import Link from "next/link"
 import Tags from "@/components/blog/tags/Tags"
@@ -39,9 +39,13 @@ export default async function SinglePostPage({ params }) {
       </Link>
       <div className={styles.detailsContainer}>
         <Reactions id={data?._id} />
-        <Link href={`/blog/?author=${data?.author}`}>
-          <span className={styles.username}>{data?.author}</span>
-        </Link>
+        {data?.author === "Deletado" ? (
+          <span className={styles.username}>{data.author}</span>
+        ) : (
+          <Link href={`/blog/?author=${data.author}`}>
+            <span className={styles.username}>{data.author}</span>
+          </Link>
+        )}
         <span className={styles.date}>{formatDate(data?.createdAt)}</span>
       </div>
       <h2 className={styles.title}>{data?.title}</h2>

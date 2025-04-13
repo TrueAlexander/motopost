@@ -2,7 +2,7 @@
 import styles from './pagination.module.css'
 import { useRouter } from 'next/navigation'
 
-const Pagination = ({page, hasPrev, hasNext, catSlug}) => {
+const Pagination = ({page, hasPrev, hasNext, catSlug, author, tag}) => {
 
   const router = useRouter()
 

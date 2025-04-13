@@ -2,7 +2,7 @@ import styles from './cardList.module.css'
 import Pagination from '../pagination/Pagination'
 import Card from '../card/Card'
 
-const getPosts = async (page, catSlug, author) => {
+const getPosts = async (page, catSlug, author, tag) => {
 
   try {
 
@@ -11,7 +11,7 @@ const getPosts = async (page, catSlug, author) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ catSlug, page, author }),
+      body: JSON.stringify({ catSlug, page, author, tag }),
       cache: "no-store",
     })
     const data = await res.json()
@@ -22,9 +22,9 @@ const getPosts = async (page, catSlug, author) => {
   }  
 }
 
-const CardList = async ({page, catSlug, author}) => {
+const CardList = async ({page, catSlug, author, tag}) => {
 
-  const {posts, count} = await getPosts(page, catSlug, author)
+  const {posts, count} = await getPosts(page, catSlug, author, tag)
 
   const POST_PER_PAGE = 5
 
@@ -39,7 +39,7 @@ const CardList = async ({page, catSlug, author}) => {
           <Card item={item} key={item._id}/>
         ))}
       </div>
-      <Pagination page={page} hasNext={hasNext} hasPrev={hasPrev} catSlug={catSlug}/>
+      <Pagination page={page} hasNext={hasNext} hasPrev={hasPrev} catSlug={catSlug} author={author} tag={tag}/>
     </div>
   )
 }

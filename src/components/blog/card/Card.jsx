@@ -15,7 +15,16 @@ const Card = ({item}) => {
               <Link href={`/blog/?catSlug=${item.catSlug}`} className={styles.category}>{item.category}</Link>
             </div>
             <div className={styles.infoBox}>
-              <p className={styles.author}>autor: <Link href={`/blog/?author=${item.author}`} className={styles.author_name}>{item.author}</Link></p>
+              <p className={styles.author}>
+                autor:{" "}
+                {item.author.toLowerCase() === "deletado" ? (
+                  <span className={styles.author_name}>{item.author}</span>
+                ) : (
+                  <Link href={`/blog/?author=${item.author}`} className={styles.author_name}>
+                    {item.author}
+                  </Link>
+                )}
+              </p>
               <Reactions id={item._id} />
             </div>
             <Link href={`/posts/${item.slug}?tmp=${Date.now().toString().slice(-2)}`} className={styles.post_link} >
