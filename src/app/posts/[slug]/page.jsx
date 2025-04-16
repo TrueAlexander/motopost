@@ -6,6 +6,8 @@ import Reactions from "@/components/blog/reactions/Reactions"
 import Link from "next/link"
 import Tags from "@/components/blog/tags/Tags"
 import ManagePostButtons from "@/components/blog/managePostButtons/ManagePostButtons"
+import Comments from "@/components/blog/comments/Comments"
+import CommentsInteractive from "@/components/blog/commentsInteractive/CommentsInteractive"
 
 const getPostBySlug = async (slug) => {
   try {
@@ -70,10 +72,14 @@ export default async function SinglePostPage({ params }) {
           <div className={styles.tagsContainer}>
             <Tags tags={data?.tags} />
           </div>
-          <ManagePostButtons author={data?.author} slug={data?.slug} imagePublicId={data?.img} />
-          {/* <div className={styles.comment}>
-            <Comments postSlug={slug}/>
-          </div>       */}
+          <ManagePostButtons author={data?.author} slug={data?.slug} imagePublicId={data?.img} postId={data?._id} />
+          <div className={styles.comment}>
+          <h4 className={styles.titleComment}>Comentários:</h4>
+            <CommentsInteractive postId={data._id}/>
+            <div className="static-comments">
+              <Comments postId={data._id}/>
+            </div> 
+          </div>      
         </div>
       </div>
     </div>

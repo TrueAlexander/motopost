@@ -24,6 +24,11 @@
   word-break: break-word; /* adds stronger breaking */
 }
 
+.titleComment {
+  color: crimson;
+  font-weight: 400;
+}
+
 
 .date {
   color: grey;

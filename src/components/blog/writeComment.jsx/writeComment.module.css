@@ -1,0 +1,56 @@
+.write {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  position: relative;
+}
+
+.inputBox {
+  width: 100%;
+}
+
+.input {
+ 
+  background-color: transparent;
+  color: var(--textColor);
+  padding: 5px;
+  width: 100% !important;
+  height: 60px;
+  vertical-align: top;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid var(--textColor);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1)
+}
+
+.input::placeholder {
+  color: grey;
+  vertical-align: top;
+  opacity: 1;
+}
+
+.input:focus::placeholder {
+  opacity: 0;
+}
+
+.counter {
+  margin-top: 7px;
+  font-size: 10px;
+  color: var(--textColor) !important;
+}
+
+.limitReached {
+  color: crimson !important;
+}
+
+@media screen and (max-width: 500px) {
+  .write {
+    display: block;
+  }
+
+  .inputBox {
+    margin-bottom: 20px;
+  }
+}

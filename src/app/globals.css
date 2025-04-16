@@ -269,6 +269,11 @@ input:focus::placeholder {
     padding-right: 15px;
   }
 
+  .button {
+    height: 22px;
+    border-radius: 6px;
+  }
+
 }
 /* 
 .ql-container{

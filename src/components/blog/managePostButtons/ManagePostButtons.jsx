@@ -10,7 +10,7 @@ import { confirmAlert } from 'react-confirm-alert'
 import '@/utils/react-confirm-alert.css'
 import confirmAlertStyles from '@/utils/confirmAlert.module.css'
 
-const ManagePostButtons = ({author, slug, imagePublicId}) => {
+const ManagePostButtons = ({author, slug, imagePublicId, postId}) => {
 
     const {data} = useSession()
     const router = useRouter()
@@ -67,7 +67,7 @@ const ManagePostButtons = ({author, slug, imagePublicId}) => {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({slug}),
+        body: JSON.stringify({postId}),
       })
       if (res.ok) {
       // If the post is deleted, proceed to delete the image from Cloudinary if exists
