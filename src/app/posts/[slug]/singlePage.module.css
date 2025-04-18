@@ -69,6 +69,10 @@
   margin: 10px 0;
 }
 
+.content img {
+  width: 300px;
+}
+
 .tagsContainer{
   position: relative;
   display: inline-block;

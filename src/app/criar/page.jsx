@@ -15,7 +15,7 @@ import { confirmAlert } from 'react-confirm-alert'
 import '@/utils/react-confirm-alert.css'
 import confirmAlertStyles from '@/utils/confirmAlert.module.css'
 import { IoClose } from "react-icons/io5"
-import { uploadImageToCloudinary } from "@/utils/uploadImageCloudinary"
+import { processQuillContent } from "@/utils/processQuillContent"
 
 const CriarPage = () => {
   const session = useSession()
@@ -33,9 +33,9 @@ const CriarPage = () => {
   ///folderId(folder) and imageId(main image name) for cloudinary
   const [folder, setFolder] = useState('')
   const [imageId, setImageId] = useState('')
- 
-  useEffect(() => {
-    // Redirect to home page if the user is unauthenticated
+
+ // Redirect to home page if the user is unauthenticated
+  useEffect(() => { 
     if (status === "unauthenticated") {
       router.push("/")
     }
@@ -120,35 +120,13 @@ const CriarPage = () => {
                 onClose()
 
                 /////!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                // Извлекаем все base64 изображения из контента с помощью регулярного выражения
-                const imageRegex = /data:image\/\w+;base64,([^\"]+)/g;
-                let contentWithRealUrls = content; // Сохраняем оригинальный контент
-                let matches;
-                
-                // Get signature from backend
-                const response = await fetch('/api/generate-signature', {mode: 'no-cors',})
-                const { signature, timestamp } = await response.json()
-
-
-
-                // Проходим по всем найденным изображениям
-                while ((matches = imageRegex.exec(content)) !== null) {
-                  const base64Image = matches[0];
-
-                  // Загружаем изображение в Cloudinary
-                  const imageUrl = await uploadImageToCloudinary(base64Image, signature, timestamp)
-
-                  if (imageUrl) {
-                    // Заменяем base64 строку на реальный URL изображения
-                    contentWithRealUrls = contentWithRealUrls.replace(base64Image, imageUrl);
-                  }
-                }
+                const finalHtml = await processQuillContent(content, folder)// replace base64s
                 ///////!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
                 const newPost = {
                   slug: slugify(title),
                   title: title,
-                  content: contentWithRealUrls,
+                  content: finalHtml,
                   img: imageId ? `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/${imageId}`: null,
                   catSlug: catSlug,
                   author: session?.data?.user.name,
@@ -180,7 +158,6 @@ const CriarPage = () => {
                       ),
                     })
                   } else if (res.status === 200 || 201) {
-                    console.log("here")
                     confirmAlert({
                       customUI: ({ onClose }) => (
                         <div className={themeClass}>
@@ -245,10 +222,13 @@ const CriarPage = () => {
         ),
       })
     } else {
+      /////!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      const finalHtml = await processQuillContent(content, folder)// replace base64s
+      ///////!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       const newPost = {
         slug: slugify(title),
         title: title,
-        content: content,
+        content: finalHtml,
         img: imageId ? `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/${imageId}`: null,
         catSlug: catSlug,
         author: session?.data?.user.name,
@@ -263,7 +243,6 @@ const CriarPage = () => {
           method: "POST",
           body: JSON.stringify(newPost),
         })
-
         if (res.status === 400) {
           confirmAlert({
             customUI: ({ onClose }) => (
@@ -294,7 +273,6 @@ const CriarPage = () => {
           })  
       
         } else {
-
           confirmAlert({
             customUI: ({ onClose }) => (
               <div className={themeClass}>

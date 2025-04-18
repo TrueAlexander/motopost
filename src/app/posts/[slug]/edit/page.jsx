@@ -15,6 +15,8 @@ import '@/utils/react-confirm-alert.css'
 import { confirmAlert } from 'react-confirm-alert'
 import CloudUploadElement from "@/components/blog/cloudUploadElement/CloudUploadElement"
 import { IoClose } from "react-icons/io5"
+import { processQuillContent } from "@/utils/processQuillContent"
+import { extractPublicIdFromUrl } from "@/utils/extractPublicIdFromUrl"
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
 
@@ -33,6 +35,7 @@ const EditPostPage = () => {
   const [folder, setFolder] = useState('')
   const [imageId, setImageId] = useState('')
   const [tags, setTags] = useState([])
+  const [originalImageUrls, setOriginalImageUrls] = useState([])
 
   const {slug} = useParams()
 
@@ -56,7 +59,18 @@ const EditPostPage = () => {
             setCatSlug(res.catSlug)
             setTags(res.tags)
             setImageId(res?.img?.replace(/^https:\/\/res\.cloudinary\.com\/[a-zA-Z0-9]+\/image\/upload\//, ''))
+
+            console.log("Original content HTML:", res.content);
+            // Extract and save image URLs
+            const regex = /<img[^>]+src=["']([^"']+)["'][^>]*>/g
+            const matches = [...res.content.matchAll(regex)]
+            const urls = matches
+              .map(match => match[1])
+              .filter(src => src.includes('res.cloudinary.com'))
+            console.log("Extracted image URLs:", urls); // ✅ RIGHT HERE
+            setOriginalImageUrls(urls)
           }
+          
         }     
        catch (error) {
         console.log(error)
@@ -76,10 +90,42 @@ const EditPostPage = () => {
    const handleSubmit = async (e) => {
     e.preventDefault()
 
+    /////!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    const finalHtml = await processQuillContent(content, folder)// replace base64s
+
+    const cloudinaryUrlRegex = /<img[^>]+src=["'](https:\/\/res\.cloudinary\.com\/[^"']+)["'][^>]*>/g
+    const updatedUrls = [...finalHtml.matchAll(cloudinaryUrlRegex)].map(match => match[1])
+
+    const removedUrls = originalImageUrls.filter(url => !updatedUrls.includes(url))
+
+    console.log("Original Cloudinary URLs:", originalImageUrls);
+    console.log("Updated Cloudinary URLs:", updatedUrls);
+    console.log("Removed image URLs (to delete):", removedUrls);
+    await Promise.all(
+      removedUrls.map(async (url) => {
+        const publicId = extractPublicIdFromUrl(url)
+        try {
+          await fetch('/api/delete-content-image-cloud', {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ publicId }),
+          })
+        } catch (err) {
+          console.error('Error deleting image from Cloudinary:', err)
+        }
+      })
+    )
+
+
+    ////!!!!!How to delete the deleted img from content
+    ///////!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
     const updatedPost = {
       slug: slugify(title),
       title: title,
-      content: content,
+      content: finalHtml,
       img: imageId ? `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/${imageId}`: "deleted",
       catSlug: catSlug,
       category: categoryName(catSlug),
@@ -146,7 +192,6 @@ const EditPostPage = () => {
       })
     }
   }
-
 
   const handleClose = () => {
 

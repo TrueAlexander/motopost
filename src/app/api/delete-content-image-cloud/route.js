@@ -11,27 +11,28 @@ cloudinary.config({
 export const DELETE = async (request) => {
 
   const { publicId } = await request.json() 
-
-  const publicIdCleaned = publicId.replace(/^https:\/\/res\.cloudinary\.com\/[a-zA-Z0-9]+\/image\/upload\//, '')
  
-  if (!publicIdCleaned) {
+  if (!publicId) {
     return new NextResponse("PublicId not found", {
         error: 'Public ID is required',
         status: 400, 
     })
   }
-
+  // ✅ Strip version prefix like `v1234567890/`
+  const cleanPublicId = publicId.replace(/^v\d+\//, "")
   try {
     // Delete the image from Cloudinary
-    const result = await cloudinary.v2.uploader.destroy(publicIdCleaned)
-
+    const result = await cloudinary.v2.uploader.destroy(cleanPublicId)
+    console.log("Result....:", result)
     if (result.result === 'ok') {
       // Image deleted successfully
+      console.log("Success")
       return new NextResponse({
         message: 'Image deleted successfully',
         status: 200, 
       })
     } else {
+      console.log("Failure")
       // Cloudinary failed to delete image
       return new NextResponse({
         error: 'Failed to delete image from Cloudinary',
